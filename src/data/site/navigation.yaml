@@ -24,10 +24,10 @@ header:
           href: /contact
     - text: Resources
       links:
-        - text: Blog
-          href: /blog
+        - text: News
+          href: /news
         - text: Latest Article
-          href: /blog/get-started-website-with-astro-tailwind-css
+          href: /news/get-started-website-with-astro-tailwind-css
         - text: Categories
           href: /category/tutorials
         - text: Tags
@@ -68,8 +68,8 @@ footer:
           href: /contact
     - title: Resources
       links:
-        - text: Blog
-          href: /blog
+        - text: News
+          href: /news
         - text: Login
           href: /login
     - title: Company
@@ -78,8 +78,8 @@ footer:
           href: /about
         - text: Contact
           href: /contact
-        - text: Blog
-          href: /blog
+        - text: News
+          href: /news
         - text: Terms
           href: /terms
         - text: Privacy
