@@ -1,0 +1,177 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+import { verifySessionToken } from '~/lib/auth';
+import { readTokenFromCookies } from '~/lib/token-store';
+import { GitHubClient } from '~/lib/github';
+import { parseMarkdown } from '~/lib/markdown';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+
+const token = readTokenFromCookies(Astro.cookies);
+if (!token) return Astro.redirect('/keystatic/github-token');
+
+interface Row {
+  name: string;
+  path: string;
+  sha: string;
+  size: number;
+  title: string;
+  date: string;
+  category: string;
+  draft: boolean;
+  sku: string;
+}
+
+let rows: Row[] = [];
+let loadError: string | null = null;
+
+try {
+  const client = new GitHubClient(token);
+  const files = await client.listFiles('src/data/product/');
+  const mdFiles = files.filter((f) => /\.(md|mdx)$/i.test(f.name));
+  const enriched = await Promise.all(
+    mdFiles.map(async (f) => {
+      try {
+        const file = await client.readFile(f.path);
+        const parsed = parseMarkdown(file.content);
+        const fm = parsed.frontmatter as Record<string, unknown>;
+        return {
+          name: f.name,
+          path: f.path,
+          sha: f.sha,
+          size: f.size,
+          title: (fm.title as string) ?? f.name.replace(/\.(md|mdx)$/i, ''),
+          date: typeof fm.publishDate === 'string' ? fm.publishDate : '',
+          category: typeof fm.category === 'string' ? fm.category : '',
+          draft: fm.draft === true,
+          sku: typeof fm.sku === 'string' ? fm.sku : '',
+        } satisfies Row;
+      } catch {
+        return {
+          name: f.name,
+          path: f.path,
+          sha: f.sha,
+          size: f.size,
+          title: f.name.replace(/\.(md|mdx)$/i, ''),
+          date: '',
+          category: '',
+          draft: false,
+          sku: '',
+        } satisfies Row;
+      }
+    }),
+  );
+  rows = enriched.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+} catch (err) {
+  loadError = err instanceof Error ? err.message : '加载失败';
+}
+
+const categoryLabel: Record<string, string> = {
+  rib: 'RIB',
+  inflatable: '充气艇',
+  accessory: '配件',
+  service: '服务',
+};
+---
+<AdminLayout title="产品" active="products" username={verified?.username}>
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-semibold">产品 / Products</h1>
+      <p class="mt-1 text-sm text-gray-500">共 {rows.length} 件</p>
+    </div>
+    <a
+      href="/keystatic/products/new"
+      class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md"
+    >+ New Product</a>
+  </div>
+
+  {loadError && (
+    <div class="mb-4 rounded-md border border-red-200 bg-red-50 dark:bg-red-950/40 dark:border-red-900 p-3 text-sm text-red-700 dark:text-red-300">
+      加载失败: {loadError} — 请检查 Token 是否还有仓库访问权限
+    </div>
+  )}
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-gray-50 dark:bg-gray-900 text-left text-xs uppercase tracking-wide text-gray-500">
+          <th class="px-4 py-3 font-medium">Title</th>
+          <th class="px-4 py-3 font-medium w-28">Category</th>
+          <th class="px-4 py-3 font-medium w-24">SKU</th>
+          <th class="px-4 py-3 font-medium w-32">Date</th>
+          <th class="px-4 py-3 font-medium w-20">Status</th>
+          <th class="px-4 py-3 font-medium w-20 text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+        {rows.length === 0 && !loadError && (
+          <tr><td colspan="6" class="px-4 py-12 text-center text-gray-500">还没有产品,点右上角 + New Product 创建第一件</td></tr>
+        )}
+        {rows.map((row) => (
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50">
+            <td class="px-4 py-3">
+              <a href={`/keystatic/products/${encodeURIComponent(row.name)}`} class="text-blue-600 dark:text-blue-400 hover:underline font-medium">{row.title}</a>
+              <div class="text-xs text-gray-400 font-mono mt-0.5">{row.name}</div>
+            </td>
+            <td class="px-4 py-3">
+              {row.category ? (
+                <span class="inline-block px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">{categoryLabel[row.category] ?? row.category}</span>
+              ) : <span class="text-gray-400">—</span>}
+            </td>
+            <td class="px-4 py-3 text-gray-600 dark:text-gray-300 font-mono text-xs">{row.sku || <span class="text-gray-400">—</span>}</td>
+            <td class="px-4 py-3 text-gray-600 dark:text-gray-300">{row.date || <span class="text-gray-400">—</span>}</td>
+            <td class="px-4 py-3">
+              {row.draft ? <span class="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">Draft</span> : <span class="text-xs text-green-600 dark:text-green-400">Published</span>}
+            </td>
+            <td class="px-4 py-3 text-right">
+              <button
+                type="button"
+                data-delete-product
+                data-name={row.name}
+                data-path={row.path}
+                data-sha={row.sha}
+                class="text-red-600 dark:text-red-400 hover:underline text-xs"
+              >Delete</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('click', async (e) => {
+      const target = e.target instanceof Element ? e.target.closest('[data-delete-product]') : null;
+      if (!target) return;
+      e.preventDefault();
+      const { name, path, sha } = target.dataset;
+      if (!confirm(`确定删除 "${name}" 吗?\n这会作为 commit 推送到 GitHub 主分支。`)) return;
+      const original = target.textContent;
+      target.textContent = '删除中...';
+      target.setAttribute('disabled', 'true');
+      try {
+        const res = await fetch('/api/admin/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ path, sha, commitMessage: `Delete product: ${name}` }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          window.__adminToast?.(data.error || '删除失败', 'error');
+          target.textContent = original;
+          target.removeAttribute('disabled');
+        } else {
+          window.__adminToast?.('已删除,正在刷新列表...', 'success');
+          setTimeout(() => window.location.reload(), 600);
+        }
+      } catch {
+        window.__adminToast?.('网络错误', 'error');
+        target.textContent = original;
+        target.removeAttribute('disabled');
+      }
+    });
+  </script>
+</AdminLayout>

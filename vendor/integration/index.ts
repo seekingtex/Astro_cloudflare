@@ -5,8 +5,6 @@ import type { AstroConfig, AstroIntegration } from 'astro';
 import configBuilder, { type Config } from './utils/configBuilder';
 import loadConfig from './utils/loadConfig';
 
-const SITE_SETTINGS_PATH = 'keystatic/site/site.yaml';
-
 export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegration => {
   let cfg: AstroConfig;
   return {
@@ -14,10 +12,7 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
 
     hooks: {
       'astro:config:setup': async ({
-        // command,
         config,
-        // injectRoute,
-        // isRestart,
         logger,
         updateConfig,
         addWatchFile,
@@ -27,18 +22,7 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
         const virtualModuleId = 'astrowind:config';
         const resolvedVirtualModuleId = '\0' + virtualModuleId;
 
-        const rawJsonConfig = (await loadConfig(_themeConfig)) as Config;
-
-        const siteSettingsPath = new URL(SITE_SETTINGS_PATH, config.root);
-        const siteSettingsPathname = siteSettingsPath.pathname;
-        const siteSettingsPathForWin = process.platform === 'win32' ? siteSettingsPathname.replace(/^\//, '') : siteSettingsPathname;
-        const siteSettingsExists = fs.existsSync(siteSettingsPathForWin);
-        const siteSettings = siteSettingsExists ? ((await loadConfig(siteSettingsPathForWin)) as Config['siteSettings']) : {};
-
-        const merged: Config = {
-          ...rawJsonConfig,
-          siteSettings: { ...(rawJsonConfig?.siteSettings ?? {}), ...siteSettings },
-        };
+        const merged = (await loadConfig(_themeConfig)) as Config;
 
         const { SITE, I18N, METADATA, APP_BLOG, APP_PRODUCTS, UI, ANALYTICS, SITE_SETTINGS } =
           configBuilder(merged);
@@ -83,13 +67,6 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
           buildLogger.info(`Astrowind \`${_themeConfig}\` has been loaded.`);
         } else {
           buildLogger.info(`Astrowind config has been loaded.`);
-        }
-
-        if (siteSettingsExists) {
-          addWatchFile(siteSettingsPath);
-          buildLogger.info(`Site settings \`${SITE_SETTINGS_PATH}\` has been loaded.`);
-        } else {
-          buildLogger.warn(`Site settings file \`${SITE_SETTINGS_PATH}\` not found; using config.yaml defaults.`);
         }
       },
       'astro:config:done': async ({ config }) => {

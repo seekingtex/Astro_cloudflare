@@ -1,0 +1,163 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+import ProductForm from '~/components/admin/ProductForm.astro';
+import { verifySessionToken } from '~/lib/auth';
+import { readTokenFromCookies } from '~/lib/token-store';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+const token = readTokenFromCookies(Astro.cookies);
+if (!token) return Astro.redirect('/keystatic/github-token');
+
+const initial = {
+  frontmatter: {
+    title: '',
+    category: 'inflatable',
+    inStock: true,
+    featured: false,
+    draft: false,
+    publishDate: new Date().toISOString().slice(0, 10),
+  },
+  body: '',
+};
+---
+<AdminLayout title="New Product" active="products" username={verified?.username}>
+  <div class="mb-6">
+    <a href="/keystatic/products" class="text-sm text-gray-500 hover:underline">← 返回 Products 列表</a>
+    <h1 class="mt-2 text-2xl font-semibold">新建产品</h1>
+  </div>
+  <ProductForm mode="create" initial={initial} />
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('entry-form');
+      if (!form) return;
+      const submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '推送中...'; }
+
+        const data = new FormData(form);
+        const title = (data.get('title') || '').toString().trim();
+        if (!title) {
+          window.__adminToast?.('产品名必填', 'error');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '创建并推送'; }
+          return;
+        }
+
+        const tags = data.getAll('tags').map((v) => v.toString().trim()).filter(Boolean);
+        const galleryRows = Array.from(document.querySelectorAll('[data-gallery-row]'));
+        const gallery = galleryRows
+          .map((row) => ({
+            url: row.querySelector('input[name="galleryUrl"]')?.value?.toString().trim() ?? '',
+            alt: row.querySelector('input[name="galleryAlt"]')?.value?.toString().trim() ?? '',
+          }))
+          .filter((g) => g.url);
+
+        const specsRows = Array.from(document.querySelectorAll('[data-specs-row]'));
+        const specs = specsRows
+          .map((row) => ({
+            label: row.querySelector('input[name="specLabel"]')?.value?.toString().trim() ?? '',
+            value: row.querySelector('input[name="specValue"]')?.value?.toString().trim() ?? '',
+          }))
+          .filter((s) => s.label);
+
+        const seoTitle = data.get('seoTitle')?.toString().trim();
+        const seoDescription = data.get('seoDescription')?.toString().trim();
+        const seoCanonical = data.get('seoCanonical')?.toString().trim();
+        const seoRobotIndex = data.get('seoRobotIndex') === 'true';
+        const seoRobotFollow = data.get('seoRobotFollow') === 'true';
+        const seoIgnoreTitleTemplate = data.get('seoIgnoreTitleTemplate') === 'true';
+        const seoOgUrl = data.get('seoOgUrl')?.toString().trim();
+        const seoOgSiteName = data.get('seoOgSiteName')?.toString().trim();
+        const seoOgLocale = data.get('seoOgLocale')?.toString().trim();
+        const seoOgType = data.get('seoOgType')?.toString().trim();
+        const seoTwitterHandle = data.get('seoTwitterHandle')?.toString().trim();
+        const seoTwitterSite = data.get('seoTwitterSite')?.toString().trim();
+        const seoTwitterCardType = data.get('seoTwitterCardType')?.toString().trim();
+
+        const metadata = {};
+        if (seoTitle) metadata.title = seoTitle;
+        if (seoDescription) metadata.description = seoDescription;
+        if (seoCanonical) metadata.canonical = seoCanonical;
+        if (seoIgnoreTitleTemplate) metadata.ignoreTitleTemplate = true;
+        const robots = {};
+        if (!seoRobotIndex) robots.index = false;
+        if (!seoRobotFollow) robots.follow = false;
+        if (Object.keys(robots).length) metadata.robots = robots;
+        const og = {};
+        if (seoOgUrl) og.url = seoOgUrl;
+        if (seoOgSiteName) og.siteName = seoOgSiteName;
+        if (seoOgLocale) og.locale = seoOgLocale;
+        if (seoOgType) og.type = seoOgType;
+        if (Object.keys(og).length) metadata.openGraph = og;
+        const tw = {};
+        if (seoTwitterHandle) tw.handle = seoTwitterHandle;
+        if (seoTwitterSite) tw.site = seoTwitterSite;
+        if (seoTwitterCardType) tw.cardType = seoTwitterCardType;
+        if (Object.keys(tw).length) metadata.twitter = tw;
+
+        const priceAmount = data.get('priceAmount')?.toString().trim();
+        const priceCurrency = data.get('priceCurrency')?.toString().trim();
+        const priceNote = data.get('priceNote')?.toString().trim();
+        const price = {};
+        if (priceAmount) price.amount = priceAmount;
+        if (priceCurrency) price.currency = priceCurrency;
+        if (priceNote) price.note = priceNote;
+
+        const frontmatter = {
+          title,
+          publishDate: data.get('publishDate')?.toString() || undefined,
+          draft: data.get('draft') === 'true',
+          inStock: data.get('inStock') === 'true',
+          featured: data.get('featured') === 'true',
+        };
+        const sku = data.get('sku')?.toString().trim();
+        if (sku) frontmatter.sku = sku;
+        const summary = data.get('summary')?.toString().trim();
+        if (summary) frontmatter.summary = summary;
+        const description = data.get('description')?.toString().trim();
+        if (description) frontmatter.description = description;
+        const image = data.get('image')?.toString().trim();
+        if (image) frontmatter.image = image;
+        frontmatter.category = data.get('category')?.toString() || 'inflatable';
+        if (gallery.length) frontmatter.gallery = gallery;
+        if (specs.length) frontmatter.specs = specs;
+        if (Object.keys(price).length) frontmatter.price = price;
+        if (tags.length) frontmatter.tags = tags;
+        if (Object.keys(metadata).length) frontmatter.metadata = metadata;
+
+        const filename = (data.get('_filename') || '').toString().trim();
+        const payload = {
+          collection: 'product',
+          filename: filename || undefined,
+          frontmatter,
+          body: data.get('body')?.toString() ?? '',
+          commitMessage: `Create product: ${title}`,
+        };
+
+        try {
+          const res = await fetch('/api/admin/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const result = await res.json();
+          if (!res.ok || !result.success) {
+            window.__adminToast?.(result.error || '创建失败', 'error');
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '创建并推送'; }
+            return;
+          }
+          window.__adminToast?.('已创建,正在跳转...', 'success');
+          setTimeout(() => { window.location.href = '/keystatic/products'; }, 600);
+        } catch {
+          window.__adminToast?.('网络错误', 'error');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '创建并推送'; }
+        }
+      });
+    })();
+  </script>
+</AdminLayout>

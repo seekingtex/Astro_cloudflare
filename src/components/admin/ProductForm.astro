@@ -1,0 +1,270 @@
+---
+import type { CollectionFormData } from './types';
+
+interface Props {
+  mode: 'create' | 'edit';
+  initial: CollectionFormData;
+  filename?: string;
+  sha?: string;
+  path?: string;
+}
+
+const { mode, initial, filename, sha, path } = Astro.props;
+
+const fm = initial.frontmatter;
+const seo = (fm.metadata as Record<string, unknown> | undefined) ?? {};
+const seoRobots = (seo.robots as Record<string, unknown> | undefined) ?? {};
+const seoOg = (seo.openGraph as Record<string, unknown> | undefined) ?? {};
+const seoTwitter = (seo.twitter as Record<string, unknown> | undefined) ?? {};
+
+const tags = Array.isArray(fm.tags) ? (fm.tags as string[]) : [];
+const gallery = Array.isArray(fm.gallery) ? (fm.gallery as Array<{ url: string; alt?: string }>) : [];
+const specs = Array.isArray(fm.specs) ? (fm.specs as Array<{ label: string; value: string }>) : [];
+const ogImages = Array.isArray(seoOg.images) ? (seoOg.images as Array<{ url: string; width?: number; height?: number }>) : [];
+const price = (fm.price as Record<string, unknown> | undefined) ?? {};
+const category = (fm.category as string) ?? 'inflatable';
+---
+<form id="entry-form" class="space-y-6" data-mode={mode}>
+  <input type="hidden" name="_path" value={path ?? ''} />
+  <input type="hidden" name="_sha" value={sha ?? ''} />
+  <input type="hidden" name="_filename" value={filename ?? ''} />
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
+    <h2 class="text-lg font-semibold">基础信息</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="title">产品名称 <span class="text-red-500">*</span></label>
+        <input id="title" name="title" type="text" required value={(fm.title as string) ?? ''}
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="sku">SKU / 产品编号</label>
+        <input id="sku" name="sku" type="text" value={(fm.sku as string) ?? ''}
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none font-mono text-sm" />
+      </div>
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1" for="summary">一句话简介</label>
+      <textarea id="summary" name="summary" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">{(fm.summary as string) ?? ''}</textarea>
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1" for="description">详细描述</label>
+      <textarea id="description" name="description" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">{(fm.description as string) ?? ''}</textarea>
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1" for="image">主图 URL</label>
+      <input id="image" name="image" type="url" value={(fm.image as string) ?? ''}
+        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="product-category">分类</label>
+        <select id="product-category" name="category" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+          <option value="rib" selected={category === 'rib'}>RIB 动力艇</option>
+          <option value="inflatable" selected={category === 'inflatable'}>充气艇</option>
+          <option value="accessory" selected={category === 'accessory'}>配件</option>
+          <option value="service" selected={category === 'service'}>服务</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="publishDate">上架日期</label>
+        <input id="publishDate" name="publishDate" type="date" value={(fm.publishDate as string) ?? ''}
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+      </div>
+      <div class="flex items-end gap-4">
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="inStock" value="true" checked={fm.inStock !== false} class="rounded" />
+          现货
+        </label>
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="featured" value="true" checked={fm.featured === true} class="rounded" />
+          首页推荐
+        </label>
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="draft" value="true" checked={fm.draft === true} class="rounded" />
+          草稿
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
+    <h2 class="text-lg font-semibold">图册 / Gallery</h2>
+    <p class="text-sm text-gray-500">每张图:URL + Alt 文字说明</p>
+    <div id="gallery-list" class="space-y-3">
+      {gallery.map((g, i) => (
+        <div class="flex items-center gap-2" data-gallery-row>
+          <input type="url" name="galleryUrl" value={g.url} placeholder="图片 URL" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-xs" />
+          <input type="text" name="galleryAlt" value={g.alt ?? ''} placeholder="图片说明" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs whitespace-nowrap">删除</button>
+        </div>
+      ))}
+    </div>
+    <button type="button" data-repeater-add="gallery-list" data-template="gallery" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ 添加图片</button>
+  </div>
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
+    <h2 class="text-lg font-semibold">价格 / Price</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="price-amount">金额</label>
+        <input id="price-amount" name="priceAmount" type="text" value={(price.amount as string) ?? ''} placeholder="1299" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="price-currency">货币</label>
+        <input id="price-currency" name="priceCurrency" type="text" value={(price.currency as string) ?? 'USD'} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="price-note">说明</label>
+        <input id="price-note" name="priceNote" type="text" value={(price.note as string) ?? ''} placeholder="不含运费" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+      </div>
+    </div>
+  </div>
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
+    <h2 class="text-lg font-semibold">技术规格 / Specifications</h2>
+    <div id="specs-list" class="space-y-3">
+      {specs.map((s, i) => (
+        <div class="flex items-center gap-2" data-specs-row>
+          <input type="text" name="specLabel" value={s.label} placeholder="规格名 (如:长度)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input type="text" name="specValue" value={s.value} placeholder="规格值 (如:3.3m)" class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs whitespace-nowrap">删除</button>
+        </div>
+      ))}
+    </div>
+    <button type="button" data-repeater-add="specs-list" data-template="specs" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ 添加规格</button>
+  </div>
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 space-y-4">
+    <h2 class="text-lg font-semibold">标签 / Tags</h2>
+    <div id="tags-list" class="space-y-2">
+      {tags.map((t, i) => (
+        <div class="flex items-center gap-2" data-repeater-row>
+          <input type="text" name="tags" value={t} class="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <button type="button" data-repeater-remove class="text-red-500 hover:underline text-xs">删除</button>
+        </div>
+      ))}
+    </div>
+    <button type="button" data-repeater-add="tags-list" data-template="tag" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">+ 添加标签</button>
+  </div>
+
+  <details class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 group">
+    <summary class="text-lg font-semibold cursor-pointer list-none flex items-center justify-between">
+      <span>SEO / 元数据</span>
+      <span class="text-sm text-gray-400 group-open:hidden">点击展开</span>
+      <span class="text-sm text-gray-400 hidden group-open:inline">点击折叠</span>
+    </summary>
+    <div class="mt-4 space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="seo-title">Meta Title</label>
+        <input id="seo-title" name="seoTitle" type="text" value={(seo.title as string) ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="seo-desc">Meta Description</label>
+        <textarea id="seo-desc" name="seoDescription" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm">{(seo.description as string) ?? ''}</textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="seo-canonical">Canonical URL</label>
+        <input id="seo-canonical" name="seoCanonical" type="url" value={(seo.canonical as string) ?? ''} class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+      </div>
+      <div class="flex items-center gap-6 text-sm">
+        <label class="flex items-center gap-2"><input type="checkbox" name="seoRobotIndex" value="true" checked={seoRobots.index !== false} class="rounded" /> Index</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="seoRobotFollow" value="true" checked={seoRobots.follow !== false} class="rounded" /> Follow</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="seoIgnoreTitleTemplate" value="true" checked={seo.ignoreTitleTemplate === true} class="rounded" /> 忽略标题模板</label>
+      </div>
+      <div class="border-t border-gray-200 dark:border-gray-800 pt-4">
+        <div class="text-sm font-medium mb-2">Open Graph</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <input name="seoOgUrl" type="url" placeholder="OG URL" value={(seoOg.url as string) ?? ''} class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input name="seoOgSiteName" type="text" placeholder="OG Site Name" value={(seoOg.siteName as string) ?? ''} class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input name="seoOgLocale" type="text" placeholder="OG Locale" value={(seoOg.locale as string) ?? ''} class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input name="seoOgType" type="text" placeholder="OG Type" value={(seoOg.type as string) ?? ''} class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+        </div>
+      </div>
+      <div class="border-t border-gray-200 dark:border-gray-800 pt-4">
+        <div class="text-sm font-medium mb-2">Twitter Card</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <input name="seoTwitterHandle" type="text" placeholder="Handle" value={(seoTwitter.handle as string) ?? ''} class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input name="seoTwitterSite" type="text" placeholder="Site" value={(seoTwitter.site as string) ?? ''} class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+          <input name="seoTwitterCardType" type="text" placeholder="Card Type" value={(seoTwitter.cardType as string) ?? ''} class="px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm" />
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6">
+    <div class="flex items-center justify-between mb-2">
+      <label class="block text-sm font-medium" for="body">产品详情 / Details (Markdown,支持 MDX)</label>
+      <span class="text-xs text-gray-400" id="body-stats">0 字符</span>
+    </div>
+    <textarea id="body" name="body" rows="22" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">{initial.body}</textarea>
+  </div>
+
+  <div class="sticky bottom-0 -mx-6 px-6 py-4 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-end gap-3">
+    <a href="/keystatic/products" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:underline">取消</a>
+    <button type="submit" id="submit-btn" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md disabled:opacity-50">
+      {mode === 'create' ? '创建并推送' : '保存并推送'}
+    </button>
+  </div>
+</form>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('entry-form');
+    if (!form) return;
+    const body = document.getElementById('body');
+    const stats = document.getElementById('body-stats');
+    if (body && stats) {
+      const update = () => { stats.textContent = (body.value.length).toLocaleString() + ' 字符'; };
+      body.addEventListener('input', update);
+      update();
+    }
+
+    function makeInput(name, placeholder, classes) {
+      const input = document.createElement('input');
+      input.type = name === 'galleryUrl' ? 'url' : 'text';
+      input.name = name;
+      input.placeholder = placeholder;
+      input.className = classes;
+      return input;
+    }
+
+    document.querySelectorAll('[data-repeater-add]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-repeater-add');
+        const template = btn.getAttribute('data-template');
+        const list = document.getElementById(target);
+        if (!list) return;
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2';
+        if (template === 'tag') row.setAttribute('data-repeater-row', '');
+        if (template === 'gallery') row.setAttribute('data-gallery-row', '');
+        if (template === 'specs') row.setAttribute('data-specs-row', '');
+
+        if (template === 'tag') {
+          row.appendChild(makeInput('tags', '', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
+        } else if (template === 'gallery') {
+          row.appendChild(makeInput('galleryUrl', '图片 URL', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 font-mono text-xs'));
+          row.appendChild(makeInput('galleryAlt', '图片说明', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
+        } else if (template === 'specs') {
+          row.appendChild(makeInput('specLabel', '规格名', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
+          row.appendChild(makeInput('specValue', '规格值', 'flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm'));
+        }
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.setAttribute('data-repeater-remove', '');
+        remove.className = 'text-red-500 hover:underline text-xs whitespace-nowrap';
+        remove.textContent = '删除';
+        row.appendChild(remove);
+        list.appendChild(row);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      const t = e.target instanceof Element ? e.target.closest('[data-repeater-remove]') : null;
+      if (!t) return;
+      const row = t.closest('[data-repeater-row], [data-gallery-row], [data-specs-row]');
+      if (row) row.remove();
+    });
+  })();
+</script>

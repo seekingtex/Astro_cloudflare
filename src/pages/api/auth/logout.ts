@@ -4,6 +4,6 @@ export const prerender = false;
 
 export const GET: APIRoute = async ({ cookies, redirect }) => {
   cookies.delete('ks-admin-session', { path: '/' });
-  cookies.delete('keystatic-gh-access-token', { path: '/' });
+  cookies.delete('ks-gh-token', { path: '/' });
   return redirect('/login');
 };

@@ -1,0 +1,147 @@
+---
+export const prerender = false;
+import AdminLayout from '~/layouts/AdminLayout.astro';
+import PostForm from '~/components/admin/PostForm.astro';
+import { verifySessionToken } from '~/lib/auth';
+import { readTokenFromCookies } from '~/lib/token-store';
+import { GitHubClient } from '~/lib/github';
+import { parseMarkdown } from '~/lib/markdown';
+import type { CollectionFormData } from '~/components/admin/types';
+
+const session = Astro.cookies.get('ks-admin-session')?.value;
+const verified = session ? verifySessionToken(session) : null;
+if (!verified) return Astro.redirect('/login');
+const token = readTokenFromCookies(Astro.cookies);
+if (!token) return Astro.redirect('/keystatic/github-token');
+
+const filename = Astro.params.slug;
+if (!filename) return Astro.redirect('/keystatic/posts');
+
+let initial: CollectionFormData;
+let sha = '';
+let filePath = `src/data/post/${filename}`;
+
+try {
+  const client = new GitHubClient(token);
+  const file = await client.readFile(filePath);
+  const parsed = parseMarkdown(file.content);
+  sha = file.sha;
+  initial = {
+    frontmatter: parsed.frontmatter,
+    body: parsed.body,
+  };
+} catch (err) {
+  return new Response(`文件读取失败: ${err instanceof Error ? err.message : '未知错误'}`, { status: 500 });
+}
+---
+<AdminLayout title={`编辑: ${initial.frontmatter.title ?? filename}`} active="posts" username={verified?.username}>
+  <div class="mb-6">
+    <a href="/keystatic/posts" class="text-sm text-gray-500 hover:underline">← 返回 Posts 列表</a>
+    <h1 class="mt-2 text-2xl font-semibold">编辑: {initial.frontmatter.title ?? filename}</h1>
+    <p class="mt-1 text-sm text-gray-500 font-mono">{filePath}</p>
+  </div>
+  <PostForm mode="edit" initial={initial} filename={filename} sha={sha} path={filePath} />
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('entry-form');
+      if (!form) return;
+      const submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '推送中...'; }
+
+        const data = new FormData(form);
+        const title = (data.get('title') || '').toString().trim();
+        if (!title) {
+          window.__adminToast?.('标题必填', 'error');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '保存并推送'; }
+          return;
+        }
+
+        const path = data.get('_path')?.toString();
+        const sha = data.get('_sha')?.toString();
+        const tags = data.getAll('tags').map((v) => v.toString().trim()).filter(Boolean);
+
+        const seoTitle = data.get('seoTitle')?.toString().trim();
+        const seoDescription = data.get('seoDescription')?.toString().trim();
+        const seoCanonical = data.get('seoCanonical')?.toString().trim();
+        const seoRobotIndex = data.get('seoRobotIndex') === 'true';
+        const seoRobotFollow = data.get('seoRobotFollow') === 'true';
+        const seoIgnoreTitleTemplate = data.get('seoIgnoreTitleTemplate') === 'true';
+        const seoOgUrl = data.get('seoOgUrl')?.toString().trim();
+        const seoOgSiteName = data.get('seoOgSiteName')?.toString().trim();
+        const seoOgLocale = data.get('seoOgLocale')?.toString().trim();
+        const seoOgType = data.get('seoOgType')?.toString().trim();
+        const seoTwitterHandle = data.get('seoTwitterHandle')?.toString().trim();
+        const seoTwitterSite = data.get('seoTwitterSite')?.toString().trim();
+        const seoTwitterCardType = data.get('seoTwitterCardType')?.toString().trim();
+
+        const metadata = {};
+        if (seoTitle) metadata.title = seoTitle;
+        if (seoDescription) metadata.description = seoDescription;
+        if (seoCanonical) metadata.canonical = seoCanonical;
+        if (seoIgnoreTitleTemplate) metadata.ignoreTitleTemplate = true;
+        const robots = {};
+        if (!seoRobotIndex) robots.index = false;
+        if (!seoRobotFollow) robots.follow = false;
+        if (Object.keys(robots).length) metadata.robots = robots;
+        const og = {};
+        if (seoOgUrl) og.url = seoOgUrl;
+        if (seoOgSiteName) og.siteName = seoOgSiteName;
+        if (seoOgLocale) og.locale = seoOgLocale;
+        if (seoOgType) og.type = seoOgType;
+        if (Object.keys(og).length) metadata.openGraph = og;
+        const tw = {};
+        if (seoTwitterHandle) tw.handle = seoTwitterHandle;
+        if (seoTwitterSite) tw.site = seoTwitterSite;
+        if (seoTwitterCardType) tw.cardType = seoTwitterCardType;
+        if (Object.keys(tw).length) metadata.twitter = tw;
+
+        const frontmatter = {
+          title,
+          publishDate: data.get('publishDate')?.toString() || undefined,
+          draft: data.get('draft') === 'true',
+        };
+        const excerpt = data.get('excerpt')?.toString().trim();
+        if (excerpt) frontmatter.excerpt = excerpt;
+        const image = data.get('image')?.toString().trim();
+        if (image) frontmatter.image = image;
+        const category = data.get('category')?.toString().trim();
+        if (category) frontmatter.category = category;
+        const author = data.get('author')?.toString().trim();
+        if (author) frontmatter.author = author;
+        if (tags.length) frontmatter.tags = tags;
+        if (Object.keys(metadata).length) frontmatter.metadata = metadata;
+
+        const payload = {
+          path,
+          sha,
+          frontmatter,
+          body: data.get('body')?.toString() ?? '',
+          commitMessage: `Update post: ${title}`,
+        };
+
+        try {
+          const res = await fetch('/api/admin/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const result = await res.json();
+          if (!res.ok || !result.success) {
+            window.__adminToast?.(result.error || '更新失败', 'error');
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '保存并推送'; }
+            return;
+          }
+          window.__adminToast?.('已保存', 'success');
+          setTimeout(() => { window.location.href = '/keystatic/posts'; }, 600);
+        } catch {
+          window.__adminToast?.('网络错误', 'error');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '保存并推送'; }
+        }
+      });
+    })();
+  </script>
+</AdminLayout>

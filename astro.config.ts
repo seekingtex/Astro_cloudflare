@@ -10,9 +10,6 @@ import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
-import react from '@astrojs/react';
-import markdoc from '@astrojs/markdoc';
-import keystatic from '@keystatic/astro';
 import cloudflare from '@astrojs/cloudflare';
 import type { AstroIntegration } from 'astro';
 
@@ -29,14 +26,9 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
-  adapter: cloudflare({
-    platformProxy: { enabled: true },
-  }),
+  adapter: cloudflare(),
 
   integrations: [
-    react(),
-    markdoc(),
-    keystatic(),
     sitemap({
       filter: (page) =>
         !/\/(keystatic|admin|login|api|404|500)(?:\/|$)/.test(page) &&
@@ -105,19 +97,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),
-        // Cloudflare workaround for React 19 MessageChannel error
-        // https://github.com/withastro/adapters/pull/436
-        ...(import.meta.env.PROD && {
-          'react-dom/server': 'react-dom/server.edge',
-        }),
       },
-    },
-
-    optimizeDeps: {
-      exclude: [
-        '@keystatic/astro/internal/keystatic-api.js',
-        '@keystatic/astro/internal/keystatic-page.js',
-      ],
     },
   },
 });
