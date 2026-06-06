@@ -8,6 +8,17 @@ var config_default = defineConfig({
     outputFolder: "admin",
     publicFolder: "public"
   },
+  // 🔐 本地开发模式：跳过 Tina Cloud 鉴权
+  //   生产构建出来的 /admin/index.html 仍然能跑，
+  //   只是云端没有后端，读写会被拦截 → 提示用户用本地 dev 编辑
+  auth: {
+    useLocalAuth: true
+  },
+  local: {
+    backend: {
+      url: "http://localhost:4321"
+    }
+  },
   media: {
     tina: {
       mediaRoot: "images/products",
@@ -26,7 +37,7 @@ var config_default = defineConfig({
           { type: "image", name: "image", label: "\uFFFD\uFFFD\u01B7\uFFFD\uFFFD\uFFFD\uFFFD\u0579\u02BE\uFFFD\uFFFD\u037C" },
           { type: "string", name: "length", label: "\uFFFD\uFFFD\uFFFD\u5CE4\uFFFD\uFFFD (\uFFFD\uFFFD\uFFFD\uFFFD: 3.3m)" },
           { type: "string", name: "material", label: "\uFFFD\uFFFD\uFFFD\u03F9\uFFFD\uFFFD\uFFFD (\uFFFD\uFFFD\uFFFD\uFFFD: 1.2mm PVC)" },
-          { type: "string", name: "maxLoad", label: "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD (\uFFFD\uFFFD\uFFFD\uFFFD: 650kg)" },
+          { type: "string", name: "maxLoad", label: "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD (\uFFFD\uFFFD\uFFFD\uFFFD: 650kg)" },
           {
             type: "object",
             name: "seo",
@@ -46,8 +57,8 @@ var config_default = defineConfig({
         fields: [
           { type: "string", name: "title", label: "\uFFFD\uFFFD\uFFFD\xB1\uFFFD\uFFFD\uFFFD", required: true, isTitle: true },
           { type: "datetime", name: "publishDate", label: "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD" },
-          { type: "image", name: "image", label: "\uFFFD\uFFFD\uFFFD\u0377\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u037C" },
-          { type: "string", name: "excerpt", label: "\uFFFD\uFFFD\uFFFD\uFFFD\u056A\u04AA (\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0130\uFFFD)", ui: { component: "textarea" } },
+          { type: "image", name: "image", label: "\uFFFD\uFFFD\uFFFD\u0377\uFFFD\uFFFD\uFFFD\uFFFD\u037C" },
+          { type: "string", name: "excerpt", label: "\uFFFD\uFFFD\uFFFD\uFFFD\u056A\u04AA (\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0130\uFFFD)", ui: { component: "textarea" } },
           { type: "rich-text", name: "body", label: "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD", isBody: true },
           {
             type: "object",
