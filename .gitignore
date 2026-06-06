@@ -29,8 +29,9 @@ pnpm-lock.yaml
 # keystatic local cache (created on first admin load)
 .keystatic/
 
-# yarn berry managed config + linker (recreated by `yarn install`)
+# yarn berry linker artefacts (recreated by `yarn install`)
 .yarn/
-.yarnrc.yml
-.yarnrc
 .pnp.*
+# Note: .yarnrc.yml is tracked in git so Cloudflare's yarn install
+# uses the same nodeLinker: node-modules and produce a node_modules
+# tree that `npm run build` (and `node_modules/.bin/astro`) need.
