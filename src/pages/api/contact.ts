@@ -202,7 +202,7 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
     return new Response(
       JSON.stringify({
         success: false,
-        error: `请求过于频繁,请 ${rl.retryAfter} 秒后再试 / Too many requests. Retry in ${rl.retryAfter}s.`,
+        error: `Too many requests. Retry in ${rl.retryAfter}s.`,
         rateLimit: { limit: rl.limit, remaining: rl.remaining, retryAfter: rl.retryAfter },
       }),
       {
@@ -230,7 +230,7 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
       expires: cookie.expires,
       maxAge: cookieTtlSeconds(),
     });
-    return err('请先在联系页面重新加载并完成人机验证 / Please reload the contact page and complete the anti-spam check.', 400, { captcha: next.question, reload: true });
+    return err('Please reload the contact page and complete the anti-spam check.', 400, { captcha: next.question, reload: true });
   }
 
   const body = await readJson(request);
@@ -253,12 +253,12 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
     message: sanitize(body.message, 4000),
   };
 
-  if (!fields.firstName || !fields.lastName) return err('First Name 与 Last Name 必填', 400);
-  if (!fields.email) return err('E-mail 必填', 400);
-  if (!EMAIL_RE.test(fields.email)) return err('E-mail 格式不正确', 400);
-  if (!fields.message || fields.message.length < 5) return err('Message 至少 5 个字符', 400);
+  if (!fields.firstName || !fields.lastName) return err('First Name and Last Name are required', 400);
+  if (!fields.email) return err('E-mail is required', 400);
+  if (!EMAIL_RE.test(fields.email)) return err('Invalid E-mail format', 400);
+  if (!fields.message || fields.message.length < 5) return err('Message must be at least 5 characters', 400);
   if (SPAM_KEYWORDS.test(fields.message) || SPAM_KEYWORDS.test(fields.subject || '')) {
-    return err('内容包含敏感关键词,提交被拒绝', 400);
+    return err('Content contains sensitive keywords, submission rejected', 400);
   }
 
   const captchaAnswer = sanitize(body.captcha_answer, 20);
@@ -273,18 +273,18 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
       expires: cookie.expires,
       maxAge: cookieTtlSeconds(),
     });
-    return err('人机验证答案错误 / Anti-spam answer incorrect.', 400, { captcha: next.question, reload: true });
+    return err('Anti-spam answer incorrect.', 400, { captcha: next.question, reload: true });
   }
 
   const branding = await loadBranding();
   const token = branding.contact_submissions_pat || (branding as any).github_pat;
   if (!token || typeof token !== 'string' || !token.startsWith('gh')) {
-    return err('联系表单存储未配置:请在 /keystatic/branding 中设置 contact_submissions_pat(具备 Contents R/W 的 GitHub PAT)。', 500);
+    return err('Contact form storage not configured: set contact_submissions_pat in /keystatic/branding (GitHub PAT with Contents R/W).', 500);
   }
 
   const destinationEmail = (sanitize(body.email_to, 200) || branding.contact_email_to || '').trim();
   if (!destinationEmail || !EMAIL_RE.test(destinationEmail)) {
-    return err('收件邮箱未配置或格式不正确。请在 /keystatic/branding 或 contact.yaml 的 email_to 中填写。', 500);
+    return err('Destination email not configured or invalid. Set email_to in /keystatic/branding or contact.yaml.', 500);
   }
 
   let submissionsFile: { v: 1; submissions: SubmissionRecord[] } = emptySubmissionsFile();
@@ -296,7 +296,7 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
   } catch (e) {
     const status = (e as { status?: number }).status;
     if (status !== 404) {
-      return err('读取提交存储失败: ' + (e instanceof Error ? e.message : 'unknown'), 500);
+      return err('Failed to read submissions storage: ' + (e instanceof Error ? e.message : 'unknown'), 500);
     }
   }
 
@@ -322,7 +322,7 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
       await client.createFile(SUBMISSIONS_PATH, content, `Contact form: ${fields.subject || fields.firstName} (${record.id.slice(0, 8)})`);
     }
   } catch (e) {
-    return err('保存提交到 GitHub 失败: ' + (e instanceof Error ? e.message : 'unknown'), 500);
+    return err('Failed to save submission to GitHub: ' + (e instanceof Error ? e.message : 'unknown'), 500);
   }
 
   let emailStatus: { attempted: boolean; sent: boolean; provider?: string; error?: string } = { attempted: false, sent: false };

@@ -14,13 +14,13 @@ interface CreatePayload {
 }
 
 function validatePayload(body: unknown): CreatePayload | string {
-  if (!body || typeof body !== 'object') return '请求格式错误';
+  if (!body || typeof body !== 'object') return 'Invalid request format';
   const b = body as Record<string, unknown>;
-  if (b.collection !== 'post' && b.collection !== 'product') return 'collection 必须是 post 或 product';
-  if (!b.frontmatter || typeof b.frontmatter !== 'object') return 'frontmatter 必填';
+  if (b.collection !== 'post' && b.collection !== 'product') return 'collection must be post or product';
+  if (!b.frontmatter || typeof b.frontmatter !== 'object') return 'frontmatter is required';
   const fm = b.frontmatter as Record<string, unknown>;
-  if (typeof fm.title !== 'string' || fm.title.trim().length === 0) return 'title 必填';
-  if (typeof b.body !== 'string') return 'body 必填';
+  if (typeof fm.title !== 'string' || fm.title.trim().length === 0) return 'title is required';
+  if (typeof b.body !== 'string') return 'body is required';
   return {
     collection: b.collection,
     filename: typeof b.filename === 'string' ? b.filename : undefined,
@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     body = await request.json();
   } catch {
-    return errorResponse('请求格式错误', 400);
+    return errorResponse('Invalid request format', 400);
   }
   const payload = validatePayload(body);
   if (typeof payload === 'string') return errorResponse(payload, 400);
@@ -47,7 +47,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const titleSlug = slugify(payload.frontmatter.title as string);
   const filename = (payload.filename ?? `${titleSlug}.md`).replace(/^\/+/, '');
   if (!/^[A-Za-z0-9._-]+\.(md|mdx)$/.test(filename)) {
-    return errorResponse('filename 只能包含字母数字、._- 且必须以 .md 或 .mdx 结尾', 400);
+    return errorResponse('filename can only contain alphanumeric, ., _, - and must end with .md or .mdx', 400);
   }
   const fullPath = prefix + filename;
 
@@ -59,9 +59,9 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     return okResponse({ path: result.contentPath, sha: result.contentSha, commitUrl: result.commitUrl });
   } catch (err) {
     const status = (err as { status?: number }).status ?? 500;
-    const message = err instanceof Error ? err.message : '创建失败';
+    const message = err instanceof Error ? err.message : 'Create failed';
     if (status === 422) {
-      return errorResponse('文件已存在,请换一个文件名或使用 update 接口', 422);
+      return errorResponse('File already exists, use a different filename or use update API', 422);
     }
     return errorResponse(message, status >= 400 && status < 600 ? status : 500);
   }

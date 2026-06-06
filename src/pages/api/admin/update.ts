@@ -32,14 +32,14 @@ function isAllowedPath(path: string): boolean {
 }
 
 function validatePayload(body: unknown): UpdatePayload | string {
-  if (!body || typeof body !== 'object') return '请求格式错误';
+  if (!body || typeof body !== 'object') return 'Invalid request format';
   const b = body as Record<string, unknown>;
-  if (typeof b.path !== 'string') return 'path 必填';
-  if (!isAllowedPath(b.path)) return 'path 必须在 src/data/ 下且为 .md/.mdx/.yaml/.yml';
-  if (typeof b.sha !== 'string' || b.sha.length === 0) return 'sha 必填(防冲突)';
+  if (typeof b.path !== 'string') return 'path is required';
+  if (!isAllowedPath(b.path)) return 'path must be under src/data/ and be .md/.mdx/.yaml/.yml';
+  if (typeof b.sha !== 'string' || b.sha.length === 0) return 'sha is required (conflict prevention)';
 
   if (b.format === 'yaml' || /\.(ya?ml)$/i.test(b.path)) {
-    if (!b.data || typeof b.data !== 'object') return 'data 必填(YAML 模式)';
+    if (!b.data || typeof b.data !== 'object') return 'data is required (YAML mode)';
     return {
       format: 'yaml',
       path: b.path,
@@ -49,8 +49,8 @@ function validatePayload(body: unknown): UpdatePayload | string {
     };
   }
 
-  if (!b.frontmatter || typeof b.frontmatter !== 'object') return 'frontmatter 必填';
-  if (typeof b.body !== 'string') return 'body 必填';
+  if (!b.frontmatter || typeof b.frontmatter !== 'object') return 'frontmatter is required';
+  if (typeof b.body !== 'string') return 'body is required';
   return {
     format: 'markdown',
     path: b.path,
@@ -69,7 +69,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     body = await request.json();
   } catch {
-    return errorResponse('请求格式错误', 400);
+    return errorResponse('Invalid request format', 400);
   }
   const payload = validatePayload(body);
   if (typeof payload === 'string') return errorResponse(payload, 400);
@@ -92,9 +92,9 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     return okResponse({ path: result.contentPath, sha: result.contentSha, commitUrl: result.commitUrl });
   } catch (err) {
     const status = (err as { status?: number }).status ?? 500;
-    const message = err instanceof Error ? err.message : '更新失败';
+    const message = err instanceof Error ? err.message : 'Update failed';
     if (status === 409 || status === 422) {
-      return errorResponse('文件已被其他人修改,请刷新后重试', 409);
+      return errorResponse('File modified by another user, please refresh and retry', 409);
     }
     return errorResponse(message, status >= 400 && status < 600 ? status : 500);
   }

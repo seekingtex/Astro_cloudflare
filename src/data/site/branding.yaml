@@ -3,7 +3,7 @@ logo_image: ''
 logo_alt: Vectoflare logo
 copyright: '© {year} {site_name} · All rights reserved.'
 whatsapp_number: '+8613305324192'
-whatsapp_default_message: '你好,我想咨询一下产品。'
+whatsapp_default_message: 'Hello, I would like to inquire about a product.'
 
 contact_email_to: hello@vectoflare.example
 contact_email_provider: none

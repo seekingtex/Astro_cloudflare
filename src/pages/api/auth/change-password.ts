@@ -7,7 +7,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     const sessionCookie = cookies.get('ks-admin-session')?.value;
     if (!sessionCookie) {
-      return new Response(JSON.stringify({ success: false, error: '未登录' }), {
+      return new Response(JSON.stringify({ success: false, error: 'Not logged in' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     const session = verifySessionToken(sessionCookie);
     if (!session) {
-      return new Response(JSON.stringify({ success: false, error: '会话已过期' }), {
+      return new Response(JSON.stringify({ success: false, error: 'Session expired' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -25,14 +25,14 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const { oldPassword, newPassword } = body;
 
     if (!oldPassword || !newPassword) {
-      return new Response(JSON.stringify({ success: false, error: '请填写旧密码和新密码' }), {
+      return new Response(JSON.stringify({ success: false, error: 'Please enter both old and new passwords' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
     if (newPassword.length < 6) {
-      return new Response(JSON.stringify({ success: false, error: '新密码至少需要6个字符' }), {
+      return new Response(JSON.stringify({ success: false, error: 'New password must be at least 6 characters' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });

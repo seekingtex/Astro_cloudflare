@@ -33,7 +33,7 @@ export function encryptJson(plain: unknown): EncryptedBlob {
 }
 
 export function decryptJson<T = unknown>(blob: EncryptedBlob): T {
-  if (!blob || blob.v !== 1) throw new Error('不支持的加密格式');
+  if (!blob || blob.v !== 1) throw new Error('Unsupported encryption format');
   const key = deriveKey();
   const iv = Buffer.from(blob.iv, 'base64');
   const ct = Buffer.from(blob.ct, 'base64');

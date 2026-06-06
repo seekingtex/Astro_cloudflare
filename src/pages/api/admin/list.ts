@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ url, cookies }) => {
 
   const prefix = url.searchParams.get('prefix') ?? '';
   if (!ALLOWED_PREFIXES.includes(prefix)) {
-    return errorResponse('prefix 不在允许列表中', 400);
+    return errorResponse('prefix not in allowed list', 400);
   }
 
   const isYaml = prefix.startsWith('src/data/pages/') || prefix.startsWith('src/data/site/');
@@ -96,7 +96,7 @@ export const GET: APIRoute = async ({ url, cookies }) => {
     enriched.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
     return okResponse({ items: enriched });
   } catch (err) {
-    const message = err instanceof Error ? err.message : '列表失败';
+    const message = err instanceof Error ? err.message : 'Failed to list';
     return errorResponse(message, 500);
   }
 };

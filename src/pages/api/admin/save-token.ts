@@ -10,14 +10,14 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const session = cookies.get('ks-admin-session')?.value;
   const verified = session ? verifySessionToken(session) : null;
   if (!verified) {
-    return errorResponse('未登录或会话已过期', 401);
+    return errorResponse('Not logged in or session expired', 401);
   }
 
   let body: { token?: unknown; action?: unknown };
   try {
     body = (await request.json()) as typeof body;
   } catch {
-    return errorResponse('请求格式错误', 400);
+    return errorResponse('Invalid request format', 400);
   }
 
   const action = body.action === 'clear' ? 'clear' : 'save';
@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   if (typeof body.token !== 'string' || body.token.trim().length < 10) {
-    return errorResponse('请输入有效的 GitHub Token', 400);
+    return errorResponse('Please enter a valid GitHub Token', 400);
   }
 
   const token = body.token.trim();
@@ -44,7 +44,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       },
     });
     if (!repoRes.ok) {
-      return errorResponse('Token 没有仓库 theworkvigour/astro_Tina-CMS 的访问权限', 400, {
+      return errorResponse('Token does not have access to theworkvigour/astro_Tina-CMS repo', 400, {
         repoStatus: repoRes.status,
       });
     }
@@ -57,13 +57,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     if (err instanceof GitHubRequestError) {
       const reason =
         err.status === 401
-          ? 'Token 无效或已过期'
+          ? 'Token invalid or expired'
           : err.status === 403
-            ? 'Token 权限不足或触发速率限制'
-            : `GitHub API 错误 (${err.status})`;
+            ? 'Token insufficient permissions or rate limited'
+            : `GitHub API error (${err.status})`;
       return errorResponse(reason, 400, { detail: err.detail });
     }
-    const message = err instanceof Error ? err.message : '验证失败';
+    const message = err instanceof Error ? err.message : 'Verification failed';
     return errorResponse(message, 500);
   }
 };

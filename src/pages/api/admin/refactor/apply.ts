@@ -33,14 +33,14 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   if (!auth.ok) return errorResponse(auth.error, auth.status);
 
   let body: unknown;
-  try { body = await request.json(); } catch { return errorResponse('请求格式错误', 400); }
+  try { body = await request.json(); } catch { return errorResponse('Invalid request format', 400); }
   const req = body as ApplyRequest;
   if (!Array.isArray(req?.changes) || req.changes.length === 0) {
-    return errorResponse('changes 数组不能为空', 400);
+    return errorResponse('changes array cannot be empty', 400);
   }
   for (const c of req.changes) {
-    if (!c || typeof c.path !== 'string' || typeof c.sha !== 'string') return errorResponse('每条 change 必须包含 path 与 sha', 400);
-    if (!isAllowedPath(c.path)) return errorResponse(`path 非法: ${c.path}`, 400);
+    if (!c || typeof c.path !== 'string' || typeof c.sha !== 'string') return errorResponse('Each change must contain path and sha', 400);
+    if (!isAllowedPath(c.path)) return errorResponse(`Invalid path: ${c.path}`, 400);
   }
 
   const client = auth.ctx.github;
@@ -50,7 +50,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     try {
       const file = await client.readFile(change.path);
       if (file.sha !== change.sha) {
-        results.push({ path: change.path, ok: false, error: '文件已被其他人修改,请刷新后重试' });
+        results.push({ path: change.path, ok: false, error: 'File modified by another user, please refresh and retry' });
         continue;
       }
       const rule: RefactorRule = {
@@ -78,7 +78,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       const status = (e as { status?: number }).status;
       const msg = e instanceof Error ? e.message : 'unknown';
       if (status === 409 || status === 422) {
-        results.push({ path: change.path, ok: false, error: '文件已被其他人修改,请刷新后重试' });
+        results.push({ path: change.path, ok: false, error: 'File modified by another user, please refresh and retry' });
       } else {
         results.push({ path: change.path, ok: false, error: msg });
       }

@@ -15,12 +15,12 @@ export function authorizeAdmin(cookies: AstroCookies):
   const session = cookies.get('ks-admin-session')?.value;
   const verified = session ? verifySessionToken(session) : null;
   if (!verified) {
-    return { ok: false, status: 401, error: '未登录或会话已过期' };
+    return { ok: false, status: 401, error: 'Not logged in or session expired' };
   }
 
   const token = readTokenFromCookies(cookies);
   if (!token) {
-    return { ok: false, status: 412, error: '需要先关联 GitHub Token' };
+    return { ok: false, status: 412, error: 'GitHub Token must be linked first' };
   }
 
   return { ok: true, ctx: { username: verified.username, github: new GitHubClientClass(token) } };

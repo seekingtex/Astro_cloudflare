@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ url, cookies }) => {
 
   const path = url.searchParams.get('path') ?? '';
   if (!isAllowedPath(path)) {
-    return errorResponse('path 必须在 src/data/ 下且为 .md/.mdx/.yaml/.yml', 400);
+    return errorResponse('path must be under src/data/ and be .md/.mdx/.yaml/.yml', 400);
   }
 
   try {
@@ -37,7 +37,7 @@ export const GET: APIRoute = async ({ url, cookies }) => {
     return okResponse({ path, sha: res.sha, content: res.content, downloadUrl: res.downloadUrl });
   } catch (err) {
     const status = (err as { status?: number }).status ?? 500;
-    const message = err instanceof Error ? err.message : '读取失败';
+    const message = err instanceof Error ? err.message : 'Read failed';
     return errorResponse(message, status === 404 ? 404 : 500);
   }
 };

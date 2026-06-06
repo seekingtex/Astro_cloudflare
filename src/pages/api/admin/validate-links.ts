@@ -65,7 +65,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const client = auth.ctx.github;
 
   let tree: Array<{ path: string; sha: string; size: number; type: string }>;
-  try { tree = await client.getRecursiveTree(); } catch (e) { return errorResponse('读取仓库文件树失败: ' + (e instanceof Error ? e.message : 'unknown'), 500); }
+  try { tree = await client.getRecursiveTree(); } catch (e) { return errorResponse('Failed to read repository file tree: ' + (e instanceof Error ? e.message : 'unknown'), 500); }
 
   const known = new Set<string>(STATIC_PAGES);
   for (const t of tree) {

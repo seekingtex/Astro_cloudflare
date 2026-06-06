@@ -127,17 +127,17 @@ function buildDiff(before: string, after: string, rule: RefactorRule): DiffLine[
 }
 
 export function validateRule(rule: RefactorRule): string | null {
-  if (!rule.oldUrl && !rule.oldName) return '请至少填写一个 oldUrl 或 oldName';
-  if (rule.oldUrl && !rule.newUrl) return '填写了 oldUrl 但 newUrl 为空';
-  if (rule.oldName && !rule.newName) return '填写了 oldName 但 newName 为空';
+  if (!rule.oldUrl && !rule.oldName) return 'Please provide at least one oldUrl or oldName';
+  if (rule.oldUrl && !rule.newUrl) return 'oldUrl provided but newUrl is empty';
+  if (rule.oldName && !rule.newName) return 'oldName provided but newName is empty';
   if (rule.oldUrl && rule.newUrl) {
-    if (rule.oldUrl.length < 2) return 'oldUrl 太短,可能导致误匹配 (建议 ≥ 2 个字符)';
+    if (rule.oldUrl.length < 2) return 'oldUrl too short, may cause false matches (min 2 chars)';
     if (!rule.oldUrl.startsWith('/') && !rule.oldUrl.startsWith('http')) {
-      return 'oldUrl 建议以 / 开头 (站内链接) 或 http(s):// 开头 (站外链接)';
+      return 'oldUrl should start with / (internal) or http(s):// (external)';
     }
   }
   if (rule.oldName && rule.newName) {
-    if (rule.oldName.length < 2) return 'oldName 太短 (建议 ≥ 2 个字符)';
+    if (rule.oldName.length < 2) return 'oldName too short (min 2 chars)';
   }
   return null;
 }

@@ -94,12 +94,53 @@ const langs = [
       },
     ]}
   >
-    <div class:list={[{ 'mr-auto rtl:mr-0 rtl:ml-auto': position === 'right' }, 'flex justify-between']}>
-      <a class="flex items-center" href={getHomePermalink()}>
-        <Logo />
-      </a>
-      <div class="flex items-center md:hidden">
-        <ToggleMenu />
+    <div class:list={[{ 'mr-auto rtl:mr-0 rtl:ml-auto': position === 'right' }, 'flex justify-between items-center']}>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center md:hidden">
+          <ToggleMenu />
+        </div>
+        <a class="flex items-center" href={getHomePermalink()}>
+          <Logo />
+        </a>
+      </div>
+      <div class="flex items-center md:hidden gap-1">
+        <button
+          type="button"
+          data-search-trigger
+          aria-label="Search"
+          class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+        >
+          <Icon name="tabler:search" class="w-5 h-5" />
+        </button>
+        <div class="relative" data-lang-switcher-mobile>
+          <button
+            type="button"
+            data-lang-button-mobile
+            aria-haspopup="true"
+            aria-expanded="false"
+            class="inline-flex items-center gap-1 px-2 py-2 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            <Icon name="tabler:language" class="w-5 h-5" />
+          </button>
+          <ul
+            data-lang-menu-mobile
+            class="hidden absolute right-0 mt-1 min-w-[10rem] rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg z-50 py-1"
+          >
+            {langs.map((l) => (
+              <li>
+                <button
+                  type="button"
+                  data-lang-code={l.code}
+                  data-lang-name={l.name}
+                  class="w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between"
+                >
+                  <span>{l.name}</span>
+                  <span class="text-xs text-gray-400 font-mono">{l.code}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
     <nav
@@ -265,18 +306,46 @@ Type a keyword to start searching
 <script is:inline>
   (function () {
     const KEY = 'vf_lang';
-    const switcher = document.querySelector('[data-lang-switcher]');
-    if (!switcher) return;
-    const btn = switcher.querySelector('[data-lang-button]');
-    const menu = switcher.querySelector('[data-lang-menu]');
-    const label = switcher.querySelector('[data-lang-current]');
-    if (!btn || !menu || !label) return;
 
-    const saved = (() => {
-      try { return localStorage.getItem(KEY) || 'EN'; } catch { return 'EN'; }
-    })();
-    label.textContent = saved;
-    btn.setAttribute('aria-expanded', 'false');
+    function setupLangSwitcher(switcher, btnSel, menuSel, labelSel) {
+      if (!switcher) return null;
+      const btn = switcher.querySelector(btnSel);
+      const menu = switcher.querySelector(menuSel);
+      const label = labelSel ? switcher.querySelector(labelSel) : null;
+      if (!btn || !menu) return null;
+
+      const saved = (() => {
+        try { return localStorage.getItem(KEY) || 'EN'; } catch { return 'EN'; }
+      })();
+      if (label) label.textContent = saved;
+      btn.setAttribute('aria-expanded', 'false');
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const open = menu.classList.toggle('hidden') === false;
+        btn.setAttribute('aria-expanded', String(open));
+        // Sync the other menu
+        document.querySelectorAll('[data-lang-menu], [data-lang-menu-mobile]').forEach(function (m) {
+          if (m !== menu) { m.classList.add('hidden'); }
+        });
+      });
+
+      menu.addEventListener('click', function (e) {
+        const t = e.target instanceof Element ? e.target.closest('[data-lang-code]') : null;
+        if (!t) return;
+        e.preventDefault();
+        const code = t.getAttribute('data-lang-code') || 'EN';
+        const name = t.getAttribute('data-lang-name') || code;
+        try { localStorage.setItem(KEY, code); } catch {}
+        // Update all labels
+        document.querySelectorAll('[data-lang-current]').forEach(function (el) { el.textContent = code; });
+        document.querySelectorAll('[data-lang-menu], [data-lang-menu-mobile]').forEach(function (m) { m.classList.add('hidden'); });
+        document.querySelectorAll('[data-lang-button], [data-lang-button-mobile]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+        showToast('Language: ' + name + ' (' + code + ') — translation coming soon');
+      });
+
+      return { btn, menu, label };
+    }
 
     function showToast(msg) {
       let host = document.getElementById('vf-toast');
@@ -294,30 +363,28 @@ Type a keyword to start searching
       setTimeout(function () { div.remove(); }, 2800);
     }
 
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      const open = menu.classList.toggle('hidden') === false;
-      btn.setAttribute('aria-expanded', String(open));
-    });
-
-    menu.addEventListener('click', function (e) {
-      const t = e.target instanceof Element ? e.target.closest('[data-lang-code]') : null;
-      if (!t) return;
-      e.preventDefault();
-      const code = t.getAttribute('data-lang-code') || 'EN';
-      const name = t.getAttribute('data-lang-name') || code;
-      try { localStorage.setItem(KEY, code); } catch {}
-      label.textContent = code;
-      menu.classList.add('hidden');
-      btn.setAttribute('aria-expanded', 'false');
-      showToast('Language: ' + name + ' (' + code + ') — translation coming soon');
-    });
+    const d1 = setupLangSwitcher(
+      document.querySelector('[data-lang-switcher]'),
+      '[data-lang-button]',
+      '[data-lang-menu]',
+      '[data-lang-current]'
+    );
+    const d2 = setupLangSwitcher(
+      document.querySelector('[data-lang-switcher-mobile]'),
+      '[data-lang-button-mobile]',
+      '[data-lang-menu-mobile]',
+      null
+    );
 
     document.addEventListener('click', function (e) {
-      if (!switcher.contains(e.target)) {
-        menu.classList.add('hidden');
-        btn.setAttribute('aria-expanded', 'false');
-      }
+      document.querySelectorAll('[data-lang-switcher], [data-lang-switcher-mobile]').forEach(function (sw) {
+        if (!sw.contains(e.target)) {
+          const menu = sw.querySelector('[data-lang-menu], [data-lang-menu-mobile]');
+          const btn = sw.querySelector('[data-lang-button], [data-lang-button-mobile]');
+          if (menu) menu.classList.add('hidden');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
   })();
 
@@ -352,12 +419,12 @@ Type a keyword to start searching
   })();
 
   (function () {
-    const trigger = document.querySelector('[data-search-trigger]');
+    const triggers = document.querySelectorAll('[data-search-trigger]');
     const dialog = document.getElementById('search-dialog');
     const input = dialog ? dialog.querySelector('[data-search-input]') : null;
     const empty = dialog ? dialog.querySelector('[data-search-empty]') : null;
     const list = dialog ? dialog.querySelector('[data-search-list]') : null;
-    if (!trigger || !dialog || !input || !list) return;
+    if (triggers.length === 0 || !dialog || !input || !list) return;
 
     let index = null;
     let indexLoading = null;
@@ -420,7 +487,7 @@ Type a keyword to start searching
     }
     function escapeAttr(s) { return escapeHtml(s); }
 
-    trigger.addEventListener('click', open);
+    triggers.forEach(function (trigger) { trigger.addEventListener('click', open); });
     document.addEventListener('keydown', function (e) {
       if (e.key === '/' && document.activeElement && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
         e.preventDefault();

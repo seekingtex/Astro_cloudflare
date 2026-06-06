@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   if (!auth.ok) return errorResponse(auth.error, auth.status);
 
   let body: unknown;
-  try { body = await request.json(); } catch { return errorResponse('请求格式错误', 400); }
+  try { body = await request.json(); } catch { return errorResponse('Invalid request format', 400); }
   const rule: RefactorRule = {
     oldUrl: typeof (body as any)?.oldUrl === 'string' ? (body as any).oldUrl.trim() : undefined,
     newUrl: typeof (body as any)?.newUrl === 'string' ? (body as any).newUrl.trim() : undefined,
@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     tree = await client.getRecursiveTree();
   } catch (e) {
-    return errorResponse('读取仓库文件树失败: ' + (e instanceof Error ? e.message : 'unknown'), 500);
+    return errorResponse('Failed to read repository file tree: ' + (e instanceof Error ? e.message : 'unknown'), 500);
   }
 
   const targets = tree.filter((t) => shouldScanPath(t.path) && t.size <= MAX_FILE_BYTES);
