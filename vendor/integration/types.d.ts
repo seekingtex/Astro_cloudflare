@@ -1,5 +1,5 @@
 declare module 'astrowind:config' {
-  import type { SiteConfig, I18NConfig, MetaDataConfig, AppBlogConfig, UIConfig, AnalyticsConfig } from './config';
+  import type { SiteConfig, I18NConfig, MetaDataConfig, AppBlogConfig, UIConfig, AnalyticsConfig, SiteSettingsConfig } from './config';
 
   export interface AppProductsConfig {
     isEnabled: boolean;
@@ -23,4 +23,5 @@ declare module 'astrowind:config' {
   export const APP_PRODUCTS: AppProductsConfig;
   export const UI: UIConfig;
   export const ANALYTICS: AnalyticsConfig;
+  export const SITE_SETTINGS: SiteSettingsConfig;
 }

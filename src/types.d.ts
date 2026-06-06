@@ -94,6 +94,8 @@ export interface MetaData {
 
   description?: string;
 
+  keywords?: string[];
+
   openGraph?: MetaDataOpenGraph;
   twitter?: MetaDataTwitter;
 }

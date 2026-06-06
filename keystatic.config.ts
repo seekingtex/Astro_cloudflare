@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 
 const isProd = import.meta.env.PROD;
 
@@ -167,6 +167,76 @@ export default config({
           { label: 'SEO / 元数据' }
         ),
         content: fields.mdx({ label: '产品详情 / Details' }),
+      },
+    }),
+  },
+
+  singletons: {
+    site: singleton({
+      label: '网站设置 / Site Settings',
+      path: 'keystatic/site/',
+      schema: {
+        siteName: fields.text({ label: '站点名称 / Site Name', defaultValue: 'Foida' }),
+        siteTagline: fields.text({ label: '站点副标题 / Tagline' }),
+        siteDescription: fields.text({ label: '站点描述 / Default Meta Description', multiline: true }),
+        siteUrl: fields.url({ label: '站点 URL / Site URL (Canonical)', defaultValue: 'https://foida.com' }),
+        defaultOgImage: fields.text({ label: '默认 OG 图片 URL / Default OG Image URL' }),
+        googleSiteVerificationId: fields.text({ label: 'Google Search Console 验证码 / Google Verification' }),
+        defaultLocale: fields.text({ label: '默认语言区域 / Default Locale', defaultValue: 'en_US' }),
+        defaultOgType: fields.select(
+          [
+            { label: 'website', value: 'website' },
+            { label: 'article', value: 'article' },
+            { label: 'product', value: 'product' },
+            { label: 'profile', value: 'profile' },
+          ],
+          { label: '默认 OG 类型 / Default OG Type', defaultValue: 'website' }
+        ),
+        defaultRobots: fields.object(
+          {
+            index: fields.checkbox({ label: '允许收录 / Index', defaultValue: true }),
+            follow: fields.checkbox({ label: '允许追踪链接 / Follow', defaultValue: true }),
+          },
+          { label: '默认 Robots / Default Robots' }
+        ),
+        keywords: fields.array(fields.text({ label: '关键词 / Keyword' }), {
+          label: '默认关键词 / Default Keywords',
+          itemLabel: (props) => props.value || '关键词',
+        }),
+        organization: fields.object(
+          {
+            name: fields.text({ label: '组织名称 / Organization Name' }),
+            logo: fields.text({ label: 'Logo URL / Logo URL' }),
+            contactEmail: fields.text({ label: '联系邮箱 / Contact Email' }),
+            contactPhone: fields.text({ label: '联系电话 / Contact Phone' }),
+            address: fields.text({ label: '联系地址 / Address', multiline: true }),
+          },
+          { label: '组织信息 / Organization' }
+        ),
+        twitter: fields.object(
+          {
+            handle: fields.text({ label: 'Twitter Handle (e.g. @foida)' }),
+            site: fields.text({ label: 'Twitter Site (e.g. @foida)' }),
+            cardType: fields.select(
+              [
+                { label: 'summary', value: 'summary' },
+                { label: 'summary_large_image', value: 'summary_large_image' },
+              ],
+              { label: 'Card Type', defaultValue: 'summary_large_image' }
+            ),
+          },
+          { label: 'Twitter Card' }
+        ),
+        socialLinks: fields.array(
+          fields.object({
+            platform: fields.text({ label: '平台 / Platform (e.g. Facebook, LinkedIn, YouTube)' }),
+            url: fields.text({ label: 'URL / Profile URL' }),
+          }),
+          {
+            label: '社交链接 / Social Links',
+            itemLabel: (props) => `${props.value.platform || '平台'}: ${props.value.url || ''}`,
+          }
+        ),
       },
     }),
   },

@@ -1,7 +1,7 @@
 ---
 import '~/assets/styles/tailwind.css';
 
-import { I18N, SITE } from 'astrowind:config';
+import { I18N, SITE_SETTINGS } from 'astrowind:config';
 
 import CommonMeta from '~/components/common/CommonMeta.astro';
 import Favicons from '~/components/Favicons.astro';
@@ -24,14 +24,24 @@ export interface Props {
 const { metadata = {} } = Astro.props;
 const { language, textDirection } = I18N;
 
-const orgJsonLd = {
+const orgName = SITE_SETTINGS.organization?.name || SITE_SETTINGS.siteName;
+const orgLogo = SITE_SETTINGS.organization?.logo || new URL('/favicon.svg', SITE_SETTINGS.siteUrl).toString();
+const sameAs = (SITE_SETTINGS.socialLinks || [])
+  .map((s) => s?.url)
+  .filter((u): u is string => typeof u === 'string' && u.length > 0);
+
+const orgJsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: SITE.name,
-  url: SITE.site,
-  logo: new URL('/favicon.svg', SITE.site).toString(),
-  description: SITE.description,
+  name: orgName,
+  url: SITE_SETTINGS.siteUrl,
+  logo: orgLogo,
+  description: SITE_SETTINGS.siteDescription,
 };
+if (SITE_SETTINGS.organization?.contactEmail) orgJsonLd.email = SITE_SETTINGS.organization.contactEmail;
+if (SITE_SETTINGS.organization?.contactPhone) orgJsonLd.telephone = SITE_SETTINGS.organization.contactPhone;
+if (SITE_SETTINGS.organization?.address) orgJsonLd.address = SITE_SETTINGS.organization.address;
+if (sameAs.length > 0) orgJsonLd.sameAs = sameAs;
 ---
 
 <!doctype html>

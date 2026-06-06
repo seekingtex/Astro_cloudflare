@@ -1,0 +1,32 @@
+siteName: Foida
+siteTagline: Modern Solutions for Inflatable & Engineered Products
+siteDescription: >-
+  Foida designs and manufactures premium inflatable boats, RIBs, and engineered
+  products. Explore our catalog, technical specs, and resources for
+  professionals and enthusiasts.
+siteUrl: 'https://foida.com'
+defaultOgImage: ''
+googleSiteVerificationId: ''
+defaultLocale: en_US
+defaultOgType: website
+defaultRobots:
+  index: true
+  follow: true
+keywords:
+  - Foida
+  - inflatable boat
+  - RIB
+  - PVC
+  - marine
+  - engineering
+organization:
+  name: Foida
+  logo: ''
+  contactEmail: ''
+  contactPhone: ''
+  address: ''
+twitter:
+  handle: '@foida'
+  site: '@foida'
+  cardType: summary_large_image
+socialLinks: []

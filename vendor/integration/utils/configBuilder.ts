@@ -12,6 +12,7 @@ export type Config = {
   };
   ui?: unknown;
   analytics?: unknown;
+  siteSettings?: Partial<SiteSettingsConfig>;
 };
 
 export interface SiteConfig {
@@ -96,6 +97,35 @@ export interface AppProductsConfig {
 
 export interface UIConfig {
   theme: string;
+}
+
+export interface OrganizationConfig {
+  name: string;
+  logo: string;
+  contactEmail: string;
+  contactPhone: string;
+  address: string;
+}
+
+export interface SocialLinkConfig {
+  platform: string;
+  url: string;
+}
+
+export interface SiteSettingsConfig {
+  siteName: string;
+  siteTagline: string;
+  siteDescription: string;
+  siteUrl: string;
+  defaultOgImage: string;
+  googleSiteVerificationId: string;
+  defaultLocale: string;
+  defaultOgType: string;
+  defaultRobots: { index: boolean; follow: boolean };
+  keywords: string[];
+  organization: OrganizationConfig;
+  twitter: { handle: string; site: string; cardType: string };
+  socialLinks: SocialLinkConfig[];
 }
 
 const DEFAULT_SITE_NAME = 'Website';
@@ -228,6 +258,42 @@ const getAppProducts = (config: Config) => {
   return merge({}, _default, config?.apps?.products ?? {}) as AppProductsConfig;
 };
 
+const getSiteSettings = (config: Config): SiteSettingsConfig => {
+  const siteName = config?.siteSettings?.siteName || config?.site?.name || 'Foida';
+  const _default: SiteSettingsConfig = {
+    siteName,
+    siteTagline: '',
+    siteDescription: config?.metadata?.description || '',
+    siteUrl: config?.site?.site || 'https://foida.com',
+    defaultOgImage:
+      (Array.isArray(config?.metadata?.openGraph?.images) && config?.metadata?.openGraph?.images?.[0]?.url) ||
+      '',
+    googleSiteVerificationId: config?.site?.googleSiteVerificationId || '',
+    defaultLocale: config?.metadata?.openGraph?.locale || 'en_US',
+    defaultOgType: config?.metadata?.openGraph?.type || 'website',
+    defaultRobots: {
+      index: config?.metadata?.robots?.index ?? true,
+      follow: config?.metadata?.robots?.follow ?? true,
+    },
+    keywords: config?.metadata?.keywords || [],
+    organization: {
+      name: siteName,
+      logo: '',
+      contactEmail: '',
+      contactPhone: '',
+      address: '',
+    },
+    twitter: {
+      handle: config?.metadata?.twitter?.handle || '',
+      site: config?.metadata?.twitter?.site || '',
+      cardType: config?.metadata?.twitter?.cardType || 'summary_large_image',
+    },
+    socialLinks: [],
+  };
+
+  return merge({}, _default, config?.siteSettings ?? {}) as SiteSettingsConfig;
+};
+
 export default (config: Config) => ({
   SITE: getSite(config),
   I18N: getI18N(config),
@@ -236,4 +302,5 @@ export default (config: Config) => ({
   APP_PRODUCTS: getAppProducts(config),
   UI: getUI(config),
   ANALYTICS: getAnalytics(config),
+  SITE_SETTINGS: getSiteSettings(config),
 });
