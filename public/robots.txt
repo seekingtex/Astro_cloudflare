@@ -1,2 +1,10 @@
 User-agent: *
-Disallow:
+Disallow: /keystatic
+Disallow: /keystatic/
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /login
+Disallow: /login/
+
+# Sitemap location (appended automatically by the build)

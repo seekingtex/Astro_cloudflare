@@ -8,6 +8,7 @@ export type Config = {
   i18n?: I18NConfig;
   apps?: {
     blog?: AppBlogConfig;
+    products?: AppProductsConfig;
   };
   ui?: unknown;
   analytics?: unknown;
@@ -75,6 +76,21 @@ export interface AnalyticsConfig {
       id?: string;
       partytown?: boolean;
     };
+  };
+}
+
+export interface AppProductsConfig {
+  isEnabled: boolean;
+  productsPerPage: number;
+  product: {
+    isEnabled: boolean;
+    permalink: string;
+    robots: { index: boolean; follow: boolean };
+  };
+  list: {
+    isEnabled: boolean;
+    pathname: string;
+    robots: { index: boolean; follow: boolean };
   };
 }
 
@@ -193,11 +209,31 @@ const getAnalytics = (config: Config) => {
   return merge({}, _default, config?.analytics ?? {}) as AnalyticsConfig;
 };
 
+const getAppProducts = (config: Config) => {
+  const _default = {
+    isEnabled: false,
+    productsPerPage: 12,
+    product: {
+      isEnabled: true,
+      permalink: '/products/%slug%',
+      robots: { index: true, follow: true },
+    },
+    list: {
+      isEnabled: true,
+      pathname: 'products',
+      robots: { index: true, follow: true },
+    },
+  };
+
+  return merge({}, _default, config?.apps?.products ?? {}) as AppProductsConfig;
+};
+
 export default (config: Config) => ({
   SITE: getSite(config),
   I18N: getI18N(config),
   METADATA: getMetadata(config),
   APP_BLOG: getAppBlog(config),
+  APP_PRODUCTS: getAppProducts(config),
   UI: getUI(config),
   ANALYTICS: getAnalytics(config),
 });

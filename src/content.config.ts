@@ -8,7 +8,7 @@ const metadataDefinition = () =>
       title: z.string().optional(),
       ignoreTitleTemplate: z.boolean().optional(),
 
-      canonical: z.url().optional(),
+      canonical: z.string().optional(),
 
       robots: z
         .object({
@@ -66,6 +66,52 @@ const postCollection = defineCollection({
   }),
 });
 
+const productSpecSchema = z.object({
+  label: z.string(),
+  value: z.union([z.string(), z.number()]).transform((v) => String(v)),
+});
+
+const productPriceSchema = z
+  .object({
+    amount: z.string().optional(),
+    currency: z.string().optional(),
+    note: z.string().optional(),
+  })
+  .optional();
+
+const productImageSchema = z.object({
+  url: z.string(),
+  alt: z.string().optional(),
+});
+
+const productCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/product' }),
+  schema: z.object({
+    publishDate: z.date().optional(),
+    draft: z.boolean().optional(),
+
+    title: z.string(),
+    sku: z.string().optional(),
+    summary: z.string().optional(),
+    description: z.string().optional(),
+    image: z.string().optional(),
+
+    gallery: z.array(productImageSchema).optional(),
+
+    category: z.enum(['rib', 'inflatable', 'accessory', 'service']).optional(),
+    tags: z.array(z.string()).optional(),
+
+    specs: z.array(productSpecSchema).optional(),
+    price: productPriceSchema,
+
+    inStock: z.boolean().optional(),
+    featured: z.boolean().optional(),
+
+    metadata: metadataDefinition(),
+  }),
+});
+
 export const collections = {
   post: postCollection,
+  product: productCollection,
 };

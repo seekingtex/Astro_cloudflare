@@ -6,239 +6,162 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import Steps from '~/components/widgets/Steps.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import { SITE } from 'astrowind:config';
 
 const metadata = {
-  title: 'Pricing',
+  title: `Pricing — ${SITE.name}`,
+  description: `Transparent pricing for ${SITE.name} boats, accessories and service packages. No hidden fees.`,
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
-
   <HeroText
     tagline="Pricing"
-    title="Stellar Pricing for Every Journey"
-    subtitle="Choose the perfect plan that aligns with your cosmic goals."
+    title="Honest pricing, on every model"
+    subtitle="The price you see is the price you pay. Custom options are itemised up-front."
   />
 
-  <!-- Pricing Widget ******************* -->
-
   <Prices
-    title="Our prices"
-    subtitle="Only pay for what you need"
+    title="Service packages"
+    subtitle="Pick a starting point — we will tailor a quote to your build"
     prices={[
       {
-        title: 'basic',
-        subtitle: 'Optimal choice for personal use',
-        price: 29,
-        period: 'per month',
+        title: 'recreational',
+        subtitle: 'For private owners',
+        price: 'from $4,800',
+        period: 'one-time',
         items: [
-          {
-            description: 'Etiam in libero, et volutpat',
-          },
-          {
-            description: 'Aenean ac nunc dolor tristique',
-          },
-          {
-            description: 'Cras scelerisque accumsan lib',
-          },
-          {
-            description: 'In hac habitasse',
-          },
+          { description: 'Standard configuration' },
+          { description: 'Sea-trial handover at our facility' },
+          { description: 'Two-year hull warranty' },
+          { description: 'Lifetime technical support' },
         ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
+        callToAction: { target: '_blank', text: 'Browse recreational boats', href: '/products?category=inflatable' },
       },
       {
-        title: 'standard',
-        subtitle: 'Optimal choice for small teams',
-        price: 69,
-        period: 'Per Month',
+        title: 'commercial',
+        subtitle: 'For working operators',
+        price: 'from $18,500',
+        period: 'one-time',
         items: [
-          {
-            description: 'Proin vel laoreet',
-          },
-          {
-            description: 'Ut efficitur habitasse egestas',
-          },
-          {
-            description: 'Volutpat hac curabitur',
-          },
-          {
-            description: 'Pellentesque blandit ut nibh',
-          },
-          {
-            description: 'Donec fringilla sem',
-          },
+          { description: 'Heavy-duty build options' },
+          { description: 'Custom console and electronics' },
+          { description: 'Three-year commercial warranty' },
+          { description: '48-hour spares guarantee' },
+          { description: 'Operator training included' },
         ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
+        callToAction: { target: '_blank', text: 'Browse RIB boats', href: '/products?category=rib' },
         hasRibbon: true,
         ribbonTitle: 'popular',
       },
       {
-        title: 'premium',
-        subtitle: 'Optimal choice for companies',
-        price: 199,
-        period: 'Per Month',
+        title: 'custom',
+        subtitle: 'For unique projects',
+        price: 'POA',
+        period: 'project-based',
         items: [
-          {
-            description: 'Curabitur suscipit risus',
-          },
-          {
-            description: 'Aliquam habitasse malesuada',
-          },
-          {
-            description: 'Suspendisse sit amet blandit',
-          },
-          {
-            description: 'Suspendisse auctor blandit dui',
-          },
+          { description: 'Naval-architecture design' },
+          { description: 'Engineering review' },
+          { description: 'Milestone-based production' },
+          { description: 'On-site delivery available' },
+          { description: 'Dedicated project manager' },
         ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
+        callToAction: { target: '_blank', text: 'Talk to engineering', href: '/contact' },
       },
     ]}
   />
 
-  <!-- Features3 Widget ************** -->
-
   <Features3
-    title="Price-related features"
-    subtitle="Discover the advantages of choosing our plans"
+    title="What you get on every build"
+    subtitle="Standards, not upgrades."
     columns={2}
     items={[
       {
-        title: 'Tiered Pricing Plans',
-        description: 'Choose from a range of pricing plans designed to accommodate different budgets and requirements.',
-        icon: 'tabler:stairs',
+        title: 'Pressure-tested hull',
+        description: 'Every hull passes a 30-minute pressure test before it leaves the workshop.',
+        icon: 'tabler:gauge',
       },
       {
-        title: 'Transparent Pricing',
-        description: 'Clearly displayed pricing details for each plan, with no hidden costs or unexpected charges.',
-        icon: 'tabler:flip-vertical',
+        title: 'Marine-grade fittings',
+        description: '316 stainless fasteners, brass valves, UV-stable tube fabric.',
+        icon: 'tabler:shield',
       },
       {
-        title: 'Secure Payment Methods',
-        description: 'Secure payment gateways to protect your financial information during transactions.',
-        icon: 'tabler:shield-lock',
+        title: 'Engine matched and rigged',
+        description: 'Outboard engine is matched to hull and pre-rigged at our facility.',
+        icon: 'tabler:engine',
       },
       {
-        title: 'Instant Access',
-        description: `Immediate access to your chosen plan's features and templates upon subscription.`,
-        icon: 'tabler:accessible',
+        title: 'Sea trial report',
+        description: 'Every boat comes with a signed sea-trial report covering performance and safety checks.',
+        icon: 'tabler:clipboard-check',
       },
       {
-        title: 'Upgrade Value',
-        description: 'Upgrade to higher-tier plans to unlock more features and benefits for an enhanced experience.',
-        icon: 'tabler:chevrons-up',
+        title: 'Owner handover pack',
+        description: 'Owner manual, maintenance schedule, parts catalogue and contact card.',
+        icon: 'tabler:book',
       },
       {
-        title: '24H support',
-        description: 'Questions answered via live chat, email or phone, every calendar day.',
-        icon: 'tabler:headset',
+        title: 'Two-year warranty',
+        description: 'Plus lifetime technical support from our engineering team.',
+        icon: 'tabler:certificate',
       },
     ]}
     classes={{ container: 'max-w-5xl' }}
   />
 
-  <!-- Steps Widget ****************** -->
-
   <Steps
-    title="A guided journey from plans to creativity"
-    tagline="simplified process"
+    title="From quote to delivery"
+    tagline="How it works"
     isReversed={true}
     items={[
-      {
-        title: 'Explore plans',
-        icon: 'tabler:number-1',
-      },
-      {
-        title: 'Select a plan',
-        icon: 'tabler:number-2',
-      },
-      {
-        title: 'Sign Up / Log In',
-        icon: 'tabler:number-3',
-      },
-      {
-        title: 'Review order',
-        icon: 'tabler:number-4',
-      },
-      {
-        title: 'Enter payment details',
-        icon: 'tabler:number-5',
-      },
-      {
-        title: 'Confirmation',
-        icon: 'tabler:number-6',
-      },
-      {
-        title: 'Download and start using the template(s)',
-        icon: 'tabler:number-7',
-      },
+      { title: 'Configure or call', icon: 'tabler:number-1' },
+      { title: 'Receive itemised quote', icon: 'tabler:number-2' },
+      { title: 'Confirm and pay deposit', icon: 'tabler:number-3' },
+      { title: 'Production updates by photo', icon: 'tabler:number-4' },
+      { title: 'Sea trial at our facility', icon: 'tabler:number-5' },
+      { title: 'Worldwide delivery', icon: 'tabler:number-6' },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1536816579748-4ecb3f03d72a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
+      src: 'https://images.unsplash.com/photo-1536816579748-4ecb3f03d72a?ixlib=rb-4.0.3&auto=format&fit=crop&w=987&q=80',
+      alt: 'Foida process',
     }}
   />
 
-  <!-- FAQs Widget ******************* -->
-
   <FAQs
     title="Pricing FAQs"
-    subtitle="Choosing the right plan is important, and we're here to answer your questions. If you have queries about our pricing options, you're in the right place."
+    subtitle="The questions we get most often about pricing and payment."
     columns={1}
     items={[
       {
-        title: 'Do the plans come with customer support?',
-        description:
-          'Absolutely, all plans include access to our dedicated customer support to assist you with any queries or concerns.',
+        title: 'Are there hidden fees?',
+        description: 'No. The quote we send itemises the boat, options, engine, freight, customs and tax. There are no extras at delivery.',
       },
       {
-        title: 'Is there a trial period for the different plans?',
-        description:
-          "Unfortunately, we don't offer trial periods for the plans. However, you can check out our demo section to preview the quality of our templates.",
-      },
-      {
-        title: 'Can I switch between plans?',
-        description:
-          'Certainly! You can easily upgrade or downgrade your plan, at any time, to find the one that best suits your evolving requirements.',
+        title: 'Do you offer finance?',
+        description: 'We do not finance directly, but we work with two preferred lenders for commercial operators in the EU, UK and APAC.',
       },
       {
         title: 'What payment methods do you accept?',
-        description:
-          'We accept major credit cards and online payment methods to ensure a convenient and secure transaction process.',
+        description: 'Bank transfer for deposits and balances. Credit cards for deposits up to 10,000 USD.',
       },
       {
-        title: 'Are there any hidden fees beyond the displayed cost?',
-        description:
-          'No, the subscription cost covers all the features and templates listed under each plan. There are no hidden fees or extra charges.',
+        title: 'Can I trade in my old boat?',
+        description: 'Yes, on a case-by-case basis. Send us the make, model, year and current condition for an indicative trade-in value.',
+      },
+      {
+        title: 'Do you charge for quotes?',
+        description: 'Standard configuration quotes are free. Custom-engineering quotes for non-standard builds may carry a small design fee, refundable against the order.',
       },
     ]}
   />
 
-  <!-- CallToAction Widget *********** -->
-
   <CallToAction
-    title="Ready to boost your projects?"
-    subtitle="Join our community of satisfied customers who have transformed their work with our templates."
+    title="Ready to spec your boat?"
+    subtitle="Use the product pages to configure a standard model, or send us a brief for a custom build."
     actions={[
-      {
-        variant: 'primary',
-        text: 'Get started now',
-        href: '/',
-      },
+      { variant: 'primary', text: 'Browse products', href: '/products' },
+      { text: 'Talk to sales', href: '/contact' },
     ]}
   />
 </Layout>

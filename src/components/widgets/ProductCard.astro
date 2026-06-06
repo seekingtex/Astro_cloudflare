@@ -1,0 +1,112 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import type { Product } from '~/types';
+import { findImage } from '~/utils/images';
+import { getPermalink } from '~/utils/permalinks';
+import { getFormattedDate } from '~/utils/utils';
+
+export interface Props {
+  product: Product;
+  showMeta?: boolean;
+  class?: string;
+}
+
+const { product, showMeta = true, class: className = '' } = Astro.props;
+const image = (await findImage(product.image)) as ImageMetadata | string | undefined;
+const link = getPermalink(product.permalink, 'product');
+const priceText = product.price?.amount ? `${product.price.amount}${product.price.currency ? ' ' + product.price.currency : ''}` : null;
+---
+
+<article
+  class={`group relative flex flex-col rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm hover:shadow-lg transition-shadow ${className}`}
+>
+  <a href={link} class="block relative overflow-hidden bg-gray-100 dark:bg-slate-800">
+    {
+      image ? (
+        <Image
+          src={image}
+          alt={product.title}
+          class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+          widths={[320, 480, 768]}
+          width={768}
+          height={432}
+          sizes="(max-width: 768px) 100vw, 33vw"
+          format="webp"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="w-full h-56 flex items-center justify-center text-gray-400 dark:text-slate-600">
+          <Icon name="tabler:photo" class="w-12 h-12" />
+        </div>
+      )
+    }
+    {
+      product.featured && (
+        <span class="absolute top-3 left-3 inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded bg-amber-400 text-amber-950">
+          ★ Featured
+        </span>
+      )
+    }
+    {
+      !product.inStock && (
+        <span class="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded bg-slate-900/90 text-white">
+          Out of stock
+        </span>
+      )
+    }
+  </a>
+
+  <div class="flex-1 flex flex-col p-5">
+    {
+      showMeta && (product.categoryLabel || product.sku) && (
+        <div class="flex items-center justify-between text-xs text-muted dark:text-slate-400 mb-2">
+          {product.categoryLabel && <span class="font-medium uppercase tracking-wider">{product.categoryLabel}</span>}
+          {product.sku && <span class="font-mono">{product.sku}</span>}
+        </div>
+      )
+    }
+
+    <h3 class="text-lg font-bold leading-snug font-heading dark:text-slate-200 mb-2">
+      <a href={link} class="hover:text-primary dark:hover:text-blue-400 transition-colors">
+        {product.title}
+      </a>
+    </h3>
+
+    {product.summary && <p class="text-sm text-muted dark:text-slate-400 line-clamp-3 flex-1">{product.summary}</p>}
+
+    {
+      product.specs && product.specs.length > 0 && (
+        <ul class="mt-3 grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-muted dark:text-slate-400">
+          {product.specs.slice(0, 4).map((s) => (
+            <li class="truncate">
+              <span class="font-medium text-default dark:text-slate-300">{s.label}:</span> {s.value}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="mt-4 flex items-end justify-between border-t border-gray-100 dark:border-slate-800 pt-3">
+      <div>
+        {priceText ? (
+          <div class="text-lg font-bold text-primary dark:text-blue-400">{priceText}</div>
+        ) : (
+          <div class="text-sm text-muted dark:text-slate-400">Contact for price</div>
+        )}
+        {priceText && product.price?.note && (
+          <div class="text-xs text-muted dark:text-slate-500">{product.price.note}</div>
+        )}
+      </div>
+      <a
+        href={link}
+        class="inline-flex items-center gap-1 text-sm font-semibold text-primary dark:text-blue-400 hover:underline"
+      >
+        View details
+        <Icon name="tabler:arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</article>

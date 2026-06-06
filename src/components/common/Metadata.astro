@@ -87,26 +87,37 @@ const mergedTwitter = merge(
     : {}
 );
 
+// noindex / nofollow: only emit true when the user explicitly opts out.
+// If a page passes `robots: { index: false }` we honour that. Otherwise we
+// fall back to the global default in config.yaml (which we treat as the
+// safe "do index" baseline).
+const resolveNoindex = (): boolean => {
+  if (typeof robots?.index === 'boolean') return !robots.index;
+  if (typeof METADATA?.robots?.index === 'boolean') return !METADATA.robots.index;
+  return false;
+};
+const resolveNofollow = (): boolean => {
+  if (typeof robots?.follow === 'boolean') return !robots.follow;
+  if (typeof METADATA?.robots?.follow === 'boolean') return !METADATA.robots.follow;
+  return false;
+};
+
 const seoProps: SEOProps = {
   title: title || METADATA?.title?.default || '',
   titleTemplate: ignoreTitleTemplate ? '%s' : METADATA?.title?.template || '%s',
   canonical: canonical,
-  noindex:
-    typeof robots?.index !== 'undefined'
-      ? !robots.index
-      : typeof METADATA?.robots?.index !== 'undefined'
-        ? !METADATA.robots.index
-        : true,
-  nofollow:
-    typeof robots?.follow !== 'undefined'
-      ? !robots.follow
-      : typeof METADATA?.robots?.follow !== 'undefined'
-        ? !METADATA.robots.follow
-        : true,
+  noindex: resolveNoindex(),
+  nofollow: resolveNofollow(),
   description: description || METADATA?.description,
   openGraph: buildOpenGraph(adaptedOg),
   twitter: mergedTwitter,
   surpressWarnings: true,
+  extend: {
+    meta: [
+      { name: 'theme-color', content: '#0f172a' },
+      { name: 'format-detection', content: 'telephone=no' },
+    ],
+  },
 };
 ---
 

@@ -1,0 +1,274 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import merge from 'lodash.merge';
+import Layout from '~/layouts/PageLayout.astro';
+import ProductCard from '~/components/widgets/ProductCard.astro';
+import ToBlogLink from '~/components/blog/ToBlogLink.astro';
+
+import { findRelatedProducts, getStaticPathsProduct } from '~/utils/products';
+import { findImage } from '~/utils/images';
+import { SITE, APP_BLOG } from 'astrowind:config';
+import { getCanonical, getPermalink } from '~/utils/permalinks';
+import type { MetaData } from '~/types';
+
+export const prerender = true;
+
+export const getStaticPaths = getStaticPathsProduct;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { product } = Astro.props as Props;
+const url = getCanonical(getPermalink(product.permalink, 'product'));
+const image = await findImage(product.image);
+const gallery = await Promise.all(
+  (product.gallery ?? []).map(async (g) => ({
+    raw: await findImage(g.url),
+    alt: g.alt || product.title,
+  }))
+);
+const related = await findRelatedProducts(product, 3);
+
+const metadata = merge(
+  {
+    title: product.title,
+    description: product.summary ?? product.description,
+    canonical: url,
+    robots: { index: !product.draft, follow: true },
+    openGraph: {
+      type: 'website',
+      ...(image
+        ? { images: [{ url: image, width: 1200, height: 630 }] }
+        : {}),
+    },
+  },
+  product.metadata ? { ...product.metadata, canonical: product.metadata.canonical || url } : {}
+) as MetaData;
+
+const specRows = product.specs ?? [];
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.title,
+  description: product.summary ?? product.description,
+  sku: product.sku,
+  image: image ? String(image) : undefined,
+  brand: { '@type': 'Brand', name: SITE.name },
+  category: product.categoryLabel,
+  ...(product.price?.amount
+    ? {
+        offers: {
+          '@type': 'Offer',
+          price: product.price.amount,
+          priceCurrency: product.price.currency || 'USD',
+          availability: product.inStock
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+        },
+      }
+    : {}),
+};
+---
+
+<Layout metadata={metadata}>
+  <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+
+  <article class="px-4 sm:px-6 py-8 sm:py-12 lg:py-16 mx-auto max-w-6xl">
+    <nav class="text-sm text-muted dark:text-slate-400 mb-4" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 flex-wrap">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/products" class="hover:underline">Products</a></li>
+        {product.categoryLabel && (
+          <>
+            <li aria-hidden="true">/</li>
+            <li>
+              <a href={`/products?category=${product.category}`} class="hover:underline">
+                {product.categoryLabel}
+              </a>
+            </li>
+          </>
+        )}
+        <li aria-hidden="true">/</li>
+        <li class="text-default dark:text-slate-200 font-medium truncate max-w-[200px] sm:max-w-none">{product.title}</li>
+      </ol>
+    </nav>
+
+    <header class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-10">
+      <div class="rounded-xl overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-lg">
+        {
+          image ? (
+            <Image
+              src={image}
+              alt={product.title}
+              class="w-full h-auto"
+              widths={[480, 768, 1024]}
+              width={1024}
+              height={768}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              format="webp"
+              loading="eager"
+              decoding="async"
+            />
+          ) : (
+            <div class="aspect-[4/3] flex items-center justify-center text-gray-400">
+              <Icon name="tabler:photo" class="w-16 h-16" />
+            </div>
+          )
+        }
+      </div>
+
+      <div>
+        <div class="flex items-center gap-2 text-sm text-muted dark:text-slate-400 mb-3">
+          {product.categoryLabel && (
+            <span class="font-medium uppercase tracking-wider text-primary dark:text-blue-400">
+              {product.categoryLabel}
+            </span>
+          )}
+          {product.sku && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span class="font-mono">SKU {product.sku}</span>
+            </>
+          )}
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold leading-tight tracking-tight font-heading mb-4">
+          {product.title}
+        </h1>
+
+        {product.summary && (
+          <p class="text-lg text-muted dark:text-slate-300 mb-6">{product.summary}</p>
+        )}
+
+        {product.description && (
+          <p class="text-base text-default dark:text-slate-300 mb-6 whitespace-pre-line">{product.description}</p>
+        )}
+
+        <div class="flex items-end gap-4 mb-6">
+          {product.price?.amount ? (
+            <div>
+              <div class="text-3xl font-bold text-primary dark:text-blue-400">
+                {product.price.amount}
+                {product.price.currency && <span class="text-base font-medium ml-1">{product.price.currency}</span>}
+              </div>
+              {product.price.note && (
+                <div class="text-sm text-muted dark:text-slate-400 mt-1">{product.price.note}</div>
+              )}
+            </div>
+          ) : (
+            <div class="text-lg text-muted dark:text-slate-400">Contact for pricing</div>
+          )}
+          <div
+            class:list={[
+              'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium',
+              product.inStock
+                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+            ]}
+          >
+            <Icon
+              name={product.inStock ? 'tabler:circle-check-filled' : 'tabler:circle-x'}
+              class="w-4 h-4"
+            />
+            {product.inStock ? 'In stock' : 'Out of stock'}
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href={`/contact?product=${encodeURIComponent(product.title)}`}
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-white font-semibold shadow-sm hover:bg-primary/90 dark:bg-blue-500 dark:hover:bg-blue-600"
+          >
+            <Icon name="tabler:message-circle" class="w-5 h-5" />
+            Request a quote
+          </a>
+          {APP_BLOG.isEnabled && (
+            <a
+              href="/blog"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-gray-300 dark:border-slate-700 text-default dark:text-slate-200 font-semibold hover:bg-gray-50 dark:hover:bg-slate-800"
+            >
+              <Icon name="tabler:book-2" class="w-5 h-5" />
+              Read the journal
+            </a>
+          )}
+        </div>
+      </div>
+    </header>
+
+    {
+      specRows.length > 0 && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold tracking-tight font-heading mb-4">Specifications</h2>
+          <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-slate-800">
+            <table class="w-full text-left text-sm">
+              <tbody class="divide-y divide-gray-200 dark:divide-slate-800">
+                {specRows.map((s) => (
+                  <tr>
+                    <th class="px-4 py-3 font-medium text-default dark:text-slate-200 bg-gray-50 dark:bg-slate-800/50 w-1/3">
+                      {s.label}
+                    </th>
+                    <td class="px-4 py-3 text-default dark:text-slate-300">{s.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )
+    }
+
+    {
+      gallery.length > 0 && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold tracking-tight font-heading mb-4">Gallery</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {gallery.map((g) => (
+              <div class="rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-800 aspect-[4/3]">
+                {g.raw && (
+                  <Image
+                    src={g.raw}
+                    alt={g.alt}
+                    class="w-full h-full object-cover"
+                    widths={[320, 480]}
+                    width={480}
+                    height={360}
+                    format="webp"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      product.Content && (
+        <section class="mx-auto max-w-3xl mb-12">
+          <div
+            class="mx-auto prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg"
+          >
+            <product.Content />
+          </div>
+        </section>
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <section class="mt-16 pt-10 border-t border-gray-200 dark:border-slate-800">
+          <h2 class="text-2xl font-bold tracking-tight font-heading mb-6">Related products</h2>
+          <div class="grid gap-6 md:grid-cols-3">
+            {related.map((p) => <ProductCard product={p} showMeta={false} />)}
+          </div>
+        </section>
+      )
+    }
+  </article>
+
+  <ToBlogLink />
+</Layout>

@@ -22,3 +22,9 @@ pnpm-debug.log*
 pnpm-lock.yaml
 
 .astro
+
+# wrangler local cache
+.wrangler/
+
+# keystatic local cache (created on first admin load)
+.keystatic/

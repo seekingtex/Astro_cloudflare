@@ -1,6 +1,11 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { HTMLAttributes, ImageMetadata } from 'astro/types';
 
+declare module '*.json' {
+  const value: any;
+  export default value;
+}
+
 export interface Post {
   /** Unique ID identifying the post. */
   id: string;
@@ -35,6 +40,48 @@ export interface Post {
 export interface Taxonomy {
   slug: string;
   title: string;
+}
+
+export type ProductCategory = 'rib' | 'inflatable' | 'accessory' | 'service';
+
+export interface ProductSpec {
+  label: string;
+  value: string;
+}
+
+export interface ProductGalleryImage {
+  url: string;
+  alt?: string;
+}
+
+export interface ProductPrice {
+  amount?: string;
+  currency?: string;
+  note?: string;
+}
+
+export interface Product {
+  id: string;
+  slug: string;
+  permalink: string;
+  publishDate: Date;
+  title: string;
+  sku?: string;
+  summary?: string;
+  description?: string;
+  image?: string;
+  gallery?: ProductGalleryImage[];
+  category?: ProductCategory;
+  categoryLabel?: string;
+  tags?: Taxonomy[];
+  specs?: ProductSpec[];
+  price?: ProductPrice;
+  inStock: boolean;
+  featured: boolean;
+  draft: boolean;
+  metadata?: MetaData;
+  Content?: AstroComponentFactory;
+  readingTime?: number;
 }
 
 export interface MetaData {

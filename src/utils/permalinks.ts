@@ -1,6 +1,6 @@
 import slugify from 'limax';
 
-import { SITE, APP_BLOG } from 'astrowind:config';
+import { SITE, APP_BLOG, APP_PRODUCTS } from 'astrowind:config';
 
 import { trim } from '~/utils/utils';
 
@@ -25,7 +25,10 @@ export const BLOG_BASE = cleanSlug(APP_BLOG?.list?.pathname);
 export const CATEGORY_BASE = cleanSlug(APP_BLOG?.category?.pathname);
 export const TAG_BASE = cleanSlug(APP_BLOG?.tag?.pathname) || 'tag';
 
+export const PRODUCT_LIST = cleanSlug(APP_PRODUCTS?.list?.pathname) || 'products';
+
 export const POST_PERMALINK_PATTERN = trimSlash(APP_BLOG?.post?.permalink || `${BLOG_BASE}/%slug%`);
+export const PRODUCT_PERMALINK_PATTERN = trimSlash(APP_PRODUCTS?.product?.permalink || `${PRODUCT_LIST}/%slug%`);
 
 /** */
 export const getCanonical = (path = ''): string | URL => {
@@ -77,6 +80,10 @@ export const getPermalink = (slug = '', type = 'page'): string => {
       permalink = createPath(trimSlash(slug));
       break;
 
+    case 'product':
+      permalink = createPath(trimSlash(slug));
+      break;
+
     case 'page':
     default:
       permalink = createPath(slug);
@@ -122,6 +129,8 @@ export const applyGetPermalinks = (menu: unknown = {}): unknown => {
             result[key] = getHomePermalink();
           } else if (href.type === 'blog') {
             result[key] = getBlogPermalink();
+          } else if (href.type === 'products') {
+            result[key] = getPermalink(PRODUCT_LIST);
           } else if (href.type === 'asset') {
             result[key] = getAsset(href.url ?? '');
           } else if (href.url) {

@@ -3,21 +3,21 @@ import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
+import { SITE } from 'astrowind:config';
 
 const metadata = {
-  title: 'Contact',
+  title: `Contact ${SITE.name}`,
+  description: `Get in touch with ${SITE.name} — sales, support and partnership enquiries answered within one business day.`,
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
-
-  <HeroText tagline="Contact" title="Let's Connect!" />
+  <HeroText tagline="Contact" title="Let's talk boats." />
 
   <ContactUs
     id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
+    title="Send us a message"
+    subtitle="For quotes, technical questions or partnership enquiries, drop us a line. We reply within one business day."
     inputs={[
       {
         type: 'text',
@@ -29,49 +29,52 @@ const metadata = {
         name: 'email',
         label: 'Email',
       },
+      {
+        type: 'text',
+        name: 'subject',
+        label: 'Subject',
+      },
     ]}
     textarea={{
       label: 'Message',
     }}
     disclaimer={{
-      label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
+      label: 'By submitting this form, you agree to be contacted about your enquiry. We will not use your details for marketing.',
     }}
-    description="Our support team typically responds within 24 business hours."
+    description="Mon–Fri, 09:00–18:00 (local time). We respond within one business day."
   />
 
-  <!-- Features2 Widget ************** -->
-
   <Features2
-    title="We are here to help!"
+    title="Other ways to reach us"
     items={[
       {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
+        title: 'Sales enquiries',
+        description: 'Quotes, configurations, dealer applications and bulk orders.',
+        icon: 'tabler:shopping-bag',
       },
       {
         title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
+        description: 'Warranty, repairs, spare parts and operating questions.',
+        icon: 'tabler:wrench',
+      },
+      {
+        title: 'Press & partnerships',
+        description: 'Media kits, sponsorship and industry collaboration.',
+        icon: 'tabler:news',
       },
       {
         title: 'Phone',
-        description: '+1 (234) 567-890',
+        description: '+1 (555) 010-3300',
         icon: 'tabler:headset',
       },
       {
         title: 'Email',
-        description: 'contact@support.com',
+        description: 'hello@foida.example',
         icon: 'tabler:mail',
       },
       {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
+        title: 'Headquarters',
+        description: 'Coastal industrial park, building 4, EU time zone',
         icon: 'tabler:map-pin',
       },
     ]}

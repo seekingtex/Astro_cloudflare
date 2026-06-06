@@ -32,7 +32,7 @@ import { findImage } from '~/utils/images';
 type Layout = 'constrained' | 'responsive' | 'fullWidth' | 'fixed' | 'cover';
 type Format = 'avif' | 'jpeg' | 'jpg' | 'png' | 'webp';
 
-interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
+export interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
   src?: string | ImageMetadata | null;
   width?: number | string;
   height?: number | string;

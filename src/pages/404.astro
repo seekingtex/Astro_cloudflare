@@ -1,23 +1,33 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import { getHomePermalink } from '~/utils/permalinks';
+import { SITE } from 'astrowind:config';
 
-const title = `Error 404`;
+const title = `Page not found — ${SITE.name}`;
+const description = 'Sorry, the page you are looking for has drifted out to sea. Use the links below to find your way back.';
 ---
 
-<Layout metadata={{ title }}>
-  <section class="flex items-center h-full p-16">
-    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-      <div class="max-w-md text-center">
-        <h2 class="mb-8 font-bold text-9xl">
+<Layout
+  metadata={{
+    title,
+    description,
+    robots: { index: false, follow: false },
+  }}
+>
+  <section class="flex items-center min-h-[60vh] p-8">
+    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8 text-center">
+      <div class="max-w-md">
+        <h1 class="mb-4 font-black text-9xl">
           <span class="sr-only">Error</span>
-          <span class="text-primary">404</span>
-        </h2>
-        <p class="text-3xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          But don't worry, you can find plenty of other things on our homepage.
-        </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Back to homepage</a>
+          <span class="text-primary dark:text-blue-400">404</span>
+        </h1>
+        <p class="mb-2 text-2xl font-semibold md:text-3xl">Lost at sea.</p>
+        <p class="mt-2 mb-8 text-lg text-muted dark:text-slate-400">{description}</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a class="btn btn-primary" href={getHomePermalink()}>Back to homepage</a>
+          <a class="btn" href="/products">Browse products</a>
+          <a class="btn" href="/blog">Read the blog</a>
+        </div>
       </div>
     </div>
   </section>
