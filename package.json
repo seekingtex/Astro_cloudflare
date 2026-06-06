@@ -1,5 +1,5 @@
 {
-  "name": "@onwidget/astrowind",
+  "name": "foida-website",
   "version": "1.0.0-beta.63",
   "description": "AstroWind: A free template using Astro 6 and Tailwind CSS v4. Astro starter theme.",
   "type": "module",
