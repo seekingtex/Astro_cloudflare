@@ -5,7 +5,7 @@ contact_form:
   id: form
   title: Send us a message
   subtitle: For quotes, technical questions or partnership enquiries, drop us a line. We reply within one business day.
-  email_to: hello@vectoflare.example
+  email_to: hello@vectoflare.com
   submit_button: Send message
   success_message: Thanks! Your message has landed in our inbox. We will reply within one business day.
   error_message: Something went wrong sending your message. Please try again or email us directly.
