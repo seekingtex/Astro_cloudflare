@@ -108,6 +108,16 @@ export const PAGES: PageSpec[] = [
       { key: 'map', type: 'map', label: 'Google Maps Location' },
     ],
   },
+  {
+    slug: 'news',
+    label: 'News',
+    path: '/news',
+    permalink: '/news',
+    file: 'src/data/pages/news.yaml',
+    sections: [
+      { key: 'hero_text', type: 'hero_text', label: 'Page Header (title, subtitle, tagline)' },
+    ],
+  },
 ];
 
 export const PAGE_BY_SLUG: Record<string, PageSpec> = Object.fromEntries(
