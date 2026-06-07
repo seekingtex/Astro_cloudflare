@@ -47,14 +47,14 @@ apps:
 
     post:
       isEnabled: true
-      permalink: '/blog/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: '/news/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
       robots:
         index: true
         follow: true
 
     list:
       isEnabled: true
-      pathname: 'blog' # Blog main path; change to "articles" if you prefer /articles
+      pathname: 'news' # News main path
       robots:
         index: true
         follow: true

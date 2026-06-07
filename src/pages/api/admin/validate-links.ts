@@ -5,7 +5,7 @@ import { shouldScanPath } from '~/lib/link-refactor';
 
 export const prerender = false;
 
-const STATIC_PAGES = new Set(['/', '/about', '/services', '/pricing', '/contact', '/blog', '/products', '/terms', '/privacy', '/keystatic', '/login', '/rss.xml', '/sitemap-index.xml', '/search-index.json']);
+const STATIC_PAGES = new Set(['/', '/about', '/services', '/pricing', '/contact', '/news', '/products', '/terms', '/privacy', '/keystatic', '/login', '/rss.xml', '/sitemap-index.xml', '/search-index.json']);
 const PAGE_SLUG_RE = /^\/(blog|products|category|tag)\/[^/?#]+/;
 
 const HREF_PATTERNS: RegExp[] = [
@@ -71,7 +71,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   for (const t of tree) {
     if (t.path.startsWith('src/data/post/') && /\.(md|mdx)$/i.test(t.path)) {
       const slug = t.path.replace(/^src\/data\/post\//, '').replace(/\.(md|mdx)$/i, '');
-      known.add(`/blog/${slug}`);
+      known.add(`/news/${slug}`);
     } else if (t.path.startsWith('src/data/product/') && /\.(md|mdx)$/i.test(t.path)) {
       const slug = t.path.replace(/^src\/data\/product\//, '').replace(/\.(md|mdx)$/i, '');
       known.add(`/products/${slug}`);

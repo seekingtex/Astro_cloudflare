@@ -44,7 +44,7 @@ export const GET: APIRoute = async () => {
       const fm: any = post.data;
       items.push({
         title: fm.title || 'Untitled',
-        url: `${SITE}/blog/${post.id.replace(/\.(md|mdx)$/i, '')}`,
+        url: `${SITE}/news/${post.id.replace(/\.(md|mdx)$/i, '')}`,
         excerpt: excerpt(fm.excerpt || fm.description || stripHtml(body)),
         type: 'post',
         tags: fm.tags || [],

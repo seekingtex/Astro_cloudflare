@@ -29,10 +29,8 @@ header:
           href: /pricing
     - text: Resources
       links:
-        - text: Blog
-          href: /blog
         - text: Latest Article
-          href: /blog/get-started-website-with-astro-tailwind-css
+          href: /news/get-started-website-with-astro-tailwind-css
         - text: Categories
           href: /category/tutorials
         - text: Tags
@@ -40,7 +38,7 @@ header:
     - text: Support
       links:
         - text: News
-          href: /blog
+          href: /news
         - text: Contact
           href: /contact
         - text: About
@@ -72,13 +70,13 @@ footer:
     - title: Resources
       links:
         - text: Blog
-          href: /blog
+          href: /news
         - text: Login
           href: /login
     - title: Support
       links:
         - text: News
-          href: /blog
+          href: /news
         - text: Contact
           href: /contact
         - text: About
