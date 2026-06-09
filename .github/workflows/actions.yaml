@@ -47,12 +47,28 @@ jobs:
         run: |
           set +e
           cd dist/server
-          # strip absolute Windows paths from generated wrangler.json
+          # strip absolute Windows paths
           node -e "
             const c = require('./wrangler.json');
             delete c.configPath; delete c.userConfigPath;
             require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c));
           "
+          # get existing KV namespace ID (if any) and inject so wrangler doesn't try to create it
+          KV_ID=$(yarn wrangler kv namespace list 2>/dev/null | node -e "
+            let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
+              try { const list=JSON.parse(d); const ns=list.find(n=>n.title==='vectoflare-${{ matrix.locale }}-session'); if(ns) process.stdout.write(ns.id); } catch(e){} 
+            })
+          ")
+          if [ -n "$KV_ID" ]; then
+            node -e "
+              const c = require('./wrangler.ci.json');
+              const kv = c.kv_namespaces || [];
+              const idx = kv.findIndex(e => e.binding === 'SESSION');
+              if (idx >= 0) { kv[idx].id = '$KV_ID'; }
+              c.kv_namespaces = kv;
+              require('fs').writeFileSync('wrangler.ci.json', JSON.stringify(c));
+            "
+          fi
           yarn wrangler deploy --config wrangler.ci.json --name vectoflare-${{ matrix.locale }} > /tmp/deploy-${{ matrix.locale }}.log 2>&1
           rc=$?; cat /tmp/deploy-${{ matrix.locale }}.log; exit $rc
         env:
