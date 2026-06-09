@@ -17,9 +17,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-      - run: npm ci
-      - run: npm run check
+          cache: yarn
+      - run: yarn install --immutable
+      - run: yarn run check
 
   build-and-deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -34,11 +34,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-      - run: npm ci
+          cache: yarn
+      - run: yarn install --immutable
 
       - name: Build (${{ matrix.locale }})
-        run: npm run build
+        run: yarn run build
         env:
           SITE_LOCALE: ${{ matrix.locale }}
 
