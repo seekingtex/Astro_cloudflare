@@ -26,6 +26,7 @@ jobs:
     needs: [check-astro]
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         locale: [en, fr, de, es, pt, zh]
     runs-on: ubuntu-latest
@@ -44,23 +45,14 @@ jobs:
 
       - name: Deploy to Cloudflare Workers (${{ matrix.locale }})
         run: |
-          set +e
           cd dist/server
-          echo '{"main":"entry.mjs","no_bundle":true,"assets":{"directory":"../client","binding":"ASSETS"},"compatibility_date":"2026-06-05","compatibility_flags":["nodejs_compat"],"kv_namespaces":[{"binding":"SESSION"}],"images":{"binding":"IMAGES"},"vars":{"NODE_ENV":"development"}}' > wrangler.ci.json
-          yarn wrangler deploy --config wrangler.ci.json --name vectoflare-${{ matrix.locale }} > /tmp/deploy-${{ matrix.locale }}.log 2>&1
-          rc=$?
-          cat /tmp/deploy-${{ matrix.locale }}.log
-          exit $rc
+          cat > wrangler.ci.json << 'EOF'
+          {"main":"entry.mjs","no_bundle":true,"assets":{"directory":"../client","binding":"ASSETS"},"compatibility_date":"2026-06-05","compatibility_flags":["nodejs_compat"],"kv_namespaces":[{"binding":"SESSION"}],"images":{"binding":"IMAGES"},"vars":{"NODE_ENV":"development"}}
+          EOF
+          yarn wrangler deploy --config wrangler.ci.json --name vectoflare-${{ matrix.locale }}
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      - name: Upload deploy log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: deploy-log-${{ matrix.locale }}
-          path: /tmp/deploy-${{ matrix.locale }}.log
 
       - name: Set SESSION_SECRET on Worker (${{ matrix.locale }})
         run: |
