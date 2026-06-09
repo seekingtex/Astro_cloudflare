@@ -42,32 +42,22 @@ jobs:
         env:
           SITE_LOCALE: ${{ matrix.locale }}
 
-      - name: Debug before deploy (${{ matrix.locale }})
-        run: |
-          yarn wrangler --version
-          ls -la dist/server/
-          echo "--- entry.mjs exists ---"
-          test -f dist/server/entry.mjs && echo "YES" || echo "NO"
-          echo "--- wrangler.json ---"
-          cat dist/server/wrangler.json
-          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then echo "ACCOUNT_ID: MISSING"; else echo "ACCOUNT_ID: set (${#CLOUDFLARE_ACCOUNT_ID} chars)"; fi
-          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "API_TOKEN: MISSING"; else echo "API_TOKEN: set (${#CLOUDFLARE_API_TOKEN} chars)"; fi
-
       - name: Deploy to Cloudflare Workers (${{ matrix.locale }})
         run: |
-          yarn wrangler deploy \
-            --config dist/server/wrangler.json \
-            --name vectoflare-${{ matrix.locale }} 2>&1
+          cd dist/server && \
+          echo '{"main":"entry.mjs","no_bundle":true,"assets":{"directory":"../client","binding":"ASSETS"},"compatibility_date":"2026-06-05","compatibility_flags":["nodejs_compat"],"kv_namespaces":[{"binding":"SESSION"}],"images":{"binding":"IMAGES"},"vars":{"NODE_ENV":"development"}}' > wrangler.ci.json && \
+          yarn wrangler deploy --config wrangler.ci.json --name vectoflare-${{ matrix.locale }} 2>&1
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Set SESSION_SECRET on Worker (${{ matrix.locale }})
         run: |
+          cd dist/server && \
           echo "${{ secrets.SESSION_SECRET }}" | \
-            npx wrangler secret put SESSION_SECRET \
-              --name vectoflare-${{ matrix.locale }}
+            yarn wrangler secret put SESSION_SECRET \
+              --config wrangler.ci.json \
+              --name vectoflare-${{ matrix.locale }} 2>&1
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
