@@ -30,7 +30,6 @@ function yamlPlugin(): Plugin {
     async load(id) {
       if (!id.endsWith('.yaml') && !id.endsWith('.yml')) return null;
       const clean = id.split('?')[0];
-      // Check for locale-specific page data: src/data/pages/{locale}/filename.yaml
       if (locale !== 'en') {
         const pagesMatch = clean.match(/[/\\]data[/\\]pages[/\\](.+\.ya?ml)$/);
         if (pagesMatch) {

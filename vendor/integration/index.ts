@@ -5,6 +5,11 @@ import type { AstroConfig, AstroIntegration } from 'astro';
 import configBuilder, { type Config } from './utils/configBuilder';
 import loadConfig from './utils/loadConfig';
 
+function deriveLocale(configPath: string): string | undefined {
+  const match = configPath.match(/config\.([a-z]{2})\.ya?ml$/);
+  return match ? match[1] : undefined;
+}
+
 export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegration => {
   let cfg: AstroConfig;
   return {
@@ -23,6 +28,12 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
         const resolvedVirtualModuleId = '\0' + virtualModuleId;
 
         const merged = (await loadConfig(_themeConfig)) as Config;
+
+        const derivedLocale = typeof _themeConfig === 'string' ? deriveLocale(_themeConfig) : undefined;
+        if (derivedLocale) {
+          merged.i18n = merged.i18n || {};
+          merged.i18n.language = derivedLocale;
+        }
 
         const { SITE, I18N, METADATA, APP_BLOG, APP_PRODUCTS, UI, ANALYTICS, SITE_SETTINGS } =
           configBuilder(merged);
