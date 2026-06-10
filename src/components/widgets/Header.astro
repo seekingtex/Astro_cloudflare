@@ -309,7 +309,7 @@ Type a keyword to start searching
   </div>
 </div>
 
-<script set:html={`var SITE_LOCALE='${currentLocale}';`}></script>
+<meta name="x-locale" content={currentLocale} />
 <script is:inline data-astro-rerun>
   (function () {
     function setupLangSwitcher(switcher, btnSel, menuSel, labelSel) {
@@ -320,7 +320,11 @@ Type a keyword to start searching
       if (!btn || !menu) return null;
 
       btn.setAttribute('aria-expanded', 'false');
-      if (label) label.textContent = (typeof SITE_LOCALE !== 'undefined' ? SITE_LOCALE : 'en').toUpperCase();
+      if (label) {
+        const meta = document.querySelector('meta[name="x-locale"]');
+        const locale = meta ? meta.getAttribute('content') : 'en';
+        label.textContent = locale.toUpperCase();
+      }
 
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
