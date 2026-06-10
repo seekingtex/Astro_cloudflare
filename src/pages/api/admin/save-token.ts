@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
   try {
     const user = await client.verifyToken();
-    const repoRes = await fetch('https://api.github.com/repos/theworkvigour/astro_Tina-CMS', {
+    const repoRes = await fetch('https://api.github.com/repos/theworkvigour/Astro_cloudflare', {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/vnd.github.v3+json',
@@ -44,7 +44,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       },
     });
     if (!repoRes.ok) {
-      return errorResponse('Token does not have access to theworkvigour/astro_Tina-CMS repo', 400, {
+      return errorResponse('Token does not have access to theworkvigour/Astro_cloudflare repo', 400, {
         repoStatus: repoRes.status,
       });
     }

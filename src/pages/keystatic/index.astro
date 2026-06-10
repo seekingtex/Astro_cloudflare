@@ -63,7 +63,7 @@ if (token) {
           <div class="text-sm font-medium text-green-900 dark:text-green-200">
             Connected as <span class="font-mono">{githubUser.login}</span>
           </div>
-          <div class="text-xs text-green-700 dark:text-green-400">All changes are committed to theworkvigour/astro_Tina-CMS</div>
+          <div class="text-xs text-green-700 dark:text-green-400">All changes are committed to theworkvigour/Astro_cloudflare</div>
         </div>
       </div>
       <a href="/keystatic/github-token" class="text-sm text-green-800 dark:text-green-300 hover:underline">Change Token</a>
@@ -133,7 +133,7 @@ if (token) {
     <ul class="mt-3 text-sm text-gray-600 dark:text-gray-300 space-y-1 list-disc list-inside">
       <li>All changes are pushed via GitHub API to the <code class="font-mono">main</code> branch; Cloudflare auto-triggers rebuild</li>
       <li>Blog and product pages update immediately after deploy (typically 1-2 minutes)</li>
-      <li>History & rollback: check the <a class="text-blue-600 hover:underline" href="https://github.com/theworkvigour/astro_Tina-CMS/commits/main/src/data" target="_blank" rel="noopener">commit history</a> in GitHub</li>
+      <li>History & rollback: check the <a class="text-blue-600 hover:underline" href="https://github.com/theworkvigour/Astro_cloudflare/commits/main/src/data" target="_blank" rel="noopener">commit history</a> in GitHub</li>
       <li>Global site settings (SEO defaults, organization info) live in <code class="font-mono">src/config.yaml</code> in the repo</li>
       <li>Per-locale builds: set <code class="font-mono">SITE_LOCALE</code> env var (en/fr/de/es/pt/zh) to generate locale-specific output</li>
       <li>Multilingual content (<code class="font-mono">src/content/*/index.json</code>) can be edited directly in GitHub or via a local <code class="font-mono">npx keystatic dev</code> session</li>

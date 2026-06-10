@@ -243,7 +243,7 @@ const map = {
 export default config({
   storage: {
     kind: 'github',
-    repo: 'theworkvigour/astro_Tina-CMS',
+    repo: 'theworkvigour/Astro_cloudflare',
   },
   singletons: {
     homepage: singleton({

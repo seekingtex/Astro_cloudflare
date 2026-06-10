@@ -45,7 +45,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       });
     }
 
-    const repo = 'theworkvigour/astro_Tina-CMS';
+    const repo = 'theworkvigour/Astro_cloudflare';
     const branch = 'main';
     const filePath = 'src/data/admin-auth.json';
     const githubToken = (import.meta.env as any).GITHUB_TOKEN;

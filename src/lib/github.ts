@@ -33,7 +33,7 @@ export interface CommitResult {
 }
 
 const REPO_OWNER = 'theworkvigour';
-const REPO_NAME = 'astro_Tina-CMS';
+const REPO_NAME = 'Astro_cloudflare';
 const DEFAULT_BRANCH = 'main';
 const COMMIT_AUTHOR_NAME = 'Vectoflare Admin';
 const COMMIT_AUTHOR_EMAIL = 'admin@vectoflare.local';
