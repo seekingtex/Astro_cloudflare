@@ -352,6 +352,7 @@ Type a keyword to start searching
         }
 
         // parts.length >= 3 means there's a subdomain (e.g. "en.alluredna.com")
+        // parts.length === 2 means bare apex domain (e.g. "alluredna.com")
         // Replace the subdomain part with the target locale
         if (parts.length >= 3) {
           if (parts[0].indexOf('vectoflare-') === 0) {
@@ -359,11 +360,11 @@ Type a keyword to start searching
           } else {
             parts[0] = locale;
           }
-          window.location.href = window.location.protocol + '//' + parts.join('.') + path;
         } else {
-          // Bare domain or unknown: fall back to path-based
-          window.location.href = window.location.origin + '/' + locale + path;
+          // Bare domain: prepend locale as subdomain
+          parts.unshift(locale);
         }
+        window.location.href = window.location.protocol + '//' + parts.join('.') + path;
       });
 
       return { btn, menu, label };
