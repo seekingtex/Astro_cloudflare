@@ -11,12 +11,12 @@ import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import ProductGrid from '~/components/widgets/ProductGrid.astro';
-import { SITE, APP_PRODUCTS } from 'astrowind:config';
+import { SITE, APP_PRODUCTS, I18N } from 'astrowind:config';
 import { getProducts } from '~/utils/products';
 
 import yamlData from '~/data/pages/home.yaml';
 
-const locale = process.env.SITE_LOCALE || 'en';
+const locale = I18N?.language || 'en';
 const homepageEntry = await getEntry('homepage', 'index');
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ksData = (homepageEntry?.data as any)?.[locale] || (homepageEntry?.data as any)?.['en'] || {};

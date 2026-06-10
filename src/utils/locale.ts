@@ -1,10 +1,11 @@
 import { getEntry } from 'astro:content';
+import { I18N } from 'astrowind:config';
 
 export const AVAILABLE_LOCALES = ['en', 'fr', 'de', 'es', 'pt', 'zh'] as const;
 export type Locale = (typeof AVAILABLE_LOCALES)[number];
 
 export function getLocale(): Locale {
-  return (process.env.SITE_LOCALE as Locale) || 'en';
+  return (I18N?.language as Locale) || 'en';
 }
 
 type DeepRecord = Record<string, unknown>;

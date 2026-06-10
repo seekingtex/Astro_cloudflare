@@ -92,3 +92,50 @@ jobs:
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Map custom domain ${{ matrix.locale }}.alluredna.com → vectoflare-${{ matrix.locale }}
+        if: ${{ vars.CUSTOM_DOMAIN == 'true' }}
+        run: |
+          DOMAIN="${{ matrix.locale }}.alluredna.com"
+          WORKER="vectoflare-${{ matrix.locale }}"
+          API="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains"
+
+          # find existing entry for this hostname
+          EXISTING=$(curl -s -X GET "$API" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" | node -e "
+            let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
+              try {
+                const r = JSON.parse(d);
+                const m = (r.result||[]).find(e => e.hostname === '$DOMAIN');
+                if (m) process.stdout.write(m.id);
+              } catch(e){}
+            })
+          ")
+
+          if [ -n "$EXISTING" ]; then
+            echo "Updating existing domain mapping $DOMAIN → $WORKER (id=$EXISTING)"
+            curl -s -X PUT "$API/$EXISTING" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"service\":\"$WORKER\",\"environment\":\"production\"}" | node -e "
+              let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
+                const r=JSON.parse(d); console.log(r.success ? '✓ Updated' : '✗ Failed: '+(r.errors||[]).map(e=>e.message).join(', '));
+                if(!r.success) process.exit(1);
+              })
+            "
+          else
+            echo "Creating new domain mapping $DOMAIN → $WORKER"
+            curl -s -X POST "$API" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"hostname\":\"$DOMAIN\",\"service\":\"$WORKER\",\"environment\":\"production\"}" | node -e "
+              let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
+                const r=JSON.parse(d); console.log(r.success ? '✓ Created' : '✗ Failed: '+(r.errors||[]).map(e=>e.message).join(', '));
+                if(!r.success) process.exit(1);
+              })
+            "
+          fi
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

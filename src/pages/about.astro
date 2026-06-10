@@ -6,11 +6,11 @@ import Hero from '~/components/widgets/Hero.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import Steps2 from '~/components/widgets/Steps2.astro';
 import Layout from '~/layouts/PageLayout.astro';
-import { SITE } from 'astrowind:config';
+import { SITE, I18N } from 'astrowind:config';
 
 import yamlData from '~/data/pages/about.yaml';
 
-const locale = process.env.SITE_LOCALE || 'en';
+const locale = I18N?.language || 'en';
 const entry = await getEntry('about', 'index');
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ksData = (entry?.data as any)?.[locale] || (entry?.data as any)?.['en'] || {};

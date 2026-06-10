@@ -6,13 +6,13 @@ import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import Map from '~/components/widgets/Map.astro';
-import { SITE } from 'astrowind:config';
+import { SITE, I18N } from 'astrowind:config';
 
 import yamlData from '~/data/pages/contact.yaml';
 import branding from '~/data/site/branding.yaml';
 import { generateChallenge, buildCookieValue, cookieName, cookieTtlSeconds } from '~/lib/contact-captcha';
 
-const locale = process.env.SITE_LOCALE || 'en';
+const locale = I18N?.language || 'en';
 const entry = await getEntry('contact', 'index');
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ksData = (entry?.data as any)?.[locale] || (entry?.data as any)?.['en'] || {};
