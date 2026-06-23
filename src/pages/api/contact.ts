@@ -123,7 +123,7 @@ function buildEmailBody(data: Record<string, string>, receivedAt: string, ip: st
     .join('');
   const subjectText = data.subject || '(no subject)';
   const fullName = [data.firstName, data.lastName].filter(Boolean).join(' ');
-  const subject = `[Contact form] ${subjectText}${fullName ? ` â€” ${fullName}` : ''}`;
+  const subject = `[Contact form] ${subjectText}${fullName ? ` â€?${fullName}` : ''}`;
   const html = `<!doctype html><html><body style="font-family:system-ui,Segoe UI,Roboto,sans-serif;color:#111">
 <div style="max-width:640px;margin:0 auto;padding:16px">
 <h2 style="margin:0 0 4px">New contact form submission</h2>
@@ -335,7 +335,7 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
   let emailStatus: { attempted: boolean; sent: boolean; provider?: string; error?: string } = { attempted: false, sent: false };
   if (branding.contact_email_provider === 'resend' && branding.contact_resend_api_key && branding.contact_from_email) {
     emailStatus.attempted = true;
-    const fromName = branding.contact_from_name || branding.site_name || 'Vectoflare Contact';
+    const fromName = branding.contact_from_name || branding.site_name || 'Wavefella Contact';
     const from = `${fromName} <${branding.contact_from_email}>`;
     const { html, text, subject } = buildEmailBody(fields, record.receivedAt, record.ip, record.userAgent);
     const replyTo = `${fields.firstName} ${fields.lastName} <${fields.email}>`.trim();

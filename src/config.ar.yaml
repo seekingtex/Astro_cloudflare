@@ -1,23 +1,23 @@
 site:
-  name: Vectoflare
-  site: 'https://vectoflare.com'
+  name: Wavefella
+  site: 'https://Wavefella.com'
   base: '/'
   trailingSlash: false
   googleSiteVerificationId: ''
 
 metadata:
   title:
-    default: Vectoflare — العربية
-    template: '%s — Vectoflare'
-  description: 'Vectoflare — العربية'
+    default: Wavefella �?العربية
+    template: '%s �?Wavefella'
+  description: 'Wavefella �?العربية'
   keywords:
-    - Vectoflare
-  author: Vectoflare
+    - Wavefella
+  author: Wavefella
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Vectoflare
+    site_name: Wavefella
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -25,8 +25,8 @@ metadata:
     type: website
     locale: ar_AR
   twitter:
-    handle: '@vectoflare'
-    site: '@vectoflare'
+    handle: '@Wavefella'
+    site: '@Wavefella'
     cardType: summary_large_image
 
 i18n:

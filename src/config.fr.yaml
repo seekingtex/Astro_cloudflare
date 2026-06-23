@@ -1,5 +1,5 @@
-ï»¿site:
-  name: Vectoflare
+site:
+  name: Wavefella
   site: 'https://alluredna.com'
   base: '/'
   trailingSlash: false
@@ -9,22 +9,22 @@
 # Default SEO metadata
 metadata:
   title:
-    default: Vectoflare â€” Solutions modernes pour bateaux pneumatiques et produits techniques
-    template: '%s â€” Vectoflare'
-  description: 'Vectoflare conÃ§oit et fabrique des bateaux pneumatiques, RIB et produits techniques de qualitÃ© supÃ©rieure. Explorez notre catalogue, nos spÃ©cifications techniques et nos ressources.'
+    default: Wavefella ¡ª Solutions modernes pour bateaux pneumatiques et produits techniques
+    template: '%s ¡ª Wavefella'
+  description: 'Wavefella con?oit et fabrique des bateaux pneumatiques, RIB et produits techniques de qualit¨¦ sup¨¦rieure. Explorez notre catalogue, nos sp¨¦cifications techniques et nos ressources.'
   keywords:
-    - Vectoflare
+    - Wavefella
     - bateau pneumatique
     - RIB
     - PVC
     - marine
-    - ingÃ©nierie
-  author: Vectoflare
+    - ing¨¦nierie
+  author: Wavefella
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Vectoflare
+    site_name: Wavefella
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -32,8 +32,8 @@ metadata:
     type: website
     locale: fr_FR
   twitter:
-    handle: '@vectoflare'
-    site: '@vectoflare'
+    handle: '@Wavefella'
+    site: '@Wavefella'
     cardType: summary_large_image
 
 i18n:

@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 const ALGO = 'aes-256-gcm';
 const IV_LENGTH = 12;
 const KEY_LENGTH = 32;
-const SALT = 'vectoflare.contact.submissions.v1';
+const SALT = 'Wavefella.contact.submissions.v1';
 
 function deriveKey(): Buffer {
   const secret = (import.meta.env as any).SESSION_SECRET || (import.meta.env as any).KEYSTATIC_SECRET || crypto.randomBytes(32).toString('hex');

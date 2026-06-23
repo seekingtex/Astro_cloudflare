@@ -1,5 +1,5 @@
-Ôªøsite:
-  name: Vectoflare
+site:
+  name: Wavefella
   site: 'https://alluredna.com'
   base: '/'
   trailingSlash: false
@@ -9,22 +9,22 @@
 # Default SEO metadata
 metadata:
   title:
-    default: Vectoflare ‚Äî Solu√ß√µes modernas para barcos insufl√°veis e produtos t√©cnicos
-    template: '%s ‚Äî Vectoflare'
-  description: 'A Vectoflare projeta e fabrica barcos insufl√°veis, RIBs e produtos t√©cnicos de alta qualidade. Explore o nosso cat√°logo, especifica√ß√µes t√©cnicas e recursos.'
+    default: Wavefella °™ Solu??es modernas para barcos insufl®¢veis e produtos t®¶cnicos
+    template: '%s °™ Wavefella'
+  description: 'A Wavefella projeta e fabrica barcos insufl®¢veis, RIBs e produtos t®¶cnicos de alta qualidade. Explore o nosso cat®¢logo, especifica??es t®¶cnicas e recursos.'
   keywords:
-    - Vectoflare
-    - barco insufl√°vel
+    - Wavefella
+    - barco insufl®¢vel
     - RIB
     - PVC
-    - mar√≠timo
+    - mar®™timo
     - engenharia
-  author: Vectoflare
+  author: Wavefella
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Vectoflare
+    site_name: Wavefella
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -32,8 +32,8 @@ metadata:
     type: website
     locale: pt_PT
   twitter:
-    handle: '@vectoflare'
-    site: '@vectoflare'
+    handle: '@Wavefella'
+    site: '@Wavefella'
     cardType: summary_large_image
 
 i18n:

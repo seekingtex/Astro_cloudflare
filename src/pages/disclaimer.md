@@ -11,7 +11,7 @@ The content on this website, including text, graphics, images, and other materia
 
 ## No Doctor-Patient Relationship
 
-Use of this website, including access to product descriptions, blog articles, or technical documentation, does not create a physician-patient, clinician-patient, or any other healthcare provider relationship between you and Vectoflare or any of its affiliates.
+Use of this website, including access to product descriptions, blog articles, or technical documentation, does not create a physician-patient, clinician-patient, or any other healthcare provider relationship between you and Wavefella or any of its affiliates.
 
 ## Not for Clinical Use
 
@@ -21,11 +21,11 @@ You should **not** make any medical or health-related decisions based on the dat
 
 ## No Warranties
 
-Vectoflare makes no representation or warranty, express or implied, regarding the accuracy, completeness, or reliability of the information provided on this website or through its products. All content and products are provided **"as is"** without warranty of any kind.
+Wavefella makes no representation or warranty, express or implied, regarding the accuracy, completeness, or reliability of the information provided on this website or through its products. All content and products are provided **"as is"** without warranty of any kind.
 
 ## Limitation of Liability
 
-To the fullest extent permitted by applicable law, Vectoflare shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of or inability to use this website, its products, or any content therein.
+To the fullest extent permitted by applicable law, Wavefella shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of or inability to use this website, its products, or any content therein.
 
 ## Data Privacy & Genetic Information
 
@@ -33,7 +33,7 @@ Any genetic or health-related data you submit or generate through our services i
 
 ## External Links
 
-This website may contain links to third-party websites. Vectoflare does not endorse, control, or assume responsibility for the content, privacy policies, or practices of any third-party sites.
+This website may contain links to third-party websites. Wavefella does not endorse, control, or assume responsibility for the content, privacy policies, or practices of any third-party sites.
 
 ## Changes to This Disclaimer
 

@@ -14,10 +14,10 @@ if (!token) return Astro.redirect('/keystatic/github-token');
 const file = 'src/data/site/branding.yaml';
 
 let data: Record<string, any> = {
-  site_name: 'Vectoflare',
+  site_name: 'Wavefella',
   logo_image: '',
-  logo_alt: 'Vectoflare logo',
-  copyright: 'Â© {year} Vectoflare Â· All rights reserved.',
+  logo_alt: 'Wavefella logo',
+  copyright: 'Â© {year} Wavefella Â· All rights reserved.',
   whatsapp_number: '',
   whatsapp_default_message: 'Hello, I would like to inquire about your products.',
 };
@@ -57,7 +57,7 @@ const year = new Date().getFullYear();
           type="text"
           name="site_name"
           value={data.site_name ?? ''}
-          placeholder="Vectoflare"
+          placeholder="Wavefella"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
         />
         <p class="mt-1 text-xs text-gray-500">Displayed in the top-right logo, bottom footer logo, and copyright. Keep consistent after changes.</p>
@@ -81,7 +81,7 @@ const year = new Date().getFullYear();
           type="text"
           name="logo_alt"
           value={data.logo_alt ?? ''}
-          placeholder="Vectoflare logo"
+          placeholder="Wavefella logo"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
         />
       </div>
@@ -130,7 +130,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Recipient Email (Contact email â€” To)</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Recipient Email (Contact email â€?To)</label>
         <input
           type="email"
           name="contact_email_to"
@@ -142,7 +142,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sender Email (Contact â€” From)</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sender Email (Contact â€?From)</label>
         <input
           type="email"
           name="contact_from_email"
@@ -159,7 +159,7 @@ const year = new Date().getFullYear();
           type="text"
           name="contact_from_name"
           value={data.contact_from_name ?? ''}
-          placeholder="Vectoflare Contact"
+          placeholder="Wavefella Contact"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
         />
       </div>
@@ -200,7 +200,7 @@ const year = new Date().getFullYear();
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
         />
         <p class="mt-1 text-xs text-amber-800 dark:text-amber-300">
-          <strong>Fine-grained PAT required</strong> (create at GitHub Settings â†’ Developer settings â†’ Personal access tokens â†’ Fine-grained tokens), only check <strong>Contents: Read and write</strong> permission for the <code class="font-mono">theworkvigour/Astro_cloudflare</code> repository. Classic PATs have full repository permissions, and the consequences of leakage are more severe.
+          <strong>Fine-grained PAT required</strong> (create at GitHub Settings â†?Developer settings â†?Personal access tokens â†?Fine-grained tokens), only check <strong>Contents: Read and write</strong> permission for the <code class="font-mono">theworkvigour/Astro_cloudflare</code> repository. Classic PATs have full repository permissions, and the consequences of leakage are more severe.
         </p>
       </div>
     </div>
@@ -248,7 +248,7 @@ const year = new Date().getFullYear();
 
       function refreshCopyright() {
         if (copyrightEl instanceof HTMLTextAreaElement && previewEl) {
-          const name = siteNameEl instanceof HTMLInputElement ? (siteNameEl.value || 'Vectoflare').trim() || 'Vectoflare' : 'Vectoflare';
+          const name = siteNameEl instanceof HTMLInputElement ? (siteNameEl.value || 'Wavefella').trim() || 'Wavefella' : 'Wavefella';
           previewEl.textContent = (copyrightEl.value || '')
             .replace(/\\{year\\}/gi, String(year))
             .replace(/\\{site_name\\}/gi, name);

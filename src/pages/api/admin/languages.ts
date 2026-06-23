@@ -18,25 +18,25 @@ const FILES = [
 function configTemplate(locale: string, name: string, dir: string): string {
   const upper = locale.toUpperCase();
   return `site:
-  name: Vectoflare
-  site: 'https://vectoflare.com'
+  name: Wavefella
+  site: 'https://Wavefella.com'
   base: '/'
   trailingSlash: false
   googleSiteVerificationId: ''
 
 metadata:
   title:
-    default: Vectoflare â€” ${name}
-    template: '%s â€” Vectoflare'
-  description: 'Vectoflare â€” ${name}'
+    default: Wavefella â€?${name}
+    template: '%s â€?Wavefella'
+  description: 'Wavefella â€?${name}'
   keywords:
-    - Vectoflare
-  author: Vectoflare
+    - Wavefella
+  author: Wavefella
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Vectoflare
+    site_name: Wavefella
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -44,8 +44,8 @@ metadata:
     type: website
     locale: ${locale}_${upper}
   twitter:
-    handle: '@vectoflare'
-    site: '@vectoflare'
+    handle: '@Wavefella'
+    site: '@Wavefella'
     cardType: summary_large_image
 
 i18n:

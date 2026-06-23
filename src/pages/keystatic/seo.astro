@@ -23,7 +23,7 @@ interface ConfigData {
   analytics: { vendors: { googleAnalytics: { id: string | null } } };
 }
 let data: ConfigData = {
-  site: { name: 'Vectoflare', site: 'https://alluredna.com', googleSiteVerificationId: '' },
+  site: { name: 'Wavefella', site: 'https://alluredna.com', googleSiteVerificationId: '' },
   metadata: { keywords: [], robots: { index: true, follow: true }, twitter: { handle: '', site: '', cardType: 'summary_large_image' } },
   analytics: { vendors: { googleAnalytics: { id: null } } },
 };
@@ -109,7 +109,7 @@ const getLoadError = () => loadError;
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Default Keywords (comma-separated)</label>
         <input type="text" name="keywords"
           value={Array.isArray(getData().metadata?.keywords) ? getData().metadata.keywords.join(', ') : ''}
-          placeholder="Vectoflare, inflatable boat, RIB, marine, engineering"
+          placeholder="Wavefella, inflatable boat, RIB, marine, engineering"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm"
         />
         <p class="mt-1 text-xs text-gray-500">Fallback keywords used when a page doesn't define its own.</p>
@@ -136,7 +136,7 @@ const getLoadError = () => loadError;
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Twitter Handle (creator)</label>
         <input type="text" name="twitter_handle"
           value={getData().metadata?.twitter?.handle ?? ''}
-          placeholder="@vectoflare"
+          placeholder="@Wavefella"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
         />
       </div>
@@ -144,7 +144,7 @@ const getLoadError = () => loadError;
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Twitter Site (account)</label>
         <input type="text" name="twitter_site"
           value={getData().metadata?.twitter?.site ?? ''}
-          placeholder="@vectoflare"
+          placeholder="@Wavefella"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-sm font-mono"
         />
       </div>
@@ -211,7 +211,7 @@ const getLoadError = () => loadError;
 
         const gaId = String(form.querySelector('[name="google_analytics_id"]')?.value || '').trim();
 
-        // Only the fields managed by this form â€” deep-merged into existing config
+        // Only the fields managed by this form â€?deep-merged into existing config
         const override = {
           site: {
             googleSiteVerificationId: String(form.querySelector('[name="google_site_verification_id"]')?.value || '').trim(),

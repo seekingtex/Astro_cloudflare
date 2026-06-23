@@ -1,6 +1,6 @@
-# Vectoflare — AI-Powered Multilingual Site
+# Wavefella �?AI-Powered Multilingual Site
 
-**Perplexity-style AI search engine** with RAG, semantic search, multi-model LLM routing, encrypted contact forms, and a Keystatic admin panel — all running on Cloudflare Workers free tier.
+**Perplexity-style AI search engine** with RAG, semantic search, multi-model LLM routing, encrypted contact forms, and a Keystatic admin panel �?all running on Cloudflare Workers free tier.
 
 Built on [AstroWind](https://github.com/arthelokyo/astrowind), deployed as Cloudflare Workers (static + SSR).
 
@@ -9,43 +9,16 @@ Built on [AstroWind](https://github.com/arthelokyo/astrowind), deployed as Cloud
 ## Architecture
 
 ```
-┌─ User ──────────────────────────────────────┐
-│  Browser → Static HTML (Cloudflare Workers)  │
-│         → /api/search  (semantic search)     │
-│         → /api/chat    (RAG Q&A + citations) │
-│         → /keystatic   (admin panel)         │
-└──────────────────────────────────────────────┘
-         │
-         ▼
-┌─ AI Engine ──────────────────────────────────┐
-│  Vectorize (768-dim cosine)                 │
-│    ↓                                         │
-│  embed() → AI_GATEWAY / OpenAI / Workers AI  │
-│    ↓                                         │
-│  LLM → gpt-4o-mini / Llama 3.1 / Llama 3.3  │
-│    ↓                                         │
-│  Answer + source references                  │
-└──────────────────────────────────────────────┘
-         │
-         ▼
-┌─ Data Layer ─────────────────────────────────┐
-│  src/config.yaml       Site config           │
-│  src/data/site/        Languages, navigation │
-│  src/data/post/        Blog posts (MD/MDX)   │
-│  src/data/product/     Product data          │
-│  src/data/contact/     Encrypted submissions │
-│  src/data/pages/       Page content (YAML)   │
-└──────────────────────────────────────────────┘
-```
+┌─ User ──────────────────────────────────────�?�? Browser �?Static HTML (Cloudflare Workers)  �?�?        �?/api/search  (semantic search)     �?�?        �?/api/chat    (RAG Q&A + citations) �?�?        �?/keystatic   (admin panel)         �?└──────────────────────────────────────────────�?         �?         �?┌─ AI Engine ──────────────────────────────────�?�? Vectorize (768-dim cosine)                 �?�?   �?                                        �?�? embed() �?AI_GATEWAY / OpenAI / Workers AI  �?�?   �?                                        �?�? LLM �?gpt-4o-mini / Llama 3.1 / Llama 3.3  �?�?   �?                                        �?�? Answer + source references                  �?└──────────────────────────────────────────────�?         �?         �?┌─ Data Layer ─────────────────────────────────�?�? src/config.yaml       Site config           �?�? src/data/site/        Languages, navigation �?�? src/data/post/        Blog posts (MD/MDX)   �?�? src/data/product/     Product data          �?�? src/data/contact/     Encrypted submissions �?�? src/data/pages/       Page content (YAML)   �?└──────────────────────────────────────────────�?```
 
 ### Provider Fallback Chain
 
 ```
-AI_GATEWAY (Cloudflare AI Gateway proxy) → best performance
-  ↓ (if unset)
-OPENAI_API_KEY → gpt-4o-mini / text-embedding-3-small (768-dim)
-  ↓ (if unset)
-Workers AI (free tier) → Llama 3.1 8B / bge-base-en-v1.5 (768-dim)
+AI_GATEWAY (Cloudflare AI Gateway proxy) �?best performance
+  �?(if unset)
+OPENAI_API_KEY �?gpt-4o-mini / text-embedding-3-small (768-dim)
+  �?(if unset)
+Workers AI (free tier) �?Llama 3.1 8B / bge-base-en-v1.5 (768-dim)
 ```
 
 ---
@@ -81,7 +54,7 @@ SESSION_SECRET=your-random-secret-here
 |-----------|------|---------|
 | Vector config | `src/lib/vector.ts` | 768-dim constant, input preprocessing |
 | Embedding | `src/lib/embed.ts` | Text→vector with 24h in-memory cache |
-| RAG engine | `src/lib/rag.ts` | chunk → embed → search → assemble → answer |
+| RAG engine | `src/lib/rag.ts` | chunk �?embed �?search �?assemble �?answer |
 | LLM router | `src/lib/ai-gateway.ts` | Multi-model with fallback |
 | Search API | `POST /api/search` | Semantic search endpoint |
 | Chat API | `POST /api/chat` | RAG Q&A with source citations |
@@ -110,7 +83,7 @@ node scripts/seed-vectorize.js
 git push origin main             # CI/CD auto-deploys
 
 # 5. (Optional) Deploy ingestion Worker separately
-npx wrangler deploy src/workers/ingest.ts --name vectoflare-ingest \
+npx wrangler deploy src/workers/ingest.ts --name Wavefella-ingest \
   --compatibility-date 2026-06-05
 ```
 
@@ -131,7 +104,7 @@ npx wrangler deploy src/workers/ingest.ts --name vectoflare-ingest \
 
 | Locale | Code | Status |
 |--------|------|--------|
-| 🇬🇧 English | `en` | ✅ enabled |
+| 🇬🇧 English | `en` | �?enabled |
 | 🇫🇷 French | `fr` | ⏸️ disabled |
 | 🇩🇪 German | `de` | ⏸️ disabled |
 | 🇪🇸 Spanish | `es` | ⏸️ disabled |
@@ -139,13 +112,13 @@ npx wrangler deploy src/workers/ingest.ts --name vectoflare-ingest \
 | 🇨🇳 Chinese | `zh` | ⏸️ disabled |
 | 🇸🇦 Arabic | `ar` | ⏸️ disabled (RTL) |
 
-Language is auto-detected from the config filename (`config.yaml` → `en`, `config.fr.yaml` → `fr`). No manual `i18n.language` sync needed. Components read `I18N.language` from `astrowind:config`.
+Language is auto-detected from the config filename (`config.yaml` �?`en`, `config.fr.yaml` �?`fr`). No manual `i18n.language` sync needed. Components read `I18N.language` from `astrowind:config`.
 
 ### Adding a new language
 
 1. Create `config.{locale}.yaml` + `navigation.{locale}.yaml`
 2. Add entry to `src/data/site/languages.yaml` with `enabled: false`
-3. CI/CD auto-discovers from `languages.yaml` — no workflow edits needed
+3. CI/CD auto-discovers from `languages.yaml` �?no workflow edits needed
 
 ---
 
@@ -190,7 +163,7 @@ SSR endpoint at `/contact` with:
 - Math captcha (HMAC-signed cookie)
 - Honeypot anti-bot field
 - Rate limit: 5 submissions/IP/hour (in-memory sliding window)
-- AES-256-GCM encryption → `src/data/contact/submissions.enc.json`
+- AES-256-GCM encryption �?`src/data/contact/submissions.enc.json`
 - Optional Resend email notification
 
 ---
@@ -216,29 +189,29 @@ SSR endpoint at `/contact` with:
 
 Push to `main` triggers GitHub Actions:
 
-1. **check-astro** — type check + lint
-2. **enabled-locales** — reads `languages.yaml`, builds enabled locales
-3. **build-and-deploy** — builds + deploys each locale to Cloudflare Workers
+1. **check-astro** �?type check + lint
+2. **enabled-locales** �?reads `languages.yaml`, builds enabled locales
+3. **build-and-deploy** �?builds + deploys each locale to Cloudflare Workers
 
-Domain: `vectoflare-{locale}.theworkvigo.workers.dev`
+Domain: `Wavefella-{locale}.theworkvigo.workers.dev`
 
 ### Custom domain
 
-Set `CUSTOM_DOMAIN = true` in GitHub Variables. CI maps `{locale}.alluredna.com` → the Worker (requires `alluredna.com` in Cloudflare).
+Set `CUSTOM_DOMAIN = true` in GitHub Variables. CI maps `{locale}.alluredna.com` �?the Worker (requires `alluredna.com` in Cloudflare).
 
 ### Manual deploy
 
 ```bash
 SITE_LOCALE=en yarn build
 cd dist/server
-yarn wrangler deploy --name vectoflare-en
+yarn wrangler deploy --name Wavefella-en
 ```
 
 ### Secrets
 
 ```bash
-echo "your-secret" | yarn wrangler secret put SESSION_SECRET --name vectoflare-en
-echo "sk-..." | yarn wrangler secret put OPENAI_API_KEY --name vectoflare-en
+echo "your-secret" | yarn wrangler secret put SESSION_SECRET --name Wavefella-en
+echo "sk-..." | yarn wrangler secret put OPENAI_API_KEY --name Wavefella-en
 ```
 
 CI auto-sets `SESSION_SECRET` from GitHub Secrets.
@@ -251,11 +224,11 @@ CI auto-sets `SESSION_SECRET` from GitHub Secrets.
 
 | Secret | Required | Purpose |
 |--------|----------|---------|
-| `CLOUDFLARE_ACCOUNT_ID` | ✅ | Cloudflare account ID |
-| `CLOUDFLARE_API_TOKEN` | ✅ | API token (Workers + Vectorize perms) |
-| `SESSION_SECRET` | ✅ | Session encryption |
-| `OPENAI_API_KEY` | ❌ | OpenAI for LLM + embeddings |
-| `AI_GATEWAY` | ❌ | Cloudflare AI Gateway URL |
+| `CLOUDFLARE_ACCOUNT_ID` | �?| Cloudflare account ID |
+| `CLOUDFLARE_API_TOKEN` | �?| API token (Workers + Vectorize perms) |
+| `SESSION_SECRET` | �?| Session encryption |
+| `OPENAI_API_KEY` | �?| OpenAI for LLM + embeddings |
+| `AI_GATEWAY` | �?| Cloudflare AI Gateway URL |
 
 ### GitHub Variables (optional)
 

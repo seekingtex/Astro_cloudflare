@@ -43,7 +43,7 @@ const mergedSocialLinks = (ksSocialLinks.length > 0
     ]
   : socialLinks).filter((s) => s?.href && s.href !== '#');
 
-const siteName = branding?.site_name?.trim() || 'Vectoflare';
+const siteName = branding?.site_name?.trim() || 'Wavefella';
 const year = new Date().getFullYear();
 const rawCopyright = footNote ?? branding?.copyright ?? `© ${year} ${siteName} · All rights reserved.`;
 const copyrightHtml = String(rawCopyright)

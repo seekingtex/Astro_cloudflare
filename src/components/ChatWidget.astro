@@ -1,7 +1,7 @@
 ---
 import branding from '~/data/site/branding.yaml';
 
-const siteName = (branding?.site_name ?? 'Vectoflare').toString();
+const siteName = (branding?.site_name ?? 'Wavefella').toString();
 const phoneRaw = (branding?.whatsapp_number || '').toString().replace(/[^\d+]/g, '');
 const defaultMessage = (branding?.whatsapp_default_message || '').toString();
 const contactEmail = (branding?.contact_email_to || '').toString().trim();
@@ -97,7 +97,7 @@ const contactEmail = (branding?.contact_email_to || '').toString().trim();
         Send Message
       </button>
       <p class="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
-        Clicking the button will open the appropriate app by priority (WhatsApp â†’ Email); if neither is configured, it navigates to the contact form.
+        Clicking the button will open the appropriate app by priority (WhatsApp â†?Email); if neither is configured, it navigates to the contact form.
       </p>
     </div>
   </div>

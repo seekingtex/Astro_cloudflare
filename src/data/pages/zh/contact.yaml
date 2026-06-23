@@ -5,7 +5,7 @@ contact_form:
   id: form
   title: Send us a message
   subtitle: For quotes, technical questions or partnership enquiries, drop us a line. We reply within one business day.
-  email_to: hello@vectoflare.com
+  email_to: hello@Wavefella.com
   submit_button: Send message
   success_message: Thanks! Your message has landed in our inbox. We will reply within one business day.
   error_message: Something went wrong sending your message. Please try again or email us directly.
@@ -67,7 +67,7 @@ features2_other_ways:
       description: '+8613305324192'
       icon: tabler:headset
     - title: Email
-      description: hello@vectoflare.com
+      description: hello@Wavefella.com
       icon: tabler:mail
     - title: Headquarters
       description: Coastal industrial park, building 4, EU time zone

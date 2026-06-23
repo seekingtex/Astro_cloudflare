@@ -45,7 +45,7 @@ console.log(`Enabled locales: ${locales.join(', ')}`);
 console.log('');
 
 for (const locale of locales) {
-  console.log(`â–¶ Building ${locale}...`);
+  console.log(`â–?Building ${locale}...`);
   const start = Date.now();
   try {
     execSync('yarn run build', {
@@ -54,9 +54,9 @@ for (const locale of locales) {
       stdio: 'inherit',
     });
     const elapsed = ((Date.now() - start) / 1000).toFixed(1);
-    console.log(`âœ“ ${locale} built in ${elapsed}s`);
+    console.log(`âœ?${locale} built in ${elapsed}s`);
   } catch (err) {
-    console.error(`âœ— ${locale} build failed`);
+    console.error(`âœ?${locale} build failed`);
     process.exit(1);
   }
   console.log('');
@@ -66,6 +66,6 @@ console.log('All enabled languages built successfully.');
 console.log('');
 console.log('To deploy:');
 console.log('  For each locale, run from dist/server/:');
-console.log('    npx wrangler deploy --config wrangler.ci.json --name vectoflare-{locale}');
+console.log('    npx wrangler deploy --config wrangler.ci.json --name Wavefella-{locale}');
 console.log('');
 console.log('Or push to main and the CI/CD pipeline will handle deployment automatically.');

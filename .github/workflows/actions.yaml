@@ -83,14 +83,14 @@ jobs:
 
       - name: Ensure KV namespace exists
         run: |
-          yarn wrangler kv namespace create "vectoflare-${{ matrix.locale }}-session" 2>/dev/null || true
+          yarn wrangler kv namespace create "wavefella-${{ matrix.locale }}-session" 2>/dev/null || true
 
       - name: Inject KV namespace ID
         run: |
           cd dist/server
           KV_ID=$(yarn wrangler kv namespace list 2>/dev/null | node -e "
             let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
-              try { const list=JSON.parse(d); const ns=list.find(n=>n.title==='vectoflare-${{ matrix.locale }}-session'); if(ns) process.stdout.write(ns.id); } catch(e){}
+              try { const list=JSON.parse(d); const ns=list.find(n=>n.title==='wavefella-${{ matrix.locale }}-session'); if(ns) process.stdout.write(ns.id); } catch(e){}
             })
           ")
           if [ -n "$KV_ID" ]; then
@@ -108,7 +108,7 @@ jobs:
       - name: Deploy to Cloudflare Workers (${{ matrix.locale }})
         run: |
           cd dist/server
-          yarn wrangler deploy --config wrangler.ci.json --name vectoflare-${{ matrix.locale }} > /tmp/deploy-${{ matrix.locale }}.log 2>&1
+          yarn wrangler deploy --config wrangler.ci.json --name wavefella-${{ matrix.locale }} > /tmp/deploy-${{ matrix.locale }}.log 2>&1
           rc=$?; cat /tmp/deploy-${{ matrix.locale }}.log; exit $rc
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -128,7 +128,7 @@ jobs:
           echo "${{ secrets.AI_GATEWAY }}" | \
             yarn wrangler secret put AI_GATEWAY \
               --config wrangler.ci.json \
-              --name vectoflare-${{ matrix.locale }} 2>&1
+              --name wavefella-${{ matrix.locale }} 2>&1
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -139,7 +139,7 @@ jobs:
           echo "${{ secrets.SESSION_SECRET }}" | \
             yarn wrangler secret put SESSION_SECRET \
               --config wrangler.ci.json \
-              --name vectoflare-${{ matrix.locale }} 2>&1
+              --name wavefella-${{ matrix.locale }} 2>&1
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -151,16 +151,16 @@ jobs:
           echo "${{ secrets.OPENAI_API_KEY }}" | \
             yarn wrangler secret put OPENAI_API_KEY \
               --config wrangler.ci.json \
-              --name vectoflare-${{ matrix.locale }} 2>&1
+              --name wavefella-${{ matrix.locale }} 2>&1
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      - name: Map custom domain ${{ matrix.locale }}.alluredna.com → vectoflare-${{ matrix.locale }}
+      - name: Map custom domain ${{ matrix.locale }}.alluredna.com → wavefella-${{ matrix.locale }}
         if: ${{ vars.CUSTOM_DOMAIN == 'true' }}
         run: |
           DOMAIN="${{ matrix.locale }}.alluredna.com"
-          WORKER="vectoflare-${{ matrix.locale }}"
+          WORKER="wavefella-${{ matrix.locale }}"
           API="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains"
 
           # find existing entry for this hostname

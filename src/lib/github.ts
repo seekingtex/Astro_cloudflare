@@ -35,9 +35,9 @@ export interface CommitResult {
 const REPO_OWNER = 'theworkvigour';
 const REPO_NAME = 'Astro_cloudflare';
 const DEFAULT_BRANCH = 'main';
-const COMMIT_AUTHOR_NAME = 'Vectoflare Admin';
-const COMMIT_AUTHOR_EMAIL = 'admin@vectoflare.local';
-const USER_AGENT = 'vectoflare-admin';
+const COMMIT_AUTHOR_NAME = 'Wavefella Admin';
+const COMMIT_AUTHOR_EMAIL = 'admin@Wavefella.local';
+const USER_AGENT = 'Wavefella-admin';
 
 export class GitHubClient {
   private token: string;

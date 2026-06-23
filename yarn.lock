@@ -10536,9 +10536,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vectoflare@workspace:.":
+"wavefella@workspace:.":
   version: 0.0.0-use.local
-  resolution: "vectoflare@workspace:."
+  resolution: "wavefella@workspace:."
   dependencies:
     "@astrojs/check": "npm:^0.9.9"
     "@astrojs/cloudflare": "npm:^13.6.1"

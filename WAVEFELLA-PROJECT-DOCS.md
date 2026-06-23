@@ -1,4 +1,4 @@
-# Vectoflare — Project Documentation
+# Wavefella — Project Documentation
 
 > 项目文档：配置详情、架构要求、开发与部署流程
 
@@ -8,9 +8,9 @@
 
 | 项目 | 值 |
 |------|-----|
-| **名称** | Vectoflare |
+| **名称** | Wavefella |
 | **版本** | 1.0.0-beta.63 |
-| **描述** | Vectoflare 品牌官网 — 充气船与工程产品制造商 |
+| **描述** | Wavefella 品牌官网 — 充气船与工程产品制造商 |
 | **框架** | Astro v6.4.2 + Tailwind CSS v4 + TypeScript 5.9 |
 | **包管理** | Yarn 4.16.0 |
 | **Node.js** | >= 22.12.0 |
@@ -105,9 +105,9 @@ matrix:
 1. `SITE_LOCALE=${{ matrix.locale }} yarn build`
 2. 生成 `wrangler.ci.json` (剥离绝对路径)
 3. 查询 KV namespace ID 并注入
-4. `wrangler deploy --name vectoflare-${{ matrix.locale }}`
+4. `wrangler deploy --name wavefella-${{ matrix.locale }}`
 5. 设置 `SESSION_SECRET` secret
-6. 如果 `vars.CUSTOM_DOMAIN == 'true'`: 创建/更新域名映射 `{locale}.alluredna.com → vectoflare-{locale}`
+6. 如果 `vars.CUSTOM_DOMAIN == 'true'`: 创建/更新域名映射 `{locale}.alluredna.com → wavefella-{locale}`
 
 **注意事项**:
 - `check-astro` 必须通过才能触发布署
@@ -159,15 +159,15 @@ Astro Vite 别名机制: 当 `locale !== 'en'` 时，`~/data/site/navigation.yam
 **文件**: `src/data/site/branding.yaml`
 
 ```yaml
-site_name: Vectoflare                  # 全局站点名称
+site_name: Wavefella                  # 全局站点名称
 logo_image: ''
-logo_alt: Vectoflare logo
+logo_alt: Wavefella logo
 copyright: © {year} {site_name} · All rights reserved.
 whatsapp_number: '+8613305324192'
 whatsapp_default_message: Hello, I would like to inquire about a product.
-contact_email_to: info@vectoflare.com
+contact_email_to: info@wavefella.com
 contact_email_provider: none
-contact_from_email: contact@vectoflare.com
+contact_from_email: contact@wavefella.com
 contact_from_name: Admin
 contact_resend_api_key: Aa123456#      # Resend API Key (占位符，需替换)
 contact_submissions_pat: ''            # GitHub PAT (需在后台设置)
@@ -414,7 +414,7 @@ metadata: { ... }
 |------|----------|
 | 生产 | `https://{locale}.alluredna.com` (子域名) |
 | 开发 | `http://localhost:4321` (路径式 `/fr/...`) |
-| Worker 原始 | `https://vectoflare-{locale}.theworkvigo.workers.dev` |
+| Worker 原始 | `https://wavefella-{locale}.theworkvigo.workers.dev` |
 
 ### 8.5 语言切换器的 URL 构造
 

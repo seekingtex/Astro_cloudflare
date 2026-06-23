@@ -118,7 +118,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       .map((s, i) => `[${i + 1}] ${s.title} (${s.url})\n${s.text}`)
       .join('\n\n');
 
-    const prompt = `You are a search assistant for Vectoflare.
+    const prompt = `You are a search assistant for Wavefella.
 
 Use ONLY the context below to answer the question. If the context does not contain enough information, say so.
 

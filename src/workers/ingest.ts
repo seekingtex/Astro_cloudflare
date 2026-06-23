@@ -1,11 +1,11 @@
 /**
- * ingest.ts â€” Standalone Cloudflare Worker for Vectorize ingestion.
+ * ingest.ts â€?Standalone Cloudflare Worker for Vectorize ingestion.
  *
  * Deploy separately from the Astro site to avoid binding conflicts.
  * This Worker reads built pages, chunks, embeds, and upserts into Vectorize.
  *
  * wrangler.toml (separate):
- *   name = "vectoflare-ingest"
+ *   name = "Wavefella-ingest"
  *   compatibility_date = "2026-06-05"
  *   compatibility_flags = ["nodejs_compat"]
  *   [[vectorize]]
@@ -15,9 +15,9 @@
  *   binding = "AI"
  *
  * Routes:
- *   POST /ingest  â€” ingest a single page { id, url, title, content }
- *   POST /reindex â€” re-index from sitemap (calls sitemap endpoint)
- *   GET  /status  â€” return Vectorize index stats
+ *   POST /ingest  â€?ingest a single page { id, url, title, content }
+ *   POST /reindex â€?re-index from sitemap (calls sitemap endpoint)
+ *   GET  /status  â€?return Vectorize index stats
  */
 
 import { embed } from '../lib/embed';
@@ -113,6 +113,6 @@ export default {
       });
     }
 
-    return new Response('ingest worker â€” POST /ingest, POST /reindex, GET /status', { status: 200 });
+    return new Response('ingest worker â€?POST /ingest, POST /reindex, GET /status', { status: 200 });
   },
 };

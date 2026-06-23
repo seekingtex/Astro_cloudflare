@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       return new Response(
         JSON.stringify({
           success: false,
-          error: '未配置 GITHUB_TOKEN 环境变量，请在 Cloudflare Pages 仪表盘中配置',
+          error: '未配置GITHUB_TOKEN 环境变量，请在Cloudflare Pages 仪表盘中配置',
         }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
@@ -68,7 +68,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         headers: {
           Authorization: `Bearer ${githubToken}`,
           Accept: 'application/vnd.github.v3+json',
-          'User-Agent': 'vectoflare-auth',
+          'User-Agent': 'Wavefella-auth',
         },
       }
     );
@@ -96,7 +96,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       headers: {
         Authorization: `Bearer ${githubToken}`,
         Accept: 'application/vnd.github.v3+json',
-        'User-Agent': 'vectoflare-auth',
+        'User-Agent': 'Wavefella-auth',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

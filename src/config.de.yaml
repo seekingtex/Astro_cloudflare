@@ -1,5 +1,5 @@
-ï»¿site:
-  name: Vectoflare
+site:
+  name: Wavefella
   site: 'https://alluredna.com'
   base: '/'
   trailingSlash: false
@@ -9,22 +9,22 @@
 # Default SEO metadata
 metadata:
   title:
-    default: Vectoflare â€” Moderne LÃ¶sungen fÃ¼r Schlauchboote und technische Produkte
-    template: '%s â€” Vectoflare'
-  description: 'Vectoflare entwickelt und fertigt hochwertige Schlauchboote, RIBs und technische Produkte. Entdecken Sie unseren Katalog, technische Daten und Ressourcen.'
+    default: Wavefella ¡ª Moderne L?sungen f¨¹r Schlauchboote und technische Produkte
+    template: '%s ¡ª Wavefella'
+  description: 'Wavefella entwickelt und fertigt hochwertige Schlauchboote, RIBs und technische Produkte. Entdecken Sie unseren Katalog, technische Daten und Ressourcen.'
   keywords:
-    - Vectoflare
+    - Wavefella
     - Schlauchboot
     - RIB
     - PVC
     - Marine
     - Ingenieurwesen
-  author: Vectoflare
+  author: Wavefella
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Vectoflare
+    site_name: Wavefella
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -32,8 +32,8 @@ metadata:
     type: website
     locale: de_DE
   twitter:
-    handle: '@vectoflare'
-    site: '@vectoflare'
+    handle: '@Wavefella'
+    site: '@Wavefella'
     cardType: summary_large_image
 
 i18n:

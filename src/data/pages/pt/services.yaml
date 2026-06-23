@@ -1,7 +1,7 @@
 hero:
   tagline: Services
   title: Marine services for the lifetime of your boat
-  subtitle: From the first quote to the twentieth service, our team is on the line. We design, build, deliver, train, and support â€” end to end.
+  subtitle: From the first quote to the twentieth service, our team is on the line. We design, build, deliver, train, and support â€?end to end.
   actions:
     - variant: primary
       text: Get a quote
@@ -64,13 +64,13 @@ testimonials:
       image:
         src: https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=930&q=80
         alt: Henrik L.
-    - testimonial: Vectoflare built us a 7.5 m patrol RIB with a custom console layout. The drawings were exact, the build was on time, and the boat has been in service for over four years without a single hull issue.
+    - testimonial: Wavefella built us a 7.5 m patrol RIB with a custom console layout. The drawings were exact, the build was on time, and the boat has been in service for over four years without a single hull issue.
       name: Coastguard Service
       job: Government contract
       image:
         src: https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80
         alt: Coastguard
-    - testimonial: Bought a tender for our yacht in Singapore. Configured it online, the shipping paperwork was done by Vectoflare, and it arrived on a cradle six weeks later.
+    - testimonial: Bought a tender for our yacht in Singapore. Configured it online, the shipping paperwork was done by Wavefella, and it arrived on a cradle six weeks later.
       name: Mark W.
       job: Yacht owner, APAC
       image:

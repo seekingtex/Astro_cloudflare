@@ -126,7 +126,7 @@ export async function rag(
 ): Promise<{ answer: string; sources: SearchResult[] }> {
   const results = await searchSimilar(question, env, options?.topK || 5, options?.filter);
   const context = assembleContext(results);
-  const systemPrompt = 'You are a website assistant for Vectoflare. Answer concisely based on the context below. If the context does not answer the question, say you do not know.';
+  const systemPrompt = 'You are a website assistant for Wavefella. Answer concisely based on the context below. If the context does not answer the question, say you do not know.';
   const userPrompt = `Context:\n${context || '(no relevant context found)'}\n\nQuestion:\n${question}`;
   const answer = await generateAnswer(systemPrompt, userPrompt, env);
   return { answer, sources: results };

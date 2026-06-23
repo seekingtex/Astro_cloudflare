@@ -2,10 +2,10 @@ hero:
   tagline: About us
   image:
     src: https://images.unsplash.com/photo-1500627964684-141351970a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80
-    alt: Vectoflare workshop
+    alt: Wavefella workshop
   title: |
     Marine engineering, <br />
-    built the <span class="text-accent dark:text-white">Vectoflare</span> way
+    built the <span class="text-accent dark:text-white">Wavefella</span> way
   subtitle: 'We started in a coastal workshop with one boat and a stubborn belief: marine products should be engineered like they matter, because they do. Today we ship to over 40 countries, but every hull still passes through the same hands that started the company.'
 
 stats:
@@ -23,7 +23,7 @@ stats:
 
 features3_what_we_build:
   title: What we build
-  subtitle: A focused product line that we know inside out â€” no half-finished experiments, no badge-engineering.
+  subtitle: A focused product line that we know inside out â€?no half-finished experiments, no badge-engineering.
   columns: 3
   isBeforeContent: true
   items:
@@ -62,7 +62,7 @@ steps2_values:
       description: Every hull, weld and fastener is treated as if our own families will use it.
       icon: tabler:heart
     - title: Engineer before we sell
-      description: If a spec is wrong, we change the spec â€” never the customer.
+      description: If a spec is wrong, we change the spec â€?never the customer.
       icon: tabler:settings
     - title: Support that outlasts the warranty
       description: Twenty-year-old hulls still call us for spare parts, and we still pick up.
@@ -70,7 +70,7 @@ steps2_values:
 
 steps2_milestones:
   title: Milestones
-  subtitle: A short version of the Vectoflare story.
+  subtitle: A short version of the Wavefella story.
   isReversed: true
   items:
     - title: Founded in a coastal workshop
@@ -89,8 +89,8 @@ features2_locations:
   columns: 3
   items:
     - title: Headquarters & workshop
-      description: Coastal industrial park, building 4 â€” open Monâ€“Fri for visits by appointment.
+      description: Coastal industrial park, building 4 â€?open Monâ€“Fri for visits by appointment.
     - title: EU service centre
-      description: Mediterranean port â€” refit, repair and warranty support for European customers.
+      description: Mediterranean port â€?refit, repair and warranty support for European customers.
     - title: APAC partner network
       description: Authorised service partners in Australia, Japan, Singapore and Hong Kong.
