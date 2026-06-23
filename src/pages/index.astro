@@ -9,15 +9,15 @@ const metadata = {
   ignoreTitleTemplate: true,
 };
 
-const heroImg = 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1600&q=80';
+const heroImg = 'https://static.wixstatic.com/media/34e395_6c08f90381f54e8f86e4bd7fbd48c960~mv2.jpg';
 
 const categoryMeta: Record<string, { img: string; color: string }> = {
-  SUP:     { img: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=60', color: 'from-sky-400 to-blue-500' },
-  KAYAK:   { img: 'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=600&q=60', color: 'from-teal-400 to-cyan-500' },
-  DINGHY:  { img: 'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=600&q=60', color: 'from-amber-400 to-orange-500' },
-  RIB:     { img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=60', color: 'from-red-400 to-rose-500' },
-  SAFETY:  { img: 'https://images.unsplash.com/photo-1583321506908-2f89e9d9e0e0?w=600&q=60', color: 'from-emerald-400 to-green-500' },
-  ACCESSORY: { img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=60', color: 'from-violet-400 to-purple-500' },
+  SUP:     { img: 'https://static.wixstatic.com/media/34e395_659190e8974f4811b27f0987e69e69ad~mv2.png', color: 'from-sky-400 to-blue-500' },
+  KAYAK:   { img: 'https://static.wixstatic.com/media/34e395_fa21662841de411a9de3421ff4b4aeaf~mv2.png', color: 'from-teal-400 to-cyan-500' },
+  DINGHY:  { img: 'https://static.wixstatic.com/media/859cad_93adefde39f34664bac2cc539fd49f5a~mv2.jpg', color: 'from-amber-400 to-orange-500' },
+  RIB:     { img: 'https://static.wixstatic.com/media/34e395_9bc72b0a09154ec9aa146a1f939423e5~mv2.jpg', color: 'from-red-400 to-rose-500' },
+  SAFETY:  { img: 'https://static.wixstatic.com/media/34e395_5b26b1240da64d91b4714522ab26672a~mv2.png', color: 'from-emerald-400 to-green-500' },
+  ACCESSORY: { img: 'https://static.wixstatic.com/media/34e395_87509ed44f504871a4de0fdbbe563f66~mv2.png', color: 'from-violet-400 to-purple-500' },
 };
 
 const categories = [...new Set(products.map(p => p.category))].map(cat => {
@@ -40,25 +40,25 @@ const categories = [...new Set(products.map(p => p.category))].map(cat => {
 });
 
 const productVisuals: Record<string, string> = {
-  'sup-explorer-11': 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=60',
-  'sup-tour-12':     'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=60',
-  'kayak-lite':      'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=400&q=60',
-  'kayak-tandem':    'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=400&q=60',
-  'airdeck-270':     'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=400&q=60',
-  'airdeck-360':     'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=400&q=60',
-  'rib-330':         'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=60',
-  'rib-450-patrol':  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=60',
-  'life-vest-classic': 'https://images.unsplash.com/photo-1583321506908-2f89e9d9e0e0?w=400&q=60',
-  'life-vest-pro':   'https://images.unsplash.com/photo-1583321506908-2f89e9d9e0e0?w=400&q=60',
-  'paddle-carbon':   'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=60',
-  'pump-dual':       'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=60',
+  'sup-allround':       'https://static.wixstatic.com/media/34e395_659190e8974f4811b27f0987e69e69ad~mv2.png',
+  'sup-touring':        'https://static.wixstatic.com/media/34e395_f7a1472cc0ef4df8a6d8637fe162d5c9~mv2.png',
+  'rk-river':           'https://static.wixstatic.com/media/859cad_93adefde39f34664bac2cc539fd49f5a~mv2.jpg',
+  'rk-expedition':      'https://static.wixstatic.com/media/859cad_93adefde39f34664bac2cc539fd49f5a~mv2.jpg',
+  'airdeck-270':        'https://static.wixstatic.com/media/34e395_9bc72b0a09154ec9aa146a1f939423e5~mv2.jpg',
+  'airdeck-360':        'https://static.wixstatic.com/media/34e395_9bc72b0a09154ec9aa146a1f939423e5~mv2.jpg',
+  'rib-330':            'https://static.wixstatic.com/media/34e395_9bc72b0a09154ec9aa146a1f939423e5~mv2.jpg',
+  'rib-450-patrol':     'https://static.wixstatic.com/media/34e395_9bc72b0a09154ec9aa146a1f939423e5~mv2.jpg',
+  'life-jacket':        'https://static.wixstatic.com/media/34e395_5b26b1240da64d91b4714522ab26672a~mv2.png',
+  'rescue-throw':       'https://static.wixstatic.com/media/34e395_bf1a7252be0847eaa10ed724d6ecf5f4~mv2.png',
+  'sup-paddle':         'https://static.wixstatic.com/media/34e395_87509ed44f504871a4de0fdbbe563f66~mv2.png',
+  'electric-pump':      'https://static.wixstatic.com/media/34e395_c4f6a7a3491a428cac3daf1cfc8361bb~mv2.png',
 };
 
 const useCases = [
-  { title: 'Beginner Water Sports', desc: 'Stable SUP boards and kayaks for first-time users.', img: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=60' },
-  { title: 'Outdoor Exploration', desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips.', img: 'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=600&q=60' },
-  { title: 'Professional Operations', desc: 'Commercial-grade RIBs for tour operators and emergency response.', img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=60' },
-  { title: 'Family Recreation', desc: 'Spacious dinghies for day trips, fishing, and watersports.', img: 'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=600&q=60' },
+  { title: 'Beginner Water Sports', desc: 'Stable SUP boards and kayaks for first-time users.', img: 'https://static.wixstatic.com/media/34e395_659190e8974f4811b27f0987e69e69ad~mv2.png' },
+  { title: 'Outdoor Exploration', desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips.', img: 'https://static.wixstatic.com/media/859cad_93adefde39f34664bac2cc539fd49f5a~mv2.jpg' },
+  { title: 'Professional Operations', desc: 'Commercial-grade RIBs for tour operators and emergency response.', img: 'https://static.wixstatic.com/media/34e395_9bc72b0a09154ec9aa146a1f939423e5~mv2.jpg' },
+  { title: 'Family Recreation', desc: 'Spacious dinghies for day trips, fishing, and watersports.', img: 'https://static.wixstatic.com/media/34e395_9bc72b0a09154ec9aa146a1f939423e5~mv2.jpg' },
 ];
 
 const trustPoints = [
