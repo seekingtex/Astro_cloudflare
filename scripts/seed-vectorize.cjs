@@ -67,8 +67,8 @@ async function main() {
 
   // Hardcoded sitemap (matches src/pages/api/ai/sitemap.ts)
   const pages = [
-    { id: 'home', url: '/', title: 'Vectoflare — AI Infrastructure', type: 'page', section: 'main' },
-    { id: 'about', url: '/about', title: 'About Vectoflare', type: 'page', section: 'main' },
+    { id: 'home', url: '/', title: 'Wavefella — Premium Inflatables', type: 'page', section: 'main' },
+    { id: 'about', url: '/about', title: 'About Wavefella', type: 'page', section: 'main' },
     { id: 'services', url: '/services', title: 'Services', type: 'page', section: 'main' },
     { id: 'pricing', url: '/pricing', title: 'Pricing', type: 'page', section: 'main' },
     { id: 'contact', url: '/contact', title: 'Contact', type: 'page', section: 'main' },

@@ -14,13 +14,14 @@ const metadata = {
   <!-- Hero -->
   <section class={ui.section + " text-center"}>
     <div class="max-w-4xl mx-auto px-6">
-      <h1 class={ui.h1 + " text-5xl md:text-6xl"}>
-        AI Infrastructure for Modern Businesses
+      <span class={ui.badge}>Founded 2012</span>
+      <h1 class={"mt-6 " + ui.h1 + " text-5xl md:text-6xl"}>
+        Premium Inflatables for Every Adventure
       </h1>
       <p class={"mt-6 " + ui.subtitle + " mx-auto"}>
-        We build practical AI systems that connect data, search, and automation.
-        Deploy semantic search, structured knowledge APIs, and workflow automation
-        on Cloudflare's global network.
+        Wavefella designs and manufactures high-quality inflatable boats, stand-up paddleboards,
+        and water sports gear. From dinghies to commercial rescue vessels — built for performance,
+        durability, and safety.
       </p>
       <div class="mt-10 flex items-center justify-center gap-4">
         <a href="#products" class={ui.btnPrimary}>Explore products</a>
@@ -29,23 +30,23 @@ const metadata = {
     </div>
   </section>
 
-  <!-- Problem -->
+  <!-- Why Wavefella -->
   <section class={ui.section + " bg-gray-50"}>
     <div class={ui.container}>
       <div class="max-w-3xl">
-        <span class={ui.badge}>The challenge</span>
-        <h2 class={"mt-4 " + ui.h2}>Built for teams that need practical AI</h2>
+        <span class={ui.badge}>Why Wavefella</span>
+        <h2 class={"mt-4 " + ui.h2}>Engineered for water, designed for you</h2>
         <p class={"mt-4 " + ui.subtitle}>
-          Most AI projects fail because they're disconnected from real data.
-          We build systems that start with your existing knowledge base and
-          deliver measurable results — not demos.
+          Every Wavefella product is the result of decades of inflatable technology expertise.
+          Our R&D center drives continuous innovation in materials, structural design, and
+          manufacturing processes.
         </p>
       </div>
       <div class={"mt-16 " + ui.grid3}>
         {[
-          { title: "Data fragmentation", desc: "Knowledge spread across documents, databases, and teams with no unified search." },
-          { title: "AI integration complexity", desc: "Choosing models, managing API keys, handling rate limits and fallbacks." },
-          { title: "Vendor lock-in risk", desc: "Proprietary systems that make it hard to switch or scale." },
+          { title: "Decades of expertise", desc: "Years of inflatable boat technology and manufacturing innovation." },
+          { title: "Rigorous testing", desc: "Every vessel undergoes strict quality control and safety certification." },
+          { title: "Global support", desc: "Distributed worldwide through authorized dealers and partners." },
         ].map(p => (
           <div class={ui.cardSm}>
             <h3 class={ui.h3 + " text-lg"}>{p.title}</h3>
@@ -61,30 +62,50 @@ const metadata = {
     <div class={ui.container}>
       <div class="max-w-3xl">
         <span class={ui.badge}>Products</span>
-        <h2 class={"mt-4 " + ui.h2}>What we build</h2>
+        <h2 class={"mt-4 " + ui.h2}>Our product lines</h2>
       </div>
       <div class={"mt-12 " + ui.grid3}>
         {[
           {
-            name: "AI Search Engine",
-            desc: "Semantic search across enterprise knowledge bases. Embed, index, and retrieve with hybrid vector + keyword search.",
-            feature: "Vectorize 768-dim, RAG with citations, 3-provider fallback"
+            name: "Dinghies",
+            desc: "Lightweight, portable inflatable dinghies for recreational boating, fishing, and tender duties.",
           },
           {
-            name: "Knowledge API",
-            desc: "Structured, AI-ready data layer. RESTful endpoints that serve contextual knowledge to any application.",
-            feature: "Schema-enforced, cache-first, real-time sync"
+            name: "Sport Tenders",
+            desc: "Performance tenders designed for speed and maneuverability. Ideal for yacht tendering and watersports.",
           },
           {
-            name: "Automation Engine",
-            desc: "Workflow automation for operations. Connect AI responses to actions — ticketing, alerts, content generation.",
-            feature: "Event-driven, extensible, auditable"
-          }
+            name: "Rigid Hulls",
+            desc: "RIB series with fiberglass or aluminum hulls. Superior stability, performance, and durability.",
+          },
+          {
+            name: "Sport Utility Boats",
+            desc: "Versatile multi-purpose inflatables for work, play, and exploration in any conditions.",
+          },
+          {
+            name: "Commercial & Rescue",
+            desc: "Heavy-duty vessels engineered for commercial use, law enforcement, and emergency response.",
+          },
+          {
+            name: "River Boats",
+            desc: "Whitewater rafting boats built to withstand the toughest river conditions.",
+          },
+          {
+            name: "Stand-Up Paddleboards",
+            desc: "Premium inflatable SUPs for touring, yoga, surfing, and recreational paddling.",
+          },
+          {
+            name: "SUP Accessories",
+            desc: "High-performance paddles, reliable pumps, carry bags, and essential gear.",
+          },
+          {
+            name: "Life Vests & Safety",
+            desc: "Certified personal flotation devices and safety equipment for all water activities.",
+          },
         ].map(p => (
           <div class={ui.card}>
             <h3 class={ui.h3 + " text-xl"}>{p.name}</h3>
             <p class={"mt-3 " + ui.body}>{p.desc}</p>
-            <p class={"mt-4 " + ui.caption}>{p.feature}</p>
           </div>
         ))}
       </div>
@@ -96,16 +117,16 @@ const metadata = {
     <div class={ui.container}>
       <div class="max-w-3xl">
         <span class={ui.badge}>Use cases</span>
-        <h2 class={"mt-4 " + ui.h2}>How organizations use Vectoflare</h2>
+        <h2 class={"mt-4 " + ui.h2}>Built for every water experience</h2>
       </div>
       <div class={"mt-12 " + ui.grid3}>
         {[
-          { title: "Enterprise Search", desc: "Search internal documents, knowledge bases, and product catalogs with natural language." },
-          { title: "Customer Support AI", desc: "Automate FAQ responses and support workflows with context-aware answers." },
-          { title: "Product Documentation", desc: "Provide instant, accurate answers about product specifications and capabilities." },
-          { title: "Technical Reference", desc: "Engineers query technical specs, API docs, and architecture decisions conversationally." },
-          { title: "Compliance & Policy", desc: "Ensure policy questions are answered from authoritative, version-controlled sources." },
-          { title: "Knowledge Base RAG", desc: "Transform static wikis into interactive Q&A systems with citations." },
+          { title: "Recreational Boating", desc: "Day trips, fishing, and family outings on lakes, rivers, and coastal waters." },
+          { title: "Yacht Tender", desc: "Compact, reliable tender for yacht owners. Easy to store and launch." },
+          { title: "Commercial Operations", desc: "Tour operators, ferry services, and marine transport." },
+          { title: "Emergency Response", desc: "Search and rescue, law enforcement, and disaster relief operations." },
+          { title: "Whitewater Rafting", desc: "Professional-grade river boats for guided tours and expedition rafting." },
+          { title: "Watersports & SUP", desc: "Paddleboarding, yoga, surfing, and fitness on the water." },
         ].map(u => (
           <div class={ui.cardSm}>
             <h3 class={ui.h3 + " text-lg"}>{u.title}</h3>
@@ -121,18 +142,18 @@ const metadata = {
     <div class={ui.container}>
       <div class="max-w-3xl">
         <span class={ui.badge}>Technology</span>
-        <h2 class={"mt-4 " + ui.h2}>Built on Cloudflare, powered by AI</h2>
+        <h2 class={"mt-4 " + ui.h2}>Research & Development Center</h2>
         <p class={"mt-4 " + ui.subtitle}>
-          Every component is designed for production use on Cloudflare's global network.
-          No servers to manage. No complex infrastructure.
+          Our state-of-the-art R&D center drives innovation in materials, structural design,
+          and manufacturing processes — setting industry standards for quality and performance.
         </p>
       </div>
       <div class={"mt-12 " + ui.grid2}>
         {[
-          { title: "Vector Search", desc: "768-dimensional embeddings with cosine similarity. Hybrid vector + keyword retrieval." },
-          { title: "Multi-Model Routing", desc: "AI Gateway → OpenAI → Workers AI fallback chain. No single point of failure." },
-          { title: "RAG with Citations", desc: "Every answer includes source references. Traceable, verifiable, auditable." },
-          { title: "Global Edge Deployment", desc: "Deployed across 330+ cities on Cloudflare Workers. Sub-millisecond routing." },
+          { title: "Material Innovation", desc: "Advanced PVC and Hypalon materials for abrasion resistance, UV protection, and low-temperature performance." },
+          { title: "Structural Design", desc: "Optimized air chamber layouts for stability and load capacity. CAD-designed keels for superior tracking." },
+          { title: "Manufacturing Excellence", desc: "Heat-sealed seams with automated production lines for consistent quality and airtightness." },
+          { title: "Safety Testing", desc: "Every product undergoes rigorous testing and certification to meet international safety standards." },
         ].map(t => (
           <div class={ui.cardSm}>
             <h3 class={ui.h3 + " text-lg"}>{t.title}</h3>
@@ -150,8 +171,7 @@ const metadata = {
         <span class={ui.badge}>AI Assistant</span>
         <h2 class={"mt-4 " + ui.h2}>Ask about our products</h2>
         <p class={"mt-4 " + ui.subtitle + " mx-auto"}>
-          Get factual, neutral explanations about what we build and how it works.
-          No marketing. No sales pitch.
+          Get factual, neutral explanations about Wavefella products, specifications, and capabilities.
         </p>
       </div>
       <div class="mt-10 max-w-2xl mx-auto">
@@ -159,7 +179,7 @@ const metadata = {
           <input
             id="ask-input"
             type="text"
-            placeholder="e.g. How does the search engine work?"
+            placeholder="What is a RIB vs a dinghy?"
             class={ui.input}
             autocomplete="off"
           />

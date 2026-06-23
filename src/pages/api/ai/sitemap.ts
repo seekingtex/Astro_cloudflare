@@ -16,8 +16,8 @@ export const GET: APIRoute = async ({ locals }) => {
   // Static page list — these form the AI knowledge base
   const pages = [
     // Main
-    { id: 'home', url: '/', title: 'Vectoflare — AI Infrastructure', section: 'main', type: 'page' },
-    { id: 'about', url: '/about', title: 'About Vectoflare', section: 'main', type: 'page' },
+    { id: 'home', url: '/', title: 'Wavefella — Premium Inflatables', section: 'main', type: 'page' },
+    { id: 'about', url: '/about', title: 'About Wavefella', section: 'main', type: 'page' },
     { id: 'services', url: '/services', title: 'Services', section: 'main', type: 'page' },
     { id: 'pricing', url: '/pricing', title: 'Pricing', section: 'main', type: 'page' },
     { id: 'contact', url: '/contact', title: 'Contact', section: 'main', type: 'page' },

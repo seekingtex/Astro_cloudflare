@@ -1,5 +1,5 @@
 site:
-  name: Vectoflare
+  name: Wavefella
   site: 'https://alluredna.com'
   base: '/'
   trailingSlash: false
@@ -9,22 +9,24 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Vectoflare — AI Infrastructure for Modern Businesses
-    template: '%s — Vectoflare'
-  description: 'We build practical AI systems that connect data, search, and automation. Semantic search, knowledge APIs, and workflow automation for enterprises.'
+    default: Wavefella — Inflatable Boats, SUPs & Water Sports Gear
+    template: '%s — Wavefella'
+  description: 'Premium inflatable boats, SUPs, and water sports gear. Dinghies, RIBs, river boats, commercial rescue vessels, and accessories for every adventure.'
   keywords:
-    - Vectoflare
-    - AI search
-    - semantic search
-    - knowledge API
-    - workflow automation
-    - enterprise AI
-  author: Vectoflare
+    - Wavefella
+    - inflatable boat
+    - SUP
+    - paddleboard
+    - RIB
+    - dinghy
+    - river boat
+    - marine
+  author: Wavefella
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Vectoflare
+    site_name: Wavefella
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -32,8 +34,8 @@ metadata:
     type: website
     locale: en_US
   twitter:
-    handle: '@vectoflare'
-    site: '@vectoflare'
+    handle: '@wavefella'
+    site: '@wavefella'
     cardType: summary_large_image
 
 i18n:
@@ -97,15 +99,15 @@ analytics:
       id: null
 
 siteSettings:
-  siteName: Vectoflare
-  siteTagline: 'AI Infrastructure for Modern Businesses'
-  siteDescription: 'We build practical AI systems that connect data, search, and automation. Semantic search, knowledge APIs, and workflow automation for enterprises.'
+  siteName: Wavefella
+  siteTagline: 'Premium Inflatable Boats, SUPs & Water Sports Gear'
+  siteDescription: 'Wavefella designs and manufactures premium inflatable boats, stand-up paddleboards, and water sports gear. Founded in 2012, trusted by adventurers worldwide.'
   organization:
-    name: Vectoflare
+    name: Wavefella
     logo: ''
-    contactEmail: info@vectoflare.com
-    contactPhone: '+86 133 0532 4192'
-    address: 'Qingdao, China'
+    contactEmail: info@hifond.com
+    contactPhone: '+1 (585) 310 1999'
+    address: '5067 Saddleback St, Montclair, CA 91763, USA'
   socialLinks:
     - platform: github
       url: 'https://github.com/theworkvigour'
