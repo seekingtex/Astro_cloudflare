@@ -111,28 +111,28 @@ const proofPoints = [
 
 const faqItems = [
   {
-    q: 'What type of water sports equipment does Wavefella manufacture?',
-    a: 'Wavefella manufactures inflatable SUP boards, kayaks, dinghies, rigid-hull inflatable boats (RIBs), life vests, and accessories. Our product line covers recreational, touring, commercial, and professional marine applications.',
+    q: 'Is SUP hard to learn?',
+    a: 'Not at all. Most beginners stand up and paddle within their first session. Our All-Around SUP series features extra-wide stable platforms designed specifically for first-time paddlers. Start on calm water and you will be cruising in minutes.',
   },
   {
-    q: 'Are Wavefella products certified for safety?',
-    a: 'Yes. All Wavefella safety equipment is CE certified and meets ISO 12402 standards. Our boats undergo pressure, buoyancy, and load testing before shipment. The Life Vest Pro is SOLAS compliant for offshore operations.',
+    q: 'Can I use it in the ocean?',
+    a: 'Yes. Wavefella SUP boards are built for ocean, lake, and river use. Our Touring series handles coastal chop, and all boards use marine-grade PVC that resists saltwater corrosion. Rinse with fresh water after ocean use.',
   },
   {
-    q: 'What skill levels do Wavefella products support?',
-    a: 'We design for all skill levels: beginner (stable SUP boards and kayaks), intermediate (touring SUPs), advanced (high-performance RIBs), and professional (patrol and rescue vessels). Each product page specifies the recommended skill level.',
+    q: 'How long does it take to inflate?',
+    a: 'With the included dual-action pump, most boards inflate to 12–15 PSI in under 5 minutes. Our electric pump option cuts that to under 2 minutes. Deflation and packing take about 3 minutes.',
   },
   {
-    q: 'Can Wavefella inflatable boats be used in saltwater?',
-    a: 'Yes. Our inflatable boats use marine-grade PVC and Hypalon fabrics that resist UV, saltwater corrosion, and abrasion. We recommend rinsing with fresh water after saltwater use to extend product life.',
+    q: 'Can I travel with an inflatable SUP?',
+    a: 'Absolutely. Every Wavefella board packs into a backpack-sized carrying case that meets airline luggage requirements. At just 18–22 lbs, it is easy to carry to the beach, lake, or through airport terminals.',
   },
   {
-    q: 'What is the warranty on Wavefella products?',
-    a: 'Wavefella offers a 2-year manufacturer warranty on all products covering manufacturing defects in materials and workmanship. The warranty does not cover damage from misuse, unauthorized modifications, or normal wear and tear.',
+    q: 'What is the weight limit?',
+    a: 'Our All-Around SUPs support up to 220 lbs. The Touring and Yoga series support up to 250 lbs. For tandem use or heavier loads, our Kayak and Dinghy products offer higher capacity options.',
   },
   {
-    q: 'How does the AI product recommendation work?',
-    a: 'Our AI Product Selection Engine analyzes your question, matches it against our structured product catalog, and recommends the best product based on your skill level, water environment, and safety requirements. It does not generate marketing language or hallucinate products.',
+    q: 'What comes in the box?',
+    a: 'Every Wavefella SUP includes the board, a travel backpack, dual-action hand pump, removable fin, coil leash, and repair kit. Some models also include a carbon paddle upgrade option.',
   },
 ];
 ---
@@ -181,6 +181,15 @@ const faqItems = [
     </div>
   </section>
 
+  <!-- Trust Bar -->
+  <section class="border-y border-gray-200 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex flex-wrap items-center justify-center gap-x-12 gap-y-3 text-sm font-medium text-gray-700">
+      <span class="flex items-center gap-2"><span class="text-sky-600">✓</span> Stable for Beginners</span>
+      <span class="flex items-center gap-2"><span class="text-sky-600">✓</span> Travel-Ready Design</span>
+      <span class="flex items-center gap-2"><span class="text-sky-600">✓</span> Ocean, Lake & River Tested</span>
+    </div>
+  </section>
+
   <!-- AI Summary -->
   <section class="max-w-6xl mx-auto py-24 px-6" id="ai-summary">
     <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 md:p-12">
@@ -219,6 +228,57 @@ const faqItems = [
             <li>AI-powered product selection engine</li>
             <li>12 products across 6 categories</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find Your Perfect SUP -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">SUP Collection</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Find Your Perfect SUP</h2>
+      <p class="mt-4 text-lg text-gray-500">Four series designed for how you paddle — from first steps to open water exploration.</p>
+    </div>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+        <div class="h-48 bg-gradient-to-br from-sky-400 to-blue-500 relative overflow-hidden">
+          <img src="/images/wavefella/products/sup-allround.jpg" alt="All-Around SUP" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-gray-900">All-Around SUP</h3>
+          <p class="mt-2 text-sm text-gray-500">Stable, versatile, and beginner-friendly. Perfect for lakes, bays, and casual paddling.</p>
+          <a href="/products#sup-boards" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">Shop All-Around →</a>
+        </div>
+      </div>
+      <div class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+        <div class="h-48 bg-gradient-to-br from-teal-400 to-cyan-500 relative overflow-hidden">
+          <img src="/images/wavefella/products/sup-touring.jpg" alt="Touring SUP" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-gray-900">Touring SUP</h3>
+          <p class="mt-2 text-sm text-gray-500">Longer, narrower, and faster. Built for distance paddling and coastal exploration.</p>
+          <a href="/products#sup-boards" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">Shop Touring →</a>
+        </div>
+      </div>
+      <div class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+        <div class="h-48 bg-gradient-to-br from-emerald-400 to-green-500 relative overflow-hidden">
+          <img src="/images/wavefella/sup-yoga.png" alt="Yoga SUP" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-gray-900">Yoga SUP</h3>
+          <p class="mt-2 text-sm text-gray-500">Extra-wide and ultra-stable. Designed for yoga, fitness, and meditation on water.</p>
+          <a href="/products#sup-boards" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">Shop Yoga →</a>
+        </div>
+      </div>
+      <div class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+        <div class="h-48 bg-gradient-to-br from-red-400 to-rose-500 relative overflow-hidden">
+          <img src="/images/wavefella/hero/hero-7.jpg" alt="Performance SUP" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-gray-900">Performance SUP</h3>
+          <p class="mt-2 text-sm text-gray-500">Stiffer, faster, and more responsive. For experienced paddlers and light surf.</p>
+          <a href="/products#sup-boards" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">Shop Performance →</a>
         </div>
       </div>
     </div>
@@ -294,6 +354,95 @@ const faqItems = [
             </div>
           );
         })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Product -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="rounded-2xl overflow-hidden">
+        <img src="/images/wavefella/products/sup-touring.jpg" alt="Wavefella Touring SUP" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Featured Product</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-semibold text-gray-900">SUP Tour 12 — Explore Further. Paddle Longer.</h2>
+        <p class="mt-4 text-lg text-gray-500">Designed for explorers who go beyond the shoreline. Touring-optimized shape for unmatched glide efficiency and directional stability across lakes, coastlines, and open water.</p>
+        <ul class="mt-6 space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="text-sky-600 mt-0.5">✓</span>
+            <span class="text-gray-700"><span class="font-semibold">Stability+</span> — Ultra-stable 32" width for confident touring</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-sky-600 mt-0.5">✓</span>
+            <span class="text-gray-700"><span class="font-semibold">Ocean Ready</span> — 12–15 PSI reinforced drop-stitch core</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-sky-600 mt-0.5">✓</span>
+            <span class="text-gray-700"><span class="font-semibold">Travel+</span> — Backpack, pump, and fin included</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-sky-600 mt-0.5">✓</span>
+            <span class="text-gray-700">CE certified — ocean, lake, and river ready</span>
+          </li>
+        </ul>
+        <a href="/products/sup-tour-12" class="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors shadow-lg">
+          Shop Now →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Technology</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for Performance</h2>
+      <p class="mt-4 text-lg text-gray-500">Every Wavefella board is engineered with precision materials and construction methods.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:shadow-md transition-shadow">
+        <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto text-3xl font-bold text-gray-400">PVC</div>
+        <h3 class="mt-6 text-lg font-semibold text-gray-900">Military-Grade PVC Layer</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Multi-layer laminated PVC fabric rated for marine environments. Tested for UV, abrasion, and puncture resistance.</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:shadow-md transition-shadow">
+        <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto text-3xl font-bold text-gray-400">DS</div>
+        <h3 class="mt-6 text-lg font-semibold text-gray-900">Drop-Stitch Core</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Thousands of internal threads connect top and bottom layers, creating a rigid, high-pressure structure at 12–15 PSI.</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:shadow-md transition-shadow">
+        <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto text-3xl font-bold text-gray-400">RR</div>
+        <h3 class="mt-6 text-lg font-semibold text-gray-900">Reinforced Rail Edge</h3>
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed">Double-layered fusion-welded rail protects against dock scrapes, beach landings, and side impacts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Wavefella -->
+  <section class="bg-gray-50 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Why Wavefella</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for the Water, Engineered for Freedom</h2>
+        <p class="mt-4 text-lg text-gray-500">Every product starts with a deep understanding of water — and a commitment to safety, durability, and performance.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 border border-gray-200">
+          <div class="w-14 h-14 bg-sky-50 rounded-xl flex items-center justify-center text-2xl">🧪</div>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900">Engineered Materials</h3>
+          <p class="mt-3 text-gray-500 text-sm leading-relaxed">Military-grade PVC and Hypalon fabrics with drop-stitch core technology. Tested for UV resistance, abrasion, and extreme temperatures.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200">
+          <div class="w-14 h-14 bg-sky-50 rounded-xl flex items-center justify-center text-2xl">🔬</div>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900">Tested for Safety</h3>
+          <p class="mt-3 text-gray-500 text-sm leading-relaxed">Every vessel undergoes pressure, buoyancy, and load testing. CE certified and ISO compliant. Your safety is engineered in, not checked off.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200">
+          <div class="w-14 h-14 bg-sky-50 rounded-xl flex items-center justify-center text-2xl">🌍</div>
+          <h3 class="mt-5 text-lg font-semibold text-gray-900">Adapts to All Waters</h3>
+          <p class="mt-3 text-gray-500 text-sm leading-relaxed">From alpine lakes to ocean coasts, slow rivers to open bays. Our products are designed for the full spectrum of water environments worldwide.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -378,6 +527,96 @@ const faqItems = [
         <button id="ask-btn" class="px-8 py-4 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors shrink-0">Ask</button>
       </div>
       <pre id="out" class="mt-8 text-left text-sm text-gray-700 bg-white border border-gray-200 rounded-2xl p-8 hidden whitespace-pre-wrap leading-relaxed"></pre>
+    </div>
+  </section>
+
+  <!-- Lifestyle / Community -->
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Community</span>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Real Riders. Real Adventures.</h2>
+      <p class="mt-4 text-lg text-gray-500">Join thousands of paddlers exploring lakes, rivers, and coastlines with Wavefella.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+        <img src="/images/wavefella/use-cases/beginner.jpg" alt="Paddling at sunset" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+        <img src="/images/wavefella/use-cases/outdoor.jpg" alt="Lake adventure" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+        <img src="/images/wavefella/use-cases/family.jpg" alt="River exploration" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-8">
+      <div class="bg-white border border-gray-200 rounded-2xl p-6">
+        <div class="flex text-amber-400 text-lg">★★★★★</div>
+        <p class="mt-4 text-gray-600 text-sm italic">"Stable even for a complete beginner. Took it out on the lake my first day and never fell."</p>
+        <p class="mt-3 text-sm font-semibold text-gray-900">— Sarah K.</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6">
+        <div class="flex text-amber-400 text-lg">★★★★★</div>
+        <p class="mt-4 text-gray-600 text-sm italic">"Took it to Bali — packed in a backpack, inflated in 5 minutes. Perfect travel companion."</p>
+        <p class="mt-3 text-sm font-semibold text-gray-900">— James T.</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6">
+        <div class="flex text-amber-400 text-lg">★★★★★</div>
+        <p class="mt-4 text-gray-600 text-sm italic">"Solid build quality. Handles coastal chop way better than I expected from an inflatable."</p>
+        <p class="mt-3 text-sm font-semibold text-gray-900">— Mike R.</p>
+      </div>
+    </div>
+    <div class="text-center mt-10">
+      <p class="text-gray-500">Tag <span class="font-semibold text-gray-700">@wavefellaco</span> on Instagram to share your adventure.</p>
+      <div class="mt-4 flex justify-center gap-4">
+        <a href="https://www.instagram.com/wavefellaco" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors text-sm">
+          Follow on Instagram →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning Center -->
+  <section class="bg-gray-50 py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Learn</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">New to SUP?</h2>
+        <p class="mt-4 text-lg text-gray-500">Everything you need to know before you hit the water.</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6">
+        <a href="/guides/how-to-choose-your-sup" class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
+          <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">🤔</div>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">How to Choose Your SUP</h3>
+        </a>
+        <a href="/guides/beginner-guide" class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
+          <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">📖</div>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">Beginner's Guide to Paddling</h3>
+        </a>
+        <a href="/guides/inflatable-vs-hard" class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
+          <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">⚖️</div>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">Inflatable vs Hard Board</h3>
+        </a>
+        <a href="/guides/safety-tips" class="group bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-md transition-shadow text-center">
+          <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">🛡️</div>
+          <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">Water Safety Tips</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-24 px-6 text-center bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-4xl font-semibold">Start Your Water Journey Today</h2>
+      <p class="mt-4 text-lg text-white/70">Whether you're a first-time paddler or a seasoned explorer — there's a Wavefella board waiting for you.</p>
+      <div class="mt-10 flex items-center justify-center gap-4">
+        <a href="/products#sup-boards" class="px-8 py-4 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+          Shop All Boards
+        </a>
+        <a href="#ask" class="px-8 py-4 border-2 border-white/30 text-white rounded-xl font-semibold hover:border-white transition-colors">
+          Take the Quiz
+        </a>
+      </div>
     </div>
   </section>
 
