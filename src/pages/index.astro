@@ -9,6 +9,17 @@ const metadata = {
   ignoreTitleTemplate: true,
 };
 
+const heroImg = 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1600&q=80';
+
+const categoryMeta: Record<string, { img: string; color: string }> = {
+  SUP:     { img: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=60', color: 'from-sky-400 to-blue-500' },
+  KAYAK:   { img: 'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=600&q=60', color: 'from-teal-400 to-cyan-500' },
+  DINGHY:  { img: 'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=600&q=60', color: 'from-amber-400 to-orange-500' },
+  RIB:     { img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=60', color: 'from-red-400 to-rose-500' },
+  SAFETY:  { img: 'https://images.unsplash.com/photo-1583321506908-2f89e9d9e0e0?w=600&q=60', color: 'from-emerald-400 to-green-500' },
+  ACCESSORY: { img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=60', color: 'from-violet-400 to-purple-500' },
+};
+
 const categories = [...new Set(products.map(p => p.category))].map(cat => {
   const items = products.filter(p => p.category === cat);
   const waters = [...new Set(items.flatMap(p => p.water))];
@@ -17,19 +28,37 @@ const categories = [...new Set(products.map(p => p.category))].map(cat => {
     SUP: 'SUP Boards', KAYAK: 'Inflatable Kayaks', DINGHY: 'Dinghies',
     RIB: 'RIBs & Rigid Hulls', SAFETY: 'Safety Equipment', ACCESSORY: 'Accessories',
   };
+  const meta = categoryMeta[cat] || { img: '', color: 'from-gray-400 to-gray-500' };
   return {
     name: names[cat] || cat,
     count: items.length,
     waters: waters.slice(0, 3).join(', '),
     skill: skills.sort().join(' - '),
+    img: meta.img,
+    gradient: meta.color,
   };
 });
 
+const productVisuals: Record<string, string> = {
+  'sup-explorer-11': 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=60',
+  'sup-tour-12':     'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=60',
+  'kayak-lite':      'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=400&q=60',
+  'kayak-tandem':    'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=400&q=60',
+  'airdeck-270':     'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=400&q=60',
+  'airdeck-360':     'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=400&q=60',
+  'rib-330':         'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=60',
+  'rib-450-patrol':  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=60',
+  'life-vest-classic': 'https://images.unsplash.com/photo-1583321506908-2f89e9d9e0e0?w=400&q=60',
+  'life-vest-pro':   'https://images.unsplash.com/photo-1583321506908-2f89e9d9e0e0?w=400&q=60',
+  'paddle-carbon':   'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=60',
+  'pump-dual':       'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=60',
+};
+
 const useCases = [
-  { title: 'Beginner Water Sports', desc: 'Stable SUP boards and kayaks for first-time users. Confidence building on calm water.' },
-  { title: 'Outdoor Exploration', desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips. Packable adventure.' },
-  { title: 'Professional Operations', desc: 'Commercial-grade RIBs for tour operators, law enforcement, and emergency response.' },
-  { title: 'Family Recreation', desc: 'Spacious dinghies and safe equipment for family day trips, fishing, and watersports.' },
+  { title: 'Beginner Water Sports', desc: 'Stable SUP boards and kayaks for first-time users.', img: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=60' },
+  { title: 'Outdoor Exploration', desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips.', img: 'https://images.unsplash.com/photo-1603181957477-5dfc9ff7c324?w=600&q=60' },
+  { title: 'Professional Operations', desc: 'Commercial-grade RIBs for tour operators and emergency response.', img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=60' },
+  { title: 'Family Recreation', desc: 'Spacious dinghies for day trips, fishing, and watersports.', img: 'https://images.unsplash.com/photo-1566907225202-7e1f2caf3a34?w=600&q=60' },
 ];
 
 const trustPoints = [
@@ -42,21 +71,23 @@ const trustPoints = [
 
 <Layout metadata={metadata}>
   <!-- Hero -->
-  <section class="py-28 text-center bg-gradient-to-b from-sky-50 to-white">
-    <div class="max-w-3xl mx-auto px-6">
-      <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Since 2012</span>
-      <h1 class="mt-6 text-5xl font-semibold tracking-tight text-gray-900">
+  <section class="relative h-[80vh] min-h-[600px] flex items-center justify-center text-center text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/40 z-10"></div>
+    <img src={heroImg} alt="Water sports" class="absolute inset-0 w-full h-full object-cover" loading="eager" />
+    <div class="relative z-20 max-w-3xl mx-auto px-6">
+      <span class="text-sm font-medium tracking-wide uppercase opacity-80">Since 2012</span>
+      <h1 class="mt-6 text-5xl md:text-6xl font-bold tracking-tight drop-shadow-lg">
         Wavefella — Global Water Sports Brand
       </h1>
-      <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+      <p class="mt-6 text-lg md:text-xl opacity-90 max-w-2xl mx-auto drop-shadow">
         SUP, kayak, dinghy, RIB, and safety equipment for outdoor adventure.
         Engineered for performance, built for safety.
       </p>
       <div class="mt-10 flex items-center justify-center gap-4">
-        <a href="#products" class="px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">
+        <a href="#products" class="px-8 py-4 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg">
           Explore products
         </a>
-        <a href="#ask" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:border-gray-400 transition-colors">
+        <a href="#ask" class="px-8 py-4 border-2 border-white/60 text-white rounded-xl font-semibold hover:border-white transition-colors backdrop-blur-sm">
           Ask AI
         </a>
       </div>
@@ -64,79 +95,115 @@ const trustPoints = [
   </section>
 
   <!-- Product System -->
-  <section id="products" class="max-w-6xl mx-auto py-20 px-6">
-    <div class="max-w-3xl">
+  <section id="products" class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product System</span>
-      <h2 class="mt-4 text-3xl font-semibold text-gray-900">{products.length} products across 6 categories</h2>
-      <p class="mt-4 text-gray-500">
-        From paddleboards to rescue vessels, every product has structured specs for skill level, water type, and region availability.
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">{products.length} products across 6 categories</h2>
+      <p class="mt-4 text-lg text-gray-500">
+        From paddleboards to rescue vessels — each category designed for specific waters, skill levels, and use cases.
       </p>
     </div>
-    <div class="mt-12 grid md:grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-3 gap-8">
       {categories.map(cat => (
-        <div class="border border-gray-200 rounded-2xl p-6 hover:border-gray-300 transition-colors">
-          <h3 class="text-xl font-semibold text-gray-900">{cat.name}</h3>
-          <p class="text-sm text-gray-400 mt-1">{cat.count} products</p>
-          <p class="text-gray-500 mt-3">{cat.waters}</p>
-          <p class="text-sm text-gray-400 mt-2">Skill: {cat.skill}</p>
-        </div>
+        <a href={"/products#" + cat.name.toLowerCase().replace(/\s+/g, '-')} class="group block rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow bg-white">
+          <div class={`h-48 bg-gradient-to-br ${cat.gradient} relative overflow-hidden`}>
+            <img src={cat.img} alt={cat.name} class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900">{cat.name}</h3>
+            <p class="text-sm text-gray-400 mt-1">{cat.count} products</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{cat.waters}</span>
+              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{cat.skill}</span>
+            </div>
+          </div>
+        </a>
       ))}
     </div>
   </section>
 
-  <!-- Product List (SSOT) -->
-  <section class="bg-gray-50 py-20 px-6">
+  <!-- Product Catalog -->
+  <section class="bg-gray-50 py-24 px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="max-w-3xl">
+      <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Product Catalog</span>
-        <h2 class="mt-4 text-3xl font-semibold text-gray-900">All products</h2>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Complete product lineup</h2>
+        <p class="mt-4 text-lg text-gray-500">Every product with structured specs — skill level, water type, region, and safety requirements.</p>
       </div>
-      <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map(p => (
-          <div class="bg-white border border-gray-200 rounded-2xl p-6">
-            <h3 class="font-semibold text-gray-900">{p.name}</h3>
-            <p class="text-gray-500 mt-2 text-sm">{p.desc}</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{p.category}</span>
-              <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-600">{p.skill}</span>
-              {p.region.slice(0, 2).map(r => <span class="px-2 py-1 bg-gray-100 rounded-full text-gray-500">{r}</span>)}
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {products.map(p => {
+          const img = productVisuals[p.id] || '';
+          return (
+            <div class="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+              <div class="h-48 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                {img ? (
+                  <>
+                    <img src={img} alt={p.name} class="w-full h-full object-cover" loading="lazy" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </>
+                ) : (
+                  <div class="flex items-center justify-center h-full text-gray-400 text-sm">{p.category}</div>
+                )}
+              </div>
+              <div class="p-6">
+                <h3 class="font-semibold text-gray-900 text-lg">{p.name}</h3>
+                <p class="text-gray-500 mt-2 text-sm">{p.desc}</p>
+                <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                  <span class="px-2 py-1 bg-sky-50 text-sky-700 rounded-full font-medium">{p.category}</span>
+                  <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full">{p.skill}</span>
+                  {p.region.slice(0, 2).map(r => (
+                    <span class="px-2 py-1 bg-gray-100 text-gray-500 rounded-full">{r}</span>
+                  ))}
+                </div>
+                {p.safety.length > 0 && (
+                  <p class="mt-3 text-xs text-amber-600 flex items-center gap-1">
+                    <span>⚠</span> {p.safety.join(', ')}
+                  </p>
+                )}
+              </div>
             </div>
-            {p.safety.length > 0 && (
-              <p class="mt-3 text-xs text-amber-600">Safety: {p.safety.join(', ')}</p>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
 
   <!-- Use Cases -->
-  <section class="max-w-6xl mx-auto py-20 px-6">
-    <div class="max-w-3xl">
+  <section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Cases</span>
-      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built for real water experiences</h2>
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for real water experiences</h2>
+      <p class="mt-4 text-lg text-gray-500">From first-time paddlers to professional operators — Wavefella equips every water adventure.</p>
     </div>
-    <div class="mt-12 grid md:grid-cols-4 gap-6">
+    <div class="grid md:grid-cols-4 gap-6">
       {useCases.map(u => (
-        <div class="border border-gray-200 rounded-2xl p-6">
-          <h3 class="font-semibold text-gray-900">{u.title}</h3>
-          <p class="text-gray-500 mt-2 text-sm">{u.desc}</p>
+        <div class="group rounded-2xl overflow-hidden border border-gray-200 bg-white hover:shadow-lg transition-shadow">
+          <div class="h-40 overflow-hidden">
+            <img src={u.img} alt={u.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-gray-900">{u.title}</h3>
+            <p class="text-gray-500 mt-1 text-sm">{u.desc}</p>
+          </div>
         </div>
       ))}
     </div>
   </section>
 
   <!-- Trust Layer -->
-  <section class="bg-gray-50 py-20 px-6">
+  <section class="bg-gray-50 py-24 px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="max-w-3xl">
+      <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Safety & Quality</span>
-        <h2 class="mt-4 text-3xl font-semibold text-gray-900">Built to last, tested to perform</h2>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built to last, tested to perform</h2>
+        <p class="mt-4 text-lg text-gray-500">Every Wavefella product undergoes rigorous testing and certification.</p>
       </div>
-      <div class="mt-12 grid md:grid-cols-4 gap-6">
+      <div class="grid md:grid-cols-4 gap-6">
         {trustPoints.map(t => (
-          <div class="bg-white border border-gray-200 rounded-2xl p-6">
-            <h3 class="font-semibold text-gray-900">{t.title}</h3>
+          <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto text-xl">✓</div>
+            <h3 class="mt-4 font-semibold text-gray-900">{t.title}</h3>
             <p class="text-gray-500 mt-2 text-sm">{t.desc}</p>
           </div>
         ))}
@@ -145,33 +212,35 @@ const trustPoints = [
   </section>
 
   <!-- AI Ask -->
-  <section id="ask" class="py-20 px-6 text-center">
-    <div class="max-w-3xl mx-auto">
+  <section id="ask" class="max-w-6xl mx-auto py-24 px-6 text-center">
+    <div class="max-w-3xl mx-auto mb-12">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">AI Product Guide</span>
-      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Find the right product</h2>
-      <p class="mt-4 text-gray-500">
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Find the right product</h2>
+      <p class="mt-4 text-lg text-gray-500">
         Ask our AI to compare products, recommend based on your skill level and water type,
-        or check safety requirements. Powered by our structured product catalog.
+        or check safety requirements.
       </p>
     </div>
-    <div class="mt-10 max-w-2xl mx-auto px-6">
-      <input id="q" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-400" placeholder="E.g. Which SUP is good for a beginner on a lake?" />
-      <button id="ask-btn" class="mt-4 px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">Ask AI</button>
-      <pre id="out" class="mt-6 text-left text-sm text-gray-700 bg-white border border-gray-200 rounded-2xl p-6 hidden whitespace-pre-wrap"></pre>
+    <div class="max-w-2xl mx-auto">
+      <div class="flex gap-3">
+        <input id="q" class="flex-1 px-5 py-4 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-400 text-lg" placeholder="Which SUP is good for a beginner on a lake?" />
+        <button id="ask-btn" class="px-8 py-4 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors shrink-0">Ask</button>
+      </div>
+      <pre id="out" class="mt-8 text-left text-sm text-gray-700 bg-white border border-gray-200 rounded-2xl p-8 hidden whitespace-pre-wrap leading-relaxed"></pre>
     </div>
   </section>
 
-  <!-- Contact / Distribution -->
-  <section class="bg-gray-50 py-20 px-6 text-center">
+  <!-- Contact -->
+  <section class="bg-gray-50 py-24 px-6 text-center">
     <div class="max-w-2xl mx-auto">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Get in touch</span>
-      <h2 class="mt-4 text-3xl font-semibold text-gray-900">Become a Wavefella Partner</h2>
-      <p class="mt-4 text-gray-500 max-w-xl mx-auto">
+      <h2 class="mt-4 text-4xl font-semibold text-gray-900">Become a Wavefella Partner</h2>
+      <p class="mt-4 text-lg text-gray-500 max-w-xl mx-auto">
         We work with global distributors in water sports retail. For distributors,
         retail partners, or product inquiries — let's talk.
       </p>
-      <a href="/distributors" class="mt-8 inline-block px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">
-        Partner with us
+      <a href="/distributors" class="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors shadow-lg">
+        Partner with us →
       </a>
     </div>
   </section>
