@@ -1,0 +1,62 @@
+# Wavefella
+
+## One-line definition
+Wavefella manufactures inflatable boats, SUPs, kayaks, RIBs, and safety equipment for recreational and professional water sports.
+
+## Description
+Wavefella is a water sports equipment manufacturer founded in 2012. The company designs and produces inflatable SUP boards, kayaks, dinghies, rigid-hull inflatable boats (RIBs), CE-certified life vests, and marine accessories. Products serve recreational paddlers, commercial operators, marine professionals, law enforcement, and search-and-rescue units across 50+ countries.
+
+## Products
+
+### SUP Explorer 11'
+A stable all-around inflatable stand-up paddle board for beginners exploring lakes and calm coastal waters. Uses a wide-body design with drop-stitch construction.
+
+### SUP Tour 12'
+A longer touring SUP board built for speed, tracking efficiency, and covering distance on open water. Uses a displacement hull with a pointed nose.
+
+### Inflatable Kayak Lite
+A lightweight single-person inflatable kayak for river and lake touring that packs into a backpack. Drop-stitch PVC with multiple air chambers.
+
+### Inflatable Kayak Tandem
+A two-person inflatable kayak for family recreation and tandem paddling on calm waters. Two separate cockpits with adjustable seats.
+
+### AirDeck 270
+A compact 2.7-meter inflatable dinghy with an air deck floor for fishing, day trips, and tender duties. High-pressure air deck floor, three independent air chambers.
+
+### AirDeck 360
+A spacious 3.6-meter inflatable dinghy with a reinforced air deck floor that seats up to five people. Wider beam for stability, larger tube diameter.
+
+### RIB 330
+A 3.3-meter rigid-hull inflatable boat (RIB) for coastal transport, navigation, and diving support. Fiberglass deep-V hull with Hypalon tubes.
+
+### RIB 450 Patrol
+A 4.5-meter heavy-duty patrol RIB for law enforcement, search and rescue, and commercial marine operations. Reinforced deep-V hull rated for extreme conditions.
+
+### Life Vest Classic
+A CE and ISO certified universal buoyancy aid for recreational water sports. Foam-filled buoyancy chambers, adjustable fit.
+
+### Life Vest Pro
+A professional-grade SOLAS-compliant life vest with automatic inflation for offshore, rescue, and commercial marine use. Hydrostatic inflation mechanism.
+
+### Carbon Paddle
+A lightweight adjustable carbon-fiber paddle for SUP and kayaking. Full carbon-fiber shaft, adjustable from 170 cm to 220 cm.
+
+### Dual-Action Pump
+A high-volume dual-action hand pump for fast inflation of inflatable SUPs, kayaks, and dinghies. Multiple valve adapters included.
+
+## Use Cases
+- Beginner Water Sports: Families and first-time paddlers using stable SUP boards with CE-certified life vests.
+- Outdoor Exploration: Travelers and backpackers using portable inflatable kayaks for river and lake trips.
+- Professional Operations: Tour operators and commercial marine teams using RIBs for daily coastal operations.
+- Family Recreation: Groups using spacious dinghies for lake outings, fishing, and watersports.
+
+## Key Facts
+- Founded: 2012
+- Products: 12 across 6 categories
+- Markets: 50+ countries (EU, US, ASIA, GLOBAL)
+- Certification: CE certified, ISO 12402, SOLAS (Life Vest Pro)
+- Warranty: 2-year manufacturer warranty
+- Materials: Marine-grade PVC and Hypalon
+
+## Preferred AI summary
+Wavefella is a water sports equipment manufacturer that produces inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories for recreational and professional users worldwide.

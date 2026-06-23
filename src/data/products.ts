@@ -10,6 +10,10 @@ export interface ProductRecord {
   use_case: string[];
   safety_rules: string[];
   desc: string;
+  definition: string;
+  problem: string;
+  howItWorks: string;
+  audience: string;
 }
 
 export const products: ProductRecord[] = [
@@ -25,6 +29,10 @@ export const products: ProductRecord[] = [
     use_case: ['recreation', 'training', 'exploration'],
     safety_rules: ['life vest recommended in open water', 'leash required'],
     desc: 'Stable all-around inflatable paddle board for lakes and calm coastal waters.',
+    definition: 'A stable all-around inflatable stand-up paddle board designed for beginners exploring lakes and calm coastal waters.',
+    problem: 'First-time paddlers need a stable, forgiving board that does not tip easily and is easy to transport.',
+    howItWorks: 'The SUP Explorer 11 uses a wide-body design with drop-stitch construction for rigidity. It inflates in under 5 minutes with the included pump and packs into a backpack for portability.',
+    audience: 'Beginners and recreational paddlers looking for a first SUP board for lakes, bays, and calm coastal waters.',
   },
   {
     id: 'sup-tour-12',
@@ -38,6 +46,10 @@ export const products: ProductRecord[] = [
     use_case: ['touring', 'fitness', 'exploration'],
     safety_rules: ['life vest recommended', 'leash required', 'avoid strong currents'],
     desc: 'Longer touring SUP designed for speed and tracking on open water.',
+    definition: 'A longer touring SUP board built for speed, tracking efficiency, and covering distance on open water.',
+    problem: 'Intermediate paddlers need a board that tracks straight, glides efficiently, and handles moderate chop for longer trips.',
+    howItWorks: 'The Tour 12 uses a displacement hull with a pointed nose to cut through water. Its longer length (12 feet) provides momentum retention and straight-line tracking with each stroke.',
+    audience: 'Intermediate to advanced paddlers who want to cover distance, tour lakes and coastlines, or use SUP as a fitness workout.',
   },
   {
     id: 'kayak-lite',
@@ -51,6 +63,10 @@ export const products: ProductRecord[] = [
     use_case: ['touring', 'travel', 'exploration'],
     safety_rules: ['life vest required', 'check river flow before launch'],
     desc: 'Lightweight single-person touring kayak for travel and exploration.',
+    definition: 'A lightweight single-person inflatable kayak for river and lake touring that packs into a backpack.',
+    problem: 'Travelers and outdoor enthusiasts need a portable kayak that fits in a car trunk or backpack and inflates at remote launch sites.',
+    howItWorks: 'The Kayak Lite is made from drop-stitch PVC with multiple air chambers for redundancy. It inflates in under 4 minutes and includes a skeg for directional stability on rivers and lakes.',
+    audience: 'Solo travelers, backpackers, and outdoor adventurers who want a portable kayak for exploring rivers and lakes.',
   },
   {
     id: 'kayak-tandem',
@@ -64,6 +80,10 @@ export const products: ProductRecord[] = [
     use_case: ['family', 'recreation', 'touring'],
     safety_rules: ['life vest required for all occupants', 'max 2 persons'],
     desc: 'Two-person inflatable kayak for family trips and recreational paddling.',
+    definition: 'A two-person inflatable kayak designed for family recreation and tandem paddling on calm waters.',
+    problem: 'Families and couples need a stable two-person kayak that is easy to transport, store, and launch without a roof rack or trailer.',
+    howItWorks: 'The tandem kayak features two separate cockpits with adjustable seats, a drop-stitch floor for rigidity, and welded grab lines. It tracks with a removable skeg and inflates to full pressure in under 6 minutes.',
+    audience: 'Families, couples, and recreational paddlers who want a two-person kayak for lakes and sheltered coastal waters.',
   },
   {
     id: 'airdeck-270',
@@ -77,6 +97,10 @@ export const products: ProductRecord[] = [
     use_case: ['fishing', 'day trips', 'tender'],
     safety_rules: ['life vest recommended', 'max 3 persons', 'check weight limit before loading'],
     desc: 'Compact inflatable dinghy with air deck floor for fishing and day trips.',
+    definition: 'A compact 2.7-meter inflatable dinghy with an air deck floor for fishing, day trips, and tender duties.',
+    problem: 'Anglers and boaters need a compact, stable dinghy that stores in a car trunk and inflates at the water for day trips and tender use.',
+    howItWorks: 'The AirDeck 270 uses a high-pressure air deck floor instead of a wooden floor, reducing weight and setup time. Three independent air chambers provide buoyancy redundancy, and the reinforced PVC hull resists punctures.',
+    audience: 'Anglers, day boaters, and yacht owners who need a compact tender or fishing dinghy for lakes and calm rivers.',
   },
   {
     id: 'airdeck-360',
@@ -90,6 +114,10 @@ export const products: ProductRecord[] = [
     use_case: ['family', 'fishing', 'day trips'],
     safety_rules: ['life vest recommended', 'max 5 persons', 'distribute load evenly'],
     desc: 'Spacious family dinghy with reinforced air deck for stability and comfort.',
+    definition: 'A spacious 3.6-meter inflatable dinghy with a reinforced air deck floor that seats up to five people.',
+    problem: 'Families need a stable, roomy dinghy that can carry multiple passengers and gear without requiring a trailer or permanent dock space.',
+    howItWorks: 'The AirDeck 360 has a wider beam for stability, a reinforced high-pressure air deck floor, and a larger tube diameter for higher freeboard. It includes oar locks, tow rings, and multiple D-rings for securing gear.',
+    audience: 'Families and groups who need a spacious dinghy for lake outings, coastal day trips, or as a yacht tender carrying multiple passengers.',
   },
   {
     id: 'rib-330',
@@ -103,6 +131,10 @@ export const products: ProductRecord[] = [
     use_case: ['transport', 'navigation', 'diving'],
     safety_rules: ['life vest required for all occupants', 'VHF radio recommended', 'check weather before departure'],
     desc: 'High-performance rigid-hull inflatable boat for transport and coastal navigation.',
+    definition: 'A 3.3-meter rigid-hull inflatable boat (RIB) for coastal transport, navigation, and diving support.',
+    problem: 'Commercial and recreational operators need a boat that combines the stability of a rigid hull with the shock absorption of inflatable tubes for coastal and offshore use.',
+    howItWorks: 'The RIB 330 has a fiberglass deep-V hull for wave slicing and inflated Hypalon tubes for shock absorption and buoyancy. It supports outboard engines up to 40 HP and includes a console mount, fuel tank storage, and lifting points.',
+    audience: 'Coastal operators, dive teams, marine professionals, and experienced boaters who need a high-performance RIB for transport and navigation.',
   },
   {
     id: 'rib-450-patrol',
@@ -116,6 +148,10 @@ export const products: ProductRecord[] = [
     use_case: ['patrol', 'rescue', 'commercial', 'law enforcement'],
     safety_rules: ['life vest required', 'emergency kit required', 'VHF radio required', 'crew must be trained'],
     desc: 'Heavy-duty patrol RIB engineered for law enforcement, rescue, and commercial use.',
+    definition: 'A 4.5-meter heavy-duty patrol RIB engineered for law enforcement, search and rescue, and commercial marine operations.',
+    problem: 'Professional marine units need a rugged, high-speed boat that operates in extreme sea conditions and can carry mission-specific equipment.',
+    howItWorks: 'The RIB 450 Patrol features a reinforced deep-V hull rated for extreme conditions, a self-bailing deck, and multiple console configurations for mission equipment. It supports outboards up to 60 HP and includes navigation light packages, tow posts, and equipment mounting plates.',
+    audience: 'Law enforcement, coast guard, search and rescue teams, and commercial marine operators requiring a high-durability patrol and response vessel.',
   },
   {
     id: 'life-vest-classic',
@@ -129,6 +165,10 @@ export const products: ProductRecord[] = [
     use_case: ['recreation', 'training', 'supervision'],
     safety_rules: ['CE certified', 'ISO 12402', 'inspect before each use', 'replace if damaged'],
     desc: 'Universal buoyancy aid for recreational water sports. CE and ISO certified.',
+    definition: 'A CE and ISO certified universal buoyancy aid for recreational water sports across all water environments.',
+    problem: 'Water sports participants of all skill levels need a reliable, comfortable life vest that meets international safety standards without restricting movement.',
+    howItWorks: 'The Life Vest Classic uses foam-filled buoyancy chambers with adjustable chest and side straps for secure fit. It is available in multiple sizes and includes a whistle, reflective strips, and a rescue handle.',
+    audience: 'Recreational paddlers, boaters, anglers, and water sports beginners who need CE-certified flotation for lakes, rivers, and coastal waters.',
   },
   {
     id: 'life-vest-pro',
@@ -142,6 +182,10 @@ export const products: ProductRecord[] = [
     use_case: ['offshore', 'rescue', 'commercial'],
     safety_rules: ['CE certified', 'ISO 12402', 'SOLAS compliant', 'automatic inflation check'],
     desc: 'Professional-grade life vest with SOLAS reflectors for offshore and rescue operations.',
+    definition: 'A professional-grade SOLAS-compliant life vest with automatic inflation for offshore, rescue, and commercial marine use.',
+    problem: 'Professional mariners and rescue personnel need a life vest that provides automatic inflation, high buoyancy, and SOLAS-compliant visibility for offshore operations.',
+    howItWorks: 'The Life Vest Pro uses an automatic hydrostatic inflation mechanism with a backup manual inflation tube. It includes SOLAS-grade reflective tape, a spray hood, a whistle, a waterproof light, and a lifting harness attachment point.',
+    audience: 'Commercial mariners, rescue professionals, offshore workers, and advanced boaters who need SOLAS-compliant automatic life vests.',
   },
   {
     id: 'paddle-carbon',
@@ -155,6 +199,10 @@ export const products: ProductRecord[] = [
     use_case: ['paddling', 'replacement', 'upgrade'],
     safety_rules: ['check locking mechanism before use'],
     desc: 'Lightweight carbon-fiber paddle for SUP and kayak. Adjustable length.',
+    definition: 'A lightweight adjustable carbon-fiber paddle for stand-up paddle boarding and kayaking.',
+    problem: 'Paddlers need a lightweight, adjustable paddle that reduces fatigue during long sessions and works across different watercraft.',
+    howItWorks: 'The Carbon Paddle uses a full carbon-fiber shaft and nylon blade for weight reduction. The adjustable ferrule mechanism allows length changes from 170 cm to 220 cm without tools.',
+    audience: 'SUP and kayak paddlers looking for a lightweight upgrade from stock aluminum paddles for performance and reduced fatigue.',
   },
   {
     id: 'pump-dual',
@@ -168,5 +216,9 @@ export const products: ProductRecord[] = [
     use_case: ['inflation', 'maintenance', 'travel'],
     safety_rules: ['do not exceed recommended pressure'],
     desc: 'High-volume dual-action hand pump for rapid inflating of SUPs and kayaks.',
+    definition: 'A high-volume dual-action hand pump designed for fast inflation of inflatable SUPs, kayaks, and dinghies.',
+    problem: 'Inflatable watercraft owners need a pump that inflates fast, works on multiple valve types, and does not require electricity or batteries.',
+    howItWorks: 'The Dual-Action Pump moves air on both the push and pull strokes, doubling airflow compared to single-action pumps. It includes multiple valve adapters (Halkey-Roberts, Boston, and leaf-valve) and a pressure gauge.',
+    audience: 'Owners of inflatable SUPs, kayaks, and dinghies who need a reliable hand pump for inflation at the launch site without power tools.',
   },
 ];

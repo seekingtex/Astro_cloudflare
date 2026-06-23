@@ -61,10 +61,38 @@ const productVisuals: Record<string, string> = {
 };
 
 const useCases = [
-  { title: 'Beginner Water Sports', desc: 'Stable SUP boards and kayaks for first-time users.', img: '/images/wavefella/use-cases/beginner.jpg' },
-  { title: 'Outdoor Exploration', desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips.', img: '/images/wavefella/use-cases/outdoor.jpg' },
-  { title: 'Professional Operations', desc: 'Commercial-grade RIBs for tour operators and emergency response.', img: '/images/wavefella/use-cases/professional.jpg' },
-  { title: 'Family Recreation', desc: 'Spacious dinghies for day trips, fishing, and watersports.', img: '/images/wavefella/use-cases/family.jpg' },
+  {
+    title: 'Beginner Water Sports',
+    desc: 'Stable SUP boards and kayaks for first-time users.',
+    scenario: 'A family visiting a lake for the weekend wants to try paddle boarding. They need stable, easy-to-launch equipment with clear safety guidance.',
+    solution: 'The SUP Explorer 11 provides wide-body stability for beginners. The Life Vest Classic ensures CE-certified flotation. The Dual-Action Pump inflates both boards in under 10 minutes.',
+    products: ['SUP Explorer 11', 'Life Vest Classic', 'Dual-Action Pump'],
+    img: '/images/wavefella/use-cases/beginner.jpg',
+  },
+  {
+    title: 'Outdoor Exploration',
+    desc: 'Portable kayaks and dinghies for rivers, lakes, and coastal trips.',
+    scenario: 'An outdoor enthusiast plans a week-long river trip and needs a boat that packs small, inflates at camp, and handles varying currents.',
+    solution: 'The Kayak Lite packs into a backpack and inflates in under 4 minutes. Its drop-stitch construction handles lakes, slow rivers, and coastal paddling.',
+    products: ['Inflatable Kayak Lite', 'Carbon Paddle', 'Life Vest Classic'],
+    img: '/images/wavefella/use-cases/outdoor.jpg',
+  },
+  {
+    title: 'Professional Operations',
+    desc: 'Commercial-grade RIBs for tour operators and emergency response.',
+    scenario: 'A coastal tour operator needs a fleet of durable boats that run daily trips in varying sea conditions and meet commercial safety regulations.',
+    solution: 'The RIB 330 and RIB 450 Patrol use fiberglass deep-V hulls with Hypalon tubes for all-weather durability. Multiple units can be deployed with consistent performance.',
+    products: ['RIB 330', 'RIB 450 Patrol', 'Life Vest Pro'],
+    img: '/images/wavefella/use-cases/professional.jpg',
+  },
+  {
+    title: 'Family Recreation',
+    desc: 'Spacious dinghies for day trips, fishing, and watersports.',
+    scenario: 'A family of four wants a stable boat for weekend lake outings, fishing trips, and towing a tube for the kids.',
+    solution: 'The AirDeck 360 seats up to five with a reinforced air deck floor. It inflates at the launch site, stores in the car, and handles both calm lakes and sheltered coastal waters.',
+    products: ['AirDeck 360', 'Life Vest Classic', 'Dual-Action Pump'],
+    img: '/images/wavefella/use-cases/family.jpg',
+  },
 ];
 
 const trustPoints = [
@@ -72,6 +100,40 @@ const trustPoints = [
   { title: 'Material Excellence', desc: 'Premium PVC and Hypalon fabrics tested for UV, abrasion, and temperature extremes.' },
   { title: 'Rigorous Testing', desc: 'Each vessel undergoes pressure, buoyancy, and load tests before shipment.' },
   { title: '2-Year Warranty', desc: 'All Wavefella products backed by comprehensive manufacturer warranty.' },
+];
+
+const proofPoints = [
+  { metric: '12', label: 'products across 6 categories', detail: 'SUP, Kayak, Dinghy, RIB, Safety, Accessory' },
+  { metric: '50+', label: 'countries served', detail: 'Global distribution network across EU, US, ASIA' },
+  { metric: '2012', label: 'founded', detail: 'Over a decade of water sports manufacturing' },
+  { metric: 'ISO', label: 'CE & ISO certified', detail: 'Every product meets international safety standards' },
+];
+
+const faqItems = [
+  {
+    q: 'What type of water sports equipment does Wavefella manufacture?',
+    a: 'Wavefella manufactures inflatable SUP boards, kayaks, dinghies, rigid-hull inflatable boats (RIBs), life vests, and accessories. Our product line covers recreational, touring, commercial, and professional marine applications.',
+  },
+  {
+    q: 'Are Wavefella products certified for safety?',
+    a: 'Yes. All Wavefella safety equipment is CE certified and meets ISO 12402 standards. Our boats undergo pressure, buoyancy, and load testing before shipment. The Life Vest Pro is SOLAS compliant for offshore operations.',
+  },
+  {
+    q: 'What skill levels do Wavefella products support?',
+    a: 'We design for all skill levels: beginner (stable SUP boards and kayaks), intermediate (touring SUPs), advanced (high-performance RIBs), and professional (patrol and rescue vessels). Each product page specifies the recommended skill level.',
+  },
+  {
+    q: 'Can Wavefella inflatable boats be used in saltwater?',
+    a: 'Yes. Our inflatable boats use marine-grade PVC and Hypalon fabrics that resist UV, saltwater corrosion, and abrasion. We recommend rinsing with fresh water after saltwater use to extend product life.',
+  },
+  {
+    q: 'What is the warranty on Wavefella products?',
+    a: 'Wavefella offers a 2-year manufacturer warranty on all products covering manufacturing defects in materials and workmanship. The warranty does not cover damage from misuse, unauthorized modifications, or normal wear and tear.',
+  },
+  {
+    q: 'How does the AI product recommendation work?',
+    a: 'Our AI Product Selection Engine analyzes your question, matches it against our structured product catalog, and recommends the best product based on your skill level, water environment, and safety requirements. It does not generate marketing language or hallucinate products.',
+  },
 ];
 ---
 
@@ -102,7 +164,7 @@ const trustPoints = [
     <div class="relative z-20 max-w-3xl mx-auto px-6">
       <span class="text-sm font-medium tracking-wide uppercase opacity-80">Since 2012</span>
       <h1 class="mt-6 text-5xl md:text-6xl font-bold tracking-tight drop-shadow-lg">
-        Wavefella — Global Water Sports Brand
+        Wavefella manufactures inflatable boats, SUPs, kayaks, RIBs, and safety equipment for recreational and professional water sports.
       </h1>
       <p class="mt-6 text-lg md:text-xl opacity-90 max-w-2xl mx-auto drop-shadow">
         SUP, kayak, dinghy, RIB, and safety equipment for outdoor adventure.
@@ -115,6 +177,49 @@ const trustPoints = [
         <a href="#ask" class="px-8 py-4 border-2 border-white/60 text-white rounded-xl font-semibold hover:border-white transition-colors backdrop-blur-sm">
           Ask AI
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Summary -->
+  <section class="max-w-4xl mx-auto py-24 px-6" id="ai-summary">
+    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 md:p-12">
+      <span class="text-sm font-medium text-blue-600 tracking-wide uppercase">AI Summary</span>
+      <h2 class="mt-4 text-3xl font-semibold text-gray-900">What is Wavefella?</h2>
+      <p class="mt-6 text-lg text-gray-700 leading-relaxed">
+        Wavefella is a water sports equipment manufacturer that designs and produces inflatable SUP boards, kayaks, dinghies, rigid-hull inflatable boats (RIBs), safety equipment, and accessories. Founded in 2012, the company serves recreational paddlers, commercial operators, marine professionals, and government agencies across 50+ countries. All products are CE certified and meet ISO safety standards.
+      </p>
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        <div>
+          <h3 class="font-semibold text-gray-900">What we make</h3>
+          <ul class="mt-2 text-sm text-gray-600 space-y-1">
+            <li>Inflatable SUP boards for recreation and touring</li>
+            <li>Inflatable kayaks for solo and tandem paddling</li>
+            <li>Dinghies for day trips, fishing, and tender use</li>
+            <li>RIBs for commercial, patrol, and rescue operations</li>
+            <li>CE-certified life vests and marine accessories</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900">Who uses Wavefella</h3>
+          <ul class="mt-2 text-sm text-gray-600 space-y-1">
+            <li>Recreational paddlers and families</li>
+            <li>Outdoor explorers and travelers</li>
+            <li>Tour operators and commercial marine teams</li>
+            <li>Law enforcement and search-and-rescue units</li>
+            <li>Dive teams and offshore workers</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900">Key differentiators</h3>
+          <ul class="mt-2 text-sm text-gray-600 space-y-1">
+            <li>CE and ISO certified across all product lines</li>
+            <li>Marine-grade PVC and Hypalon construction</li>
+            <li>2-year manufacturer warranty</li>
+            <li>AI-powered product selection engine</li>
+            <li>12 products across 6 categories</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -200,28 +305,50 @@ const trustPoints = [
       <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for real water experiences</h2>
       <p class="mt-4 text-lg text-gray-500">From first-time paddlers to professional operators — Wavefella equips every water adventure.</p>
     </div>
-    <div class="grid md:grid-cols-4 gap-6">
+    <div class="grid md:grid-cols-2 gap-8">
       {useCases.map(u => (
-        <div class="group rounded-2xl overflow-hidden border border-gray-200 bg-white hover:shadow-lg transition-shadow">
-          <div class="h-40 overflow-hidden">
-            <img src={u.img} alt={u.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+          <div class="h-48 overflow-hidden">
+            <img src={u.img} alt={u.title} class="w-full h-full object-cover" loading="lazy" />
           </div>
-          <div class="p-5">
-            <h3 class="font-semibold text-gray-900">{u.title}</h3>
-            <p class="text-gray-500 mt-1 text-sm">{u.desc}</p>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900">{u.title}</h3>
+            <p class="text-gray-500 mt-2">{u.desc}</p>
+            <div class="mt-4 p-4 bg-gray-50 rounded-xl">
+              <p class="text-sm font-medium text-gray-700">Scenario</p>
+              <p class="mt-1 text-sm text-gray-600">{u.scenario}</p>
+            </div>
+            <div class="mt-3 p-4 bg-sky-50 rounded-xl">
+              <p class="text-sm font-medium text-sky-700">Solution</p>
+              <p class="mt-1 text-sm text-gray-600">{u.solution}</p>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {u.products.map(pr => (
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full font-medium">{pr}</span>
+              ))}
+            </div>
           </div>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- Trust Layer -->
-  <section class="bg-gray-50 py-24 px-6">
+  <!-- Proof Layer -->
+  <section class="py-24 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Safety & Quality</span>
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Results</span>
         <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built to last, tested to perform</h2>
         <p class="mt-4 text-lg text-gray-500">Every Wavefella product undergoes rigorous testing and certification.</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-8 mb-16">
+        {proofPoints.map(pt => (
+          <div class="text-center">
+            <div class="text-4xl font-bold text-sky-600">{pt.metric}</div>
+            <div class="mt-2 text-lg font-semibold text-gray-900">{pt.label}</div>
+            <div class="mt-1 text-sm text-gray-500">{pt.detail}</div>
+          </div>
+        ))}
       </div>
       <div class="grid md:grid-cols-4 gap-6">
         {trustPoints.map(t => (
@@ -254,25 +381,63 @@ const trustPoints = [
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="bg-gray-50 py-24 px-6" id="faq">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">FAQ</span>
+        <h2 class="mt-4 text-4xl font-semibold text-gray-900">Frequently asked questions</h2>
+      </div>
+      <div class="space-y-4">
+        {faqItems.map((item, i) => (
+          <details class="bg-white border border-gray-200 rounded-xl overflow-hidden group">
+            <summary class="px-6 py-4 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors list-none flex items-center justify-between">
+              <span>{item.q}</span>
+              <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-6 pb-4">
+              <p class="text-gray-600 leading-relaxed">{item.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "Brand",
+    "@type": "Organization",
     "name": "Wavefella",
     "url": "https://wavefella-en.theworkvigo.workers.dev",
-    "description": "Global water sports brand. SUP, kayak, dinghy, RIB, and safety equipment for outdoor adventure.",
+    "description": "Water sports equipment manufacturer. Inflatable SUP boards, kayaks, dinghies, RIBs, safety equipment, and accessories.",
     "foundingDate": "2012",
     "areaServed": ["US", "EU", "ASIA", "GLOBAL"],
     "knowsAbout": ["Stand-up paddleboarding", "Kayaking", "Inflatable boats", "Water safety", "Marine equipment"],
-    "brand": products.map(p => ({
-      "@type": "Product",
-      "name": p.name,
-      "category": p.category,
-      "description": p.desc,
-      "audience": { "@type": "Audience", "suggestedGender": p.skill },
-      "application": p.use_case,
-      "safetyConsideration": p.safety_rules,
-    })),
+    "brand": {
+      "@type": "Brand",
+      "name": "Wavefella",
+      "brand": products.map(p => ({
+        "@type": "Product",
+        "name": p.name,
+        "category": p.category,
+        "description": p.desc,
+        "audience": { "@type": "Audience", "suggestedGender": p.skill },
+        "application": p.use_case,
+        "safetyConsideration": p.safety_rules,
+      }))
+    },
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a,
+        },
+      }))
+    }
   })} />
 
   <!-- Contact -->
