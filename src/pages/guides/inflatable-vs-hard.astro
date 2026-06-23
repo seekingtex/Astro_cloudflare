@@ -1,0 +1,87 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Inflatable vs Hard SUP Board — ${SITE.name}`,
+  description: 'Compare inflatable drop-stitch SUP boards vs rigid epoxy/fiberglass boards. Portability, durability, performance, storage, and cost differences explained.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Inflatable vs Hard SUP Board</h1>
+    <p class="mt-4 text-lg text-gray-500">Both types have strengths. The right choice depends on how and where you paddle.</p>
+
+    <div class="mt-12 overflow-x-auto rounded-xl border border-gray-200">
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="px-5 py-4 font-semibold text-gray-900">Factor</th>
+            <th class="px-5 py-4 font-semibold text-gray-900">Inflatable (iSUP)</th>
+            <th class="px-5 py-4 font-semibold text-gray-900">Hard Board</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Portability</td>
+            <td class="px-5 py-4 text-gray-600">Packs into a backpack. Fits in any car trunk. Airline-friendly.</td>
+            <td class="px-5 py-4 text-gray-600">Requires roof rack or trailer. Difficult to transport.</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Storage</td>
+            <td class="px-5 py-4 text-gray-600">Deflates to closet-size. No special storage needed.</td>
+            <td class="px-5 py-4 text-gray-600">Requires garage or rack. Susceptible to heat warping.</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Durability</td>
+            <td class="px-5 py-4 text-gray-600">Bounces off rocks and docks. Puncture-resistant PVC.</td>
+            <td class="px-5 py-4 text-gray-600">Chips, cracks, and dents on impact. Requires careful handling.</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Performance</td>
+            <td class="px-5 py-4 text-gray-600">Modern drop-stitch cores match hard board rigidity at 12-15 PSI.</td>
+            <td class="px-5 py-4 text-gray-600">Stiffer hull delivers maximum speed and glide.</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Setup Time</td>
+            <td class="px-5 py-4 text-gray-600">3-5 minutes to inflate. 3 minutes to pack.</td>
+            <td class="px-5 py-4 text-gray-600">Ready to go. No setup needed.</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Weight</td>
+            <td class="px-5 py-4 text-gray-600">18-22 lbs. Easy to carry.</td>
+            <td class="px-5 py-4 text-gray-600">22-35 lbs. Heavier to carry to water.</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Cost</td>
+            <td class="px-5 py-4 text-gray-600">Mid-range. Includes pump, bag, and accessories.</td>
+            <td class="px-5 py-4 text-gray-600">Varies widely. Entry-level to premium.</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-4 font-medium text-gray-900">Best For</td>
+            <td class="px-5 py-4 text-gray-600">Travelers, apartment dwellers, beginners, families.</td>
+            <td class="px-5 py-4 text-gray-600">Racers, surfers, performance-focused paddlers.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold text-gray-900">Which Should You Choose?</h2>
+      <p class="mt-3 text-gray-600">Choose an inflatable SUP if you value portability, storage convenience, and durability. Modern iSUPs like Wavefella's drop-stitch models perform nearly identically to hard boards for recreational and touring use.</p>
+      <p class="mt-3 text-gray-600">Choose a hard board if you are a competitive racer, experienced surfer, or need maximum speed for fitness paddling at a dedicated location with easy storage.</p>
+    </section>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/how-to-choose-your-sup" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">How to Choose Your SUP</a>
+        <a href="/guides/beginner-guide" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Beginner Guide</a>
+        <a href="/guides/safety-tips" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Tips</a>
+        <a href="/technology" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Drop-Stitch Technology</a>
+      </div>
+    </section>
+  </section>
+</Layout>

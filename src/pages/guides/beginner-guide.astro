@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Beginner's Guide to SUP Paddling — ${SITE.name}`,
+  description: 'Step-by-step guide for first-time SUP paddlers. Learn stance, stroke technique, turning, safety checks, and how to launch.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto py-24 px-6" data-ai-block="definition">
+    <a href="/guides" class="text-sm text-sky-600 hover:text-sky-700">← Guides</a>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Beginner's Guide to Paddling</h1>
+    <p class="mt-4 text-lg text-gray-500">Everything you need to know before your first time on the water.</p>
+
+    <div class="mt-12 space-y-12">
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">1. Choose the Right Board</h2>
+        <p class="mt-3 text-gray-600">Start with a wide, stable board. The Wavefella SUP Explorer 11 has a 32" width that provides a stable platform for first-time paddlers. Wider boards are more forgiving while you learn balance.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">2. Safety First</h2>
+        <p class="mt-3 text-gray-600">Always wear a life vest (PFD). Attach the leash to your ankle. Check weather and wind conditions before launching. Start on calm, flat water — lakes and sheltered bays are ideal.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">3. Basic Stance</h2>
+        <p class="mt-3 text-gray-600">Stand with feet shoulder-width apart, parallel to the carrying handle. Keep knees slightly bent. Look at the horizon, not your feet. Your core does the work, not your arms.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">4. The Forward Stroke</h2>
+        <p class="mt-3 text-gray-600">Reach forward with the paddle blade, submerge it fully, and pull it back alongside the board. Switch sides every 5-10 strokes. Use your torso rotation — not just your arms — for power.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">5. Turning</h2>
+        <p class="mt-3 text-gray-600">For a sweep turn: reach wide to the side and sweep in a half-circle toward the tail. For a reverse turn: paddle backward on one side. Practice both in open water before navigating tight spots.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900">6. Getting Back On</h2>
+        <p class="mt-3 text-gray-600">If you fall, stay with your board. Swim to the side, place your paddle on the board, and use a kick to push yourself up onto the deck in one motion. Keep your weight low.</p>
+      </section>
+    </div>
+
+    <section class="mt-12 p-6 bg-sky-50 rounded-2xl border border-sky-100">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/guides/how-to-choose-your-sup" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">How to Choose Your SUP</a>
+        <a href="/guides/inflatable-vs-hard" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Inflatable vs Hard Board</a>
+        <a href="/guides/safety-tips" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Tips</a>
+        <a href="/products" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Shop Boards</a>
+      </div>
+    </section>
+  </section>
+</Layout>
