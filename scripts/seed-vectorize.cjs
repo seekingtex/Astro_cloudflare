@@ -67,27 +67,27 @@ async function main() {
 
   // Hardcoded sitemap (matches src/pages/api/ai/sitemap.ts)
   const pages = [
-    { id: 'home', url: '/', title: 'Vectoflare — Home' },
-    { id: 'about', url: '/about', title: 'About Vectoflare' },
-    { id: 'services', url: '/services', title: 'Marine Services' },
-    { id: 'pricing', url: '/pricing', title: 'Pricing' },
-    { id: 'contact', url: '/contact', title: 'Contact' },
-    { id: 'products', url: '/products', title: 'Products — All' },
-    { id: 'product-rib-330', url: '/products/rib-330', title: 'RIB 330' },
-    { id: 'product-rib-450-patrol', url: '/products/rib-450-patrol', title: 'RIB 450 Patrol' },
-    { id: 'product-airdeck-270', url: '/products/airdeck-270', title: 'AirDeck 270' },
-    { id: 'product-airdeck-360', url: '/products/airdeck-360', title: 'AirDeck 360' },
-    { id: 'product-oars-pump-set', url: '/products/oars-pump-set', title: 'Oars & Pump Set' },
-    { id: 'randd', url: '/randdcenter', title: 'R&D Center' },
-    { id: 'randd-pvc-fabric', url: '/randdcenter/pvc-fabric-lab', title: 'PVC Fabric Lab' },
-    { id: 'randd-hull-engineering', url: '/randdcenter/hull-engineering', title: 'Hull Engineering Studio' },
-    { id: 'randd-rf-welding', url: '/randdcenter/rf-welding', title: 'RF Welding Center' },
-    { id: 'randd-prototype', url: '/randdcenter/prototype-workshop', title: 'Prototype Workshop' },
-    { id: 'randd-hydrodynamic', url: '/randdcenter/hydrodynamic-test-tank', title: 'Hydrodynamic Test Tank' },
-    { id: 'randd-quality', url: '/randdcenter/quality-inspection-lab', title: 'Quality & Inspection Lab' },
-    { id: 'privacy', url: '/privacy', title: 'Privacy Policy' },
-    { id: 'terms', url: '/terms', title: 'Terms and Conditions' },
-    { id: 'disclaimer', url: '/disclaimer', title: 'Medical Disclaimer' },
+    { id: 'home', url: '/', title: 'Vectoflare — AI Infrastructure', type: 'page', section: 'main' },
+    { id: 'about', url: '/about', title: 'About Vectoflare', type: 'page', section: 'main' },
+    { id: 'services', url: '/services', title: 'Services', type: 'page', section: 'main' },
+    { id: 'pricing', url: '/pricing', title: 'Pricing', type: 'page', section: 'main' },
+    { id: 'contact', url: '/contact', title: 'Contact', type: 'page', section: 'main' },
+    { id: 'products', url: '/products', title: 'Products Overview', type: 'product', section: 'products' },
+    { id: 'product-rib-330', url: '/products/rib-330', title: 'RIB 330', type: 'product', section: 'products' },
+    { id: 'product-rib-450-patrol', url: '/products/rib-450-patrol', title: 'RIB 450 Patrol', type: 'product', section: 'products' },
+    { id: 'product-airdeck-270', url: '/products/airdeck-270', title: 'AirDeck 270', type: 'product', section: 'products' },
+    { id: 'product-airdeck-360', url: '/products/airdeck-360', title: 'AirDeck 360', type: 'product', section: 'products' },
+    { id: 'product-oars-pump-set', url: '/products/oars-pump-set', title: 'Oars & Pump Set', type: 'product', section: 'products' },
+    { id: 'randd', url: '/randdcenter', title: 'R&D Center', type: 'technology', section: 'randd' },
+    { id: 'randd-pvc-fabric', url: '/randdcenter/pvc-fabric-lab', title: 'PVC Fabric Lab', type: 'technology', section: 'randd' },
+    { id: 'randd-hull-engineering', url: '/randdcenter/hull-engineering', title: 'Hull Engineering Studio', type: 'technology', section: 'randd' },
+    { id: 'randd-rf-welding', url: '/randdcenter/rf-welding', title: 'RF Welding Center', type: 'technology', section: 'randd' },
+    { id: 'randd-prototype', url: '/randdcenter/prototype-workshop', title: 'Prototype Workshop', type: 'technology', section: 'randd' },
+    { id: 'randd-hydrodynamic', url: '/randdcenter/hydrodynamic-test-tank', title: 'Hydrodynamic Test Tank', type: 'technology', section: 'randd' },
+    { id: 'randd-quality', url: '/randdcenter/quality-inspection-lab', title: 'Quality & Inspection Lab', type: 'technology', section: 'randd' },
+    { id: 'privacy', url: '/privacy', title: 'Privacy Policy', type: 'page', section: 'legal' },
+    { id: 'terms', url: '/terms', title: 'Terms and Conditions', type: 'page', section: 'legal' },
+    { id: 'disclaimer', url: '/disclaimer', title: 'Disclaimer', type: 'page', section: 'legal' },
   ];
 
   console.log(`Found ${pages.length} pages to index.`);
@@ -131,7 +131,7 @@ async function main() {
         vectors.push({
           id: `${page.id}-${i}`,
           values: vector,
-          metadata: { text: chunk.slice(0, 500), url: page.url, title: page.title },
+          metadata: { text: chunk.slice(0, 500), url: page.url, title: page.title, type: page.type || 'page', section: page.section || 'main' },
         });
         totalChunks++;
       } catch (err) {

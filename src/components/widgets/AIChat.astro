@@ -43,7 +43,7 @@ const { position = 'bottom-right', title = 'AI Assistant' } = Astro.props;
       </div>
       <div class="flex-1 min-w-0">
         <div class="font-semibold text-sm">{title}</div>
-        <div class="text-xs text-white/80">Ask about Vectoflare products</div>
+        <div class="text-xs text-white/80">Ask about our products</div>
       </div>
       <button id="ai-chat-close" class="text-white/80 hover:text-white" type="button" aria-label="Close">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -55,7 +55,7 @@ const { position = 'bottom-right', title = 'AI Assistant' } = Astro.props;
     <!-- Messages -->
     <div id="ai-chat-messages" class="flex-1 overflow-y-auto max-h-80 p-4 space-y-3 min-h-[200px]">
       <div class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 p-3 rounded-lg text-sm">
-        Hi! Ask me anything about Vectoflare boats, products, services, or pricing.
+        Hi! Ask me anything about Vectoflare products, technology, and capabilities.
       </div>
     </div>
 
@@ -146,7 +146,7 @@ const { position = 'bottom-right', title = 'AI Assistant' } = Astro.props;
     addTyping();
 
     try {
-      var res = await fetch('/api/chat', {
+      var res = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: question }),

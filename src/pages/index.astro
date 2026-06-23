@@ -1,117 +1,238 @@
 ---
-import { getEntry } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
-
-import Hero from '~/components/widgets/Hero.astro';
-import HeroCarousel from '~/components/HeroCarousel.astro';
-import Features from '~/components/widgets/Features.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Content from '~/components/widgets/Content.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
-import ProductGrid from '~/components/widgets/ProductGrid.astro';
-import { SITE, APP_PRODUCTS, I18N } from 'astrowind:config';
-import { getProducts } from '~/utils/products';
-
-import yamlData from '~/data/pages/home.yaml';
-
-const locale = I18N?.language || 'en';
-const homepageEntry = await getEntry('homepage', 'index');
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ksData = (homepageEntry?.data as any)?.[locale] || (homepageEntry?.data as any)?.['en'] || {};
-const data = Object.keys(ksData).length > 0 ? ksData : yamlData;
-
-const hero = data.hero ?? {};
-const carousel = data.hero_carousel ?? {};
-const features = data.features ?? {};
-const featured = data.featured_products ?? {};
-const workshop = data.content_workshop ?? {};
-const steps = data.steps ?? {};
-const blog = data.blog_latest ?? {};
-const faqs = data.faqs ?? {};
-const cta = data.cta ?? {};
-
-const carouselSlides = Array.isArray(carousel.slides) ? carousel.slides : [];
+import { ui } from '~/styles/ui';
+import { SITE } from 'astrowind:config';
 
 const metadata = {
-  title: `${SITE.name} — Premium inflatable boats, RIBs and engineered products`,
+  title: SITE.name,
   description: SITE?.description,
   ignoreTitleTemplate: true,
 };
-
-const featuredProducts = APP_PRODUCTS?.isEnabled
-  ? (await getProducts({ featured: true, limit: 4 }))
-  : [];
 ---
 
 <Layout metadata={metadata}>
-  {carouselSlides.length > 0 ? (
-    <HeroCarousel
-      id="hero"
-      slides={carouselSlides}
-      autoplayInterval={typeof carousel.autoplay_interval === 'number' ? carousel.autoplay_interval : 5000}
-    />
-  ) : (
-    <Hero
-      id="hero"
-      tagline={hero.tagline}
-      title={hero.title}
-      subtitle={hero.subtitle}
-      actions={hero.actions}
-      image={hero.image}
-    />
-  )}
+  <!-- Hero -->
+  <section class={ui.section + " text-center"}>
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class={ui.h1 + " text-5xl md:text-6xl"}>
+        AI Infrastructure for Modern Businesses
+      </h1>
+      <p class={"mt-6 " + ui.subtitle + " mx-auto"}>
+        We build practical AI systems that connect data, search, and automation.
+        Deploy semantic search, structured knowledge APIs, and workflow automation
+        on Cloudflare's global network.
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-4">
+        <a href="#products" class={ui.btnPrimary}>Explore products</a>
+        <a href="#ask" class={ui.btnOutline}>Ask AI</a>
+      </div>
+    </div>
+  </section>
 
-  <Features
-    id={features.id}
-    tagline={features.tagline}
-    title={features.title}
-    subtitle={features.subtitle}
-    columns={features.columns}
-    items={features.items}
-  />
+  <!-- Problem -->
+  <section class={ui.section + " bg-gray-50"}>
+    <div class={ui.container}>
+      <div class="max-w-3xl">
+        <span class={ui.badge}>The challenge</span>
+        <h2 class={"mt-4 " + ui.h2}>Built for teams that need practical AI</h2>
+        <p class={"mt-4 " + ui.subtitle}>
+          Most AI projects fail because they're disconnected from real data.
+          We build systems that start with your existing knowledge base and
+          deliver measurable results — not demos.
+        </p>
+      </div>
+      <div class={"mt-16 " + ui.grid3}>
+        {[
+          { title: "Data fragmentation", desc: "Knowledge spread across documents, databases, and teams with no unified search." },
+          { title: "AI integration complexity", desc: "Choosing models, managing API keys, handling rate limits and fallbacks." },
+          { title: "Vendor lock-in risk", desc: "Proprietary systems that make it hard to switch or scale." },
+        ].map(p => (
+          <div class={ui.cardSm}>
+            <h3 class={ui.h3 + " text-lg"}>{p.title}</h3>
+            <p class={"mt-2 " + ui.body}>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  {
-    featuredProducts.length > 0 && (
-      <ProductGrid
-        id={featured.id}
-        title={featured.title}
-        subtitle={featured.subtitle}
-        linkText={featured.linkText}
-        linkUrl={featured.linkUrl}
-        products={featuredProducts}
-      />
-    )
-  }
+  <!-- Products -->
+  <section id="products" class={ui.section}>
+    <div class={ui.container}>
+      <div class="max-w-3xl">
+        <span class={ui.badge}>Products</span>
+        <h2 class={"mt-4 " + ui.h2}>What we build</h2>
+      </div>
+      <div class={"mt-12 " + ui.grid3}>
+        {[
+          {
+            name: "AI Search Engine",
+            desc: "Semantic search across enterprise knowledge bases. Embed, index, and retrieve with hybrid vector + keyword search.",
+            feature: "Vectorize 768-dim, RAG with citations, 3-provider fallback"
+          },
+          {
+            name: "Knowledge API",
+            desc: "Structured, AI-ready data layer. RESTful endpoints that serve contextual knowledge to any application.",
+            feature: "Schema-enforced, cache-first, real-time sync"
+          },
+          {
+            name: "Automation Engine",
+            desc: "Workflow automation for operations. Connect AI responses to actions — ticketing, alerts, content generation.",
+            feature: "Event-driven, extensible, auditable"
+          }
+        ].map(p => (
+          <div class={ui.card}>
+            <h3 class={ui.h3 + " text-xl"}>{p.name}</h3>
+            <p class={"mt-3 " + ui.body}>{p.desc}</p>
+            <p class={"mt-4 " + ui.caption}>{p.feature}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <Content
-    isReversed={workshop.isReversed}
-    tagline={workshop.tagline}
-    title={workshop.title}
-    content={workshop.content}
-    items={workshop.items}
-    image={workshop.image}
-  />
+  <!-- Use Cases -->
+  <section class={ui.section + " bg-gray-50"}>
+    <div class={ui.container}>
+      <div class="max-w-3xl">
+        <span class={ui.badge}>Use cases</span>
+        <h2 class={"mt-4 " + ui.h2}>How organizations use Vectoflare</h2>
+      </div>
+      <div class={"mt-12 " + ui.grid3}>
+        {[
+          { title: "Enterprise Search", desc: "Search internal documents, knowledge bases, and product catalogs with natural language." },
+          { title: "Customer Support AI", desc: "Automate FAQ responses and support workflows with context-aware answers." },
+          { title: "Product Documentation", desc: "Provide instant, accurate answers about product specifications and capabilities." },
+          { title: "Technical Reference", desc: "Engineers query technical specs, API docs, and architecture decisions conversationally." },
+          { title: "Compliance & Policy", desc: "Ensure policy questions are answered from authoritative, version-controlled sources." },
+          { title: "Knowledge Base RAG", desc: "Transform static wikis into interactive Q&A systems with citations." },
+        ].map(u => (
+          <div class={ui.cardSm}>
+            <h3 class={ui.h3 + " text-lg"}>{u.title}</h3>
+            <p class={"mt-2 " + ui.body}>{u.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <Steps
-    title={steps.title}
-    items={steps.items}
-    image={steps.image}
-  />
+  <!-- Technology -->
+  <section class={ui.section}>
+    <div class={ui.container}>
+      <div class="max-w-3xl">
+        <span class={ui.badge}>Technology</span>
+        <h2 class={"mt-4 " + ui.h2}>Built on Cloudflare, powered by AI</h2>
+        <p class={"mt-4 " + ui.subtitle}>
+          Every component is designed for production use on Cloudflare's global network.
+          No servers to manage. No complex infrastructure.
+        </p>
+      </div>
+      <div class={"mt-12 " + ui.grid2}>
+        {[
+          { title: "Vector Search", desc: "768-dimensional embeddings with cosine similarity. Hybrid vector + keyword retrieval." },
+          { title: "Multi-Model Routing", desc: "AI Gateway → OpenAI → Workers AI fallback chain. No single point of failure." },
+          { title: "RAG with Citations", desc: "Every answer includes source references. Traceable, verifiable, auditable." },
+          { title: "Global Edge Deployment", desc: "Deployed across 330+ cities on Cloudflare Workers. Sub-millisecond routing." },
+        ].map(t => (
+          <div class={ui.cardSm}>
+            <h3 class={ui.h3 + " text-lg"}>{t.title}</h3>
+            <p class={"mt-2 " + ui.body}>{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <BlogLatestPosts title={blog.title} information={blog.information} />
+  <!-- AI Ask -->
+  <section id="ask" class={ui.section + " bg-gray-50"}>
+    <div class={ui.container}>
+      <div class="text-center max-w-3xl mx-auto">
+        <span class={ui.badge}>AI Assistant</span>
+        <h2 class={"mt-4 " + ui.h2}>Ask about our products</h2>
+        <p class={"mt-4 " + ui.subtitle + " mx-auto"}>
+          Get factual, neutral explanations about what we build and how it works.
+          No marketing. No sales pitch.
+        </p>
+      </div>
+      <div class="mt-10 max-w-2xl mx-auto">
+        <form id="ask-form" class="flex gap-3">
+          <input
+            id="ask-input"
+            type="text"
+            placeholder="e.g. How does the search engine work?"
+            class={ui.input}
+            autocomplete="off"
+          />
+          <button type="submit" class={ui.btnPrimary + " shrink-0"}>
+            Ask
+          </button>
+        </form>
+        <div id="ask-output" class="mt-8 hidden">
+          <div id="ask-answer" class={"p-6 bg-white border border-gray-200 rounded-2xl " + ui.body}></div>
+          <div id="ask-sources" class="mt-3 text-xs text-gray-400"></div>
+        </div>
+        <div id="ask-error" class="mt-4 text-sm text-red-500 hidden"></div>
+      </div>
+    </div>
+  </section>
 
-  <FAQs
-    title={faqs.title}
-    subtitle={faqs.subtitle}
-    columns={faqs.columns}
-    items={faqs.items}
-  />
-
-  <CallToAction
-    actions={cta.actions}
-    title={cta.title}
-    subtitle={cta.subtitle}
-  />
+  <!-- Contact -->
+  <section class={ui.section + " text-center"}>
+    <div class="max-w-2xl mx-auto px-6">
+      <h2 class={ui.h2}>Get in touch</h2>
+      <p class={"mt-4 " + ui.subtitle + " mx-auto"}>
+        For inquiries, partnership opportunities, or technical questions.
+      </p>
+      <a href="/contact" class={"mt-8 " + ui.btnOutline + " inline-block"}>
+        Contact us
+      </a>
+    </div>
+  </section>
 </Layout>
+
+<script is:inline>
+(function() {
+  var form = document.getElementById('ask-form');
+  var input = document.getElementById('ask-input');
+  var output = document.getElementById('ask-output');
+  var answer = document.getElementById('ask-answer');
+  var sources = document.getElementById('ask-sources');
+  var error = document.getElementById('ask-error');
+
+  if (!form || !input || !output || !answer || !sources || !error) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var q = input.value.trim();
+    if (!q) return;
+
+    output.classList.add('hidden');
+    error.classList.add('hidden');
+    answer.textContent = 'Thinking...';
+    output.classList.remove('hidden');
+    sources.textContent = '';
+
+    try {
+      var res = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: q }),
+      });
+      var data = await res.json();
+
+      if (res.ok && data.answer) {
+        answer.textContent = data.answer;
+        if (data.sources && data.sources.length > 0) {
+          sources.textContent = 'Sources: ' + data.sources.map(function(s) { return s.title; }).join(', ');
+        }
+      } else {
+        throw new Error(data.error || 'Request failed');
+      }
+    } catch (err) {
+      output.classList.add('hidden');
+      error.textContent = 'Error: ' + err.message;
+      error.classList.remove('hidden');
+    }
+  });
+})();
+</script>

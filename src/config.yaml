@@ -9,16 +9,16 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Vectoflare — Modern Solutions for Inflatable & Engineered Products
+    default: Vectoflare — AI Infrastructure for Modern Businesses
     template: '%s — Vectoflare'
-  description: 'Vectoflare designs and manufactures premium inflatable boats, RIBs, and engineered products. Explore our catalog, technical specs, and resources for professionals and enthusiasts.'
+  description: 'We build practical AI systems that connect data, search, and automation. Semantic search, knowledge APIs, and workflow automation for enterprises.'
   keywords:
     - Vectoflare
-    - inflatable boat
-    - RIB
-    - PVC
-    - marine
-    - engineering
+    - AI search
+    - semantic search
+    - knowledge API
+    - workflow automation
+    - enterprise AI
   author: Vectoflare
   robots:
     index: true
@@ -46,28 +46,28 @@ apps:
 
     post:
       isEnabled: true
-      permalink: '/news/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: '/news/%slug%'
       robots:
         index: true
         follow: true
 
     list:
       isEnabled: true
-      pathname: 'news' # News main path
+      pathname: 'news'
       robots:
         index: true
         follow: true
 
     category:
       isEnabled: true
-      pathname: 'category' # /category/<slug>
+      pathname: 'category'
       robots:
         index: true
         follow: true
 
     tag:
       isEnabled: true
-      pathname: 'tag' # /tag/<slug>
+      pathname: 'tag'
       robots:
         index: false
         follow: true
@@ -94,13 +94,12 @@ apps:
 analytics:
   vendors:
     googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
+      id: null
 
-# Site settings — controls Organization schema (sameAs, logo, contact) and social links
 siteSettings:
   siteName: Vectoflare
-  siteTagline: 'Premium inflatable boats, RIBs and engineered products'
-  siteDescription: 'Vectoflare designs and manufactures premium inflatable boats, RIBs, and engineered products. Explore our catalog, technical specs, and resources for professionals and enthusiasts.'
+  siteTagline: 'AI Infrastructure for Modern Businesses'
+  siteDescription: 'We build practical AI systems that connect data, search, and automation. Semantic search, knowledge APIs, and workflow automation for enterprises.'
   organization:
     name: Vectoflare
     logo: ''
@@ -114,4 +113,4 @@ siteSettings:
       url: /rss.xml
 
 ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  theme: 'system'
