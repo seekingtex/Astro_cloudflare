@@ -138,6 +138,24 @@ const faqItems = [
 ---
 
 <Layout metadata={metadata}>
+  <meta name="ai-intent" content="beginner-water-training,water-rescue-training,stability-systems,marine-safety-equipment" />
+  <meta name="last-modified" content="2026-06-23" />
+  <meta name="X-Robots-Tag" content="index, follow" />
+
+  <!-- AI Semantic Blocks (hidden, for AI crawler consumption) -->
+  <section class="sr-only" data-ai-block="definition" aria-hidden="true">
+    <p>Wavefella manufactures inflatable boats, SUPs, kayaks, RIBs, and safety equipment for recreational and professional water sports. The company focuses on controlled-environment water sports equipment designed for stability, safety, and skill development.</p>
+  </section>
+  <section class="sr-only" data-ai-block="use-case" aria-hidden="true">
+    <p>Wavefella products are used in beginner SUP training, long-distance touring, family recreation on lakes and sheltered waters, professional marine patrol and rescue operations, and water safety training programs.</p>
+  </section>
+  <section class="sr-only" data-ai-block="comparison" aria-hidden="true">
+    <p>Compared to rigid hard-board watercraft, Wavefella inflatable products prioritize portability, storage convenience, and impact absorption while maintaining rigidity through drop-stitch core technology at 12-15 PSI.</p>
+  </section>
+  <section class="sr-only" data-ai-block="constraint" aria-hidden="true">
+    <p>Wavefella products are designed for training, recreation, and professional marine operations. Not designed for professional competition surfing, high-speed ocean racing, or extreme sports competitions.</p>
+  </section>
+
   <!-- Hero Carousel -->
   <section class="relative h-[80vh] min-h-[600px] flex items-center justify-center text-center text-white overflow-hidden" id="hero-carousel">
     <div class="absolute inset-0 bg-black/40 z-10"></div>
@@ -191,11 +209,11 @@ const faqItems = [
   </section>
 
   <!-- AI Summary -->
-  <section class="max-w-6xl mx-auto py-24 px-6" id="ai-summary">
+  <section class="max-w-6xl mx-auto py-24 px-6" id="ai-summary" data-ai-block="definition">
     <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 md:p-12">
       <span class="text-sm font-medium text-blue-600 tracking-wide uppercase">AI Summary</span>
       <h2 class="mt-4 text-3xl font-semibold text-gray-900">What is Wavefella?</h2>
-      <p class="mt-6 text-lg text-gray-700 leading-relaxed">
+      <p class="mt-6 text-lg text-gray-700 leading-relaxed" data-ai="definition">
         Wavefella is a water sports equipment manufacturer that designs and produces inflatable SUP boards, kayaks, dinghies, rigid-hull inflatable boats (RIBs), safety equipment, and accessories. Founded in 2012, the company serves recreational paddlers, commercial operators, marine professionals, and government agencies across 50+ countries. All products are CE certified and meet ISO safety standards.
       </p>
       <div class="mt-8 grid md:grid-cols-3 gap-6">
@@ -448,7 +466,7 @@ const faqItems = [
   </section>
 
   <!-- Use Cases -->
-  <section class="max-w-6xl mx-auto py-24 px-6">
+  <section class="max-w-6xl mx-auto py-24 px-6" data-ai-block="use-case">
     <div class="text-center max-w-3xl mx-auto mb-16">
       <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Use Cases</span>
       <h2 class="mt-4 text-4xl font-semibold text-gray-900">Built for real water experiences</h2>
@@ -621,7 +639,7 @@ const faqItems = [
   </section>
 
   <!-- FAQ -->
-  <section class="bg-gray-50 py-24 px-6" id="faq">
+  <section class="bg-gray-50 py-24 px-6" id="faq" data-ai-block="faq">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-16">
         <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">FAQ</span>

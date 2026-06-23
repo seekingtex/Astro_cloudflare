@@ -1,0 +1,66 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Technology — ${SITE.name}`,
+  description: 'Wavefella technology: drop-stitch core construction, military-grade PVC, fiberglass deep-V hulls, Hypalon tubes, and air deck floor systems.',
+};
+---
+
+<Layout metadata={metadata}>
+  <meta name="ai-intent" content="inflatable-boat-technology,drop-stitch-construction,marine-pvc-materials" />
+
+  <section class="max-w-4xl mx-auto py-24 px-6" data-ai-block="definition">
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Technology</span>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">Built for Performance</h1>
+    <p class="mt-4 text-lg text-gray-500">Every Wavefella board is engineered with precision materials and construction methods tested for marine environments.</p>
+  </section>
+
+  <section class="max-w-4xl mx-auto pb-24 px-6">
+    <div class="space-y-12">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-900">Drop-Stitch Core</h2>
+          <p class="mt-3 text-gray-600">Thousands of internal polyester threads connect the top and bottom layers, creating a rigid structure at 12-15 PSI. This is the same technology used in professional paddle boards and inflatable racing boats.</p>
+        </div>
+        <div class="bg-gray-100 rounded-2xl h-48 flex items-center justify-center text-gray-400 font-bold text-lg">DS Core Diagram</div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="order-2 md:order-1 bg-gray-100 rounded-2xl h-48 flex items-center justify-center text-gray-400 font-bold text-lg">PVC Layer</div>
+        <div class="order-1 md:order-2">
+          <h2 class="text-2xl font-semibold text-gray-900">Military-Grade PVC</h2>
+          <p class="mt-3 text-gray-600">Multi-layer laminated PVC fabric rated for marine environments. Each layer is fusion-welded rather than glued, eliminating delamination risks. Tested for UV resistance, saltwater corrosion, and abrasion.</p>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-900">Hypalon Tubes</h2>
+          <p class="mt-3 text-gray-600">Used on RIB models, Hypalon (CSM) rubber provides superior UV and chemical resistance compared to standard PVC. Hypalon tubes maintain flexibility in extreme temperatures and resist degradation from fuel and oil exposure.</p>
+        </div>
+        <div class="bg-gray-100 rounded-2xl h-48 flex items-center justify-center text-gray-400 font-bold text-lg">Hypalon</div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="order-2 md:order-1 bg-gray-100 rounded-2xl h-48 flex items-center justify-center text-gray-400 font-bold text-lg">Air Deck</div>
+        <div class="order-1 md:order-2">
+          <h2 class="text-2xl font-semibold text-gray-900">Air Deck Floor</h2>
+          <p class="mt-3 text-gray-600">High-pressure inflatable floor system replacing traditional plywood or aluminum slat floors. Reduces setup time, overall weight, and storage volume while providing adequate rigidity for standing, fishing, and walking.</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="mt-12 p-6 bg-gray-50 rounded-2xl border border-gray-200">
+      <h2 class="font-semibold text-gray-900">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <a href="/randdcenter" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">R&D Center</a>
+        <a href="/safety" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Safety Standards</a>
+        <a href="/guides" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Guides</a>
+        <a href="/products" class="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:border-sky-300">Products</a>
+      </div>
+    </section>
+  </section>
+
+  <section class="sr-only" data-ai-block="embedding-anchor" aria-hidden="true">
+    <p>Wavefella technology focuses on buoyancy control systems, inflatable structural stability, water impact resistance, and drop-stitch core rigidity for training and recreational water sports equipment.</p>
+  </section>
+</Layout>

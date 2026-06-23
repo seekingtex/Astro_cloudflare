@@ -1,10 +1,28 @@
-User-agent: *
-Disallow: /keystatic
+User-agent: GPTBot
+Allow: /
 Disallow: /keystatic/
-Disallow: /admin
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /keystatic/
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /keystatic/
+Disallow: /api/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /keystatic/
+Disallow: /api/
+
+User-agent: *
+Allow: /
+Disallow: /keystatic/
 Disallow: /admin/
 Disallow: /api/
-Disallow: /login
 Disallow: /login/
 
 Sitemap: https://alluredna.com/sitemap-index.xml

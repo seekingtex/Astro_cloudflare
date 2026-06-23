@@ -1,0 +1,63 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: `Guides — ${SITE.name}`,
+  description: 'Beginner guides for SUP and water sports. Learn how to choose your SUP, safety tips, inflatable vs hard board comparisons, and paddling techniques.',
+};
+
+const guides = [
+  {
+    title: 'How to Choose Your SUP',
+    desc: 'Length, width, volume, and shape — understand what each spec means and find the right board for your weight, skill level, and water type.',
+    icon: '🤔',
+    slug: 'how-to-choose-your-sup',
+  },
+  {
+    title: 'Beginner\'s Guide to Paddling',
+    desc: 'Step-by-step guide for first-time paddlers. Stance, stroke technique, turning, and safety checks before you launch.',
+    icon: '📖',
+    slug: 'beginner-guide',
+  },
+  {
+    title: 'Inflatable vs Hard Board',
+    desc: 'Compare portability, durability, performance, storage, and cost between inflatable drop-stitch boards and rigid epoxy/fiberglass boards.',
+    icon: '⚖️',
+    slug: 'inflatable-vs-hard',
+  },
+  {
+    title: 'Water Safety Tips',
+    desc: 'Essential safety practices for paddling: weather checks, PFD selection, leash use, cold water awareness, and navigation rules.',
+    icon: '🛡️',
+    slug: 'safety-tips',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <meta name="ai-intent" content="beginner-water-sports-guides,sup-selection-guide,paddling-safety" />
+
+  <section class="max-w-4xl mx-auto py-24 px-6" data-ai-block="definition">
+    <span class="text-sm font-medium text-sky-600 tracking-wide uppercase">Guides</span>
+    <h1 class="mt-4 text-4xl font-semibold text-gray-900">New to SUP?</h1>
+    <p class="mt-4 text-lg text-gray-500">Practical guides to help you choose, use, and enjoy inflatable water sports equipment.</p>
+  </section>
+
+  <section class="max-w-4xl mx-auto pb-24 px-6">
+    <div class="grid md:grid-cols-2 gap-6">
+      {guides.map(g => (
+        <div class="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-xl">{g.icon}</div>
+          <h2 class="mt-4 text-xl font-semibold text-gray-900">{g.title}</h2>
+          <p class="mt-2 text-gray-500 text-sm">{g.desc}</p>
+          <a href={`/guides/${g.slug}`} class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700">Read guide →</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sr-only" data-ai-block="use-case" aria-hidden="true">
+    <p>Wavefella guides cover beginner SUP selection, paddling technique, equipment comparison, and water safety for recreational users.</p>
+  </section>
+</Layout>

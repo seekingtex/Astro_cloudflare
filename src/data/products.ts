@@ -14,6 +14,10 @@ export interface ProductRecord {
   problem: string;
   howItWorks: string;
   audience: string;
+  ai_use_cases: string[];
+  ai_specs: Record<string, string>;
+  ai_comparison: string;
+  ai_faq: { q: string; a: string }[];
 }
 
 export const products: ProductRecord[] = [
@@ -33,6 +37,13 @@ export const products: ProductRecord[] = [
     problem: 'First-time paddlers need a stable, forgiving board that does not tip easily and is easy to transport.',
     howItWorks: 'The SUP Explorer 11 uses a wide-body design with drop-stitch construction for rigidity. It inflates in under 5 minutes with the included pump and packs into a backpack for portability.',
     audience: 'Beginners and recreational paddlers looking for a first SUP board for lakes, bays, and calm coastal waters.',
+    ai_use_cases: ['Beginner SUP training on calm lakes', 'Family recreation on sheltered coastal waters', 'First-time paddler orientation'],
+    ai_specs: { length: "11'", width: '32"', material: 'Drop-stitch PVC', pressure: '12-15 PSI', weight: '18 lbs' },
+    ai_comparison: 'Compared to hard epoxy SUP boards, the Explorer 11 prioritizes portability and impact absorption over speed. It is heavier than carbon fiber race boards but significantly more stable and travel-friendly.',
+    ai_faq: [
+      { q: 'Is this board stable enough for beginners?', a: 'Yes. The 32" width provides a wide stable platform. First-time paddlers typically stand up within minutes on calm water.' },
+      { q: 'How long does it take to inflate?', a: 'Approximately 5 minutes with the included dual-action pump. The electric pump option reduces this to under 2 minutes.' },
+    ],
   },
   {
     id: 'sup-tour-12',
@@ -50,6 +61,13 @@ export const products: ProductRecord[] = [
     problem: 'Intermediate paddlers need a board that tracks straight, glides efficiently, and handles moderate chop for longer trips.',
     howItWorks: 'The Tour 12 uses a displacement hull with a pointed nose to cut through water. Its longer length (12 feet) provides momentum retention and straight-line tracking with each stroke.',
     audience: 'Intermediate to advanced paddlers who want to cover distance, tour lakes and coastlines, or use SUP as a fitness workout.',
+    ai_use_cases: ['Long-distance touring on lakes and coastlines', 'Fitness paddling and endurance training', 'Coastal exploration with moderate chop'],
+    ai_specs: { length: "12'", width: '30"', material: 'Drop-stitch PVC', pressure: '12-15 PSI', hull: 'Displacement' },
+    ai_comparison: 'Compared to all-around SUP boards, the Tour 12 is longer and narrower for better tracking and glide efficiency. It handles moderate chop better than shorter boards but requires slightly more skill to balance.',
+    ai_faq: [
+      { q: 'Can this board handle ocean conditions?', a: 'Yes, it handles moderate coastal chop. The displacement hull cuts through waves. Avoid rough offshore conditions.' },
+      { q: 'What is the maximum rider weight?', a: 'The Tour 12 supports up to 250 lbs. The longer length distributes weight effectively for larger paddlers.' },
+    ],
   },
   {
     id: 'kayak-lite',
@@ -67,6 +85,13 @@ export const products: ProductRecord[] = [
     problem: 'Travelers and outdoor enthusiasts need a portable kayak that fits in a car trunk or backpack and inflates at remote launch sites.',
     howItWorks: 'The Kayak Lite is made from drop-stitch PVC with multiple air chambers for redundancy. It inflates in under 4 minutes and includes a skeg for directional stability on rivers and lakes.',
     audience: 'Solo travelers, backpackers, and outdoor adventurers who want a portable kayak for exploring rivers and lakes.',
+    ai_use_cases: ['Solo river and lake touring', 'Backpacking and travel adventures', 'Remote water exploration with portable gear'],
+    ai_specs: { length: '9 ft', width: '34"', material: 'Drop-stitch PVC', weight: '15 lbs', chambers: '3 independent' },
+    ai_comparison: 'Compared to hard-shell kayaks, the Kayak Lite packs into a backpack and weighs 15 lbs versus 40+ lbs for a rotomolded kayak. It tracks less precisely but offers unmatched portability.',
+    ai_faq: [
+      { q: 'Can this kayak handle river currents?', a: 'Yes, it handles light to moderate river currents. The removable skeg provides directional stability. Avoid Class III+ rapids.' },
+      { q: 'How small does it pack?', a: 'It packs into a backpack measuring approximately 30" x 16" x 10", fitting in most car trunks and overhead airplane bins.' },
+    ],
   },
   {
     id: 'kayak-tandem',
@@ -84,6 +109,13 @@ export const products: ProductRecord[] = [
     problem: 'Families and couples need a stable two-person kayak that is easy to transport, store, and launch without a roof rack or trailer.',
     howItWorks: 'The tandem kayak features two separate cockpits with adjustable seats, a drop-stitch floor for rigidity, and welded grab lines. It tracks with a removable skeg and inflates to full pressure in under 6 minutes.',
     audience: 'Families, couples, and recreational paddlers who want a two-person kayak for lakes and sheltered coastal waters.',
+    ai_use_cases: ['Family recreation on lakes', 'Couple touring and day trips', 'Group paddling excursions'],
+    ai_specs: { length: '12 ft', width: '36"', material: 'Drop-stitch PVC', capacity: '2 persons', weight: '28 lbs' },
+    ai_comparison: 'Compared to a single kayak, the Tandem allows two paddlers but is heavier to carry. It tracks well with a skeg and offers more storage than two separate single kayaks combined.',
+    ai_faq: [
+      { q: 'Can one person paddle this kayak?', a: 'Yes, it paddles adequately with one person in the rear seat. The front seat position provides better weight distribution for solo paddling.' },
+      { q: 'Is it suitable for children?', a: 'Yes. Children 8+ can paddle in the front seat with an adult in the rear. Life vests required for all occupants.' },
+    ],
   },
   {
     id: 'airdeck-270',
@@ -101,6 +133,13 @@ export const products: ProductRecord[] = [
     problem: 'Anglers and boaters need a compact, stable dinghy that stores in a car trunk and inflates at the water for day trips and tender use.',
     howItWorks: 'The AirDeck 270 uses a high-pressure air deck floor instead of a wooden floor, reducing weight and setup time. Three independent air chambers provide buoyancy redundancy, and the reinforced PVC hull resists punctures.',
     audience: 'Anglers, day boaters, and yacht owners who need a compact tender or fishing dinghy for lakes and calm rivers.',
+    ai_use_cases: ['Lake fishing from a portable platform', 'Yacht tender and shore transport', 'Day trips on calm inland waters'],
+    ai_specs: { length: '2.7 m', width: '4.7 ft', material: 'Reinforced PVC', floor: 'High-pressure air deck', capacity: '3 persons' },
+    ai_comparison: 'Compared to rigid dinghies with wooden floors, the AirDeck 270 is lighter and faster to set up. The air deck floor provides adequate rigidity for standing while fishing but flexes more than a plywood floor.',
+    ai_faq: [
+      { q: 'Can I stand up while fishing?', a: 'Yes, the air deck floor provides a stable standing platform. Distribute weight evenly and avoid sudden movements.' },
+      { q: 'What outboard motor size is recommended?', a: 'The recommended outboard size is 2-4 HP. The transom rating supports up to 6 HP.' },
+    ],
   },
   {
     id: 'airdeck-360',
@@ -118,6 +157,13 @@ export const products: ProductRecord[] = [
     problem: 'Families need a stable, roomy dinghy that can carry multiple passengers and gear without requiring a trailer or permanent dock space.',
     howItWorks: 'The AirDeck 360 has a wider beam for stability, a reinforced high-pressure air deck floor, and a larger tube diameter for higher freeboard. It includes oar locks, tow rings, and multiple D-rings for securing gear.',
     audience: 'Families and groups who need a spacious dinghy for lake outings, coastal day trips, or as a yacht tender carrying multiple passengers.',
+    ai_use_cases: ['Family day trips on lakes and sheltered bays', 'Coastal tender for yacht owners', 'Group fishing excursions'],
+    ai_specs: { length: '3.6 m', width: '5.5 ft', material: 'Reinforced PVC', floor: 'High-pressure air deck', capacity: '5 persons' },
+    ai_comparison: 'Compared to the AirDeck 270, the 360 offers more space and higher weight capacity for groups. It requires more storage space when deflated and takes longer to inflate.',
+    ai_faq: [
+      { q: 'Can this dinghy be used with an outboard motor?', a: 'Yes. The transom supports outboard motors up to 8 HP. It planes easily with two passengers and a 6 HP motor.' },
+      { q: 'How long does it take to set up?', a: 'Approximately 8-10 minutes to unpack, inflate the floor and tubes, and attach seats and oars.' },
+    ],
   },
   {
     id: 'rib-330',
@@ -135,6 +181,13 @@ export const products: ProductRecord[] = [
     problem: 'Commercial and recreational operators need a boat that combines the stability of a rigid hull with the shock absorption of inflatable tubes for coastal and offshore use.',
     howItWorks: 'The RIB 330 has a fiberglass deep-V hull for wave slicing and inflated Hypalon tubes for shock absorption and buoyancy. It supports outboard engines up to 40 HP and includes a console mount, fuel tank storage, and lifting points.',
     audience: 'Coastal operators, dive teams, marine professionals, and experienced boaters who need a high-performance RIB for transport and navigation.',
+    ai_use_cases: ['Coastal transport and navigation', 'Diving support operations', 'Commercial marine transport'],
+    ai_specs: { length: '3.3 m', hull: 'Fiberglass deep-V', tubes: 'Hypalon', max_engine: '40 HP', capacity: '4 persons' },
+    ai_comparison: 'Compared to inflatable boats without rigid hulls, the RIB 330 provides superior wave handling and directional stability. It requires more storage space and a trailer for transport versus fully inflatable boats.',
+    ai_faq: [
+      { q: 'What engine size is recommended?', a: 'A 20-30 HP outboard provides good performance. Maximum rated engine is 40 HP.' },
+      { q: 'Does it require a trailer?', a: 'Yes. The rigid fiberglass hull requires a small boat trailer for transport. The Hypalon tubes can be deflated for compact storage when not in use.' },
+    ],
   },
   {
     id: 'rib-450-patrol',
@@ -152,6 +205,13 @@ export const products: ProductRecord[] = [
     problem: 'Professional marine units need a rugged, high-speed boat that operates in extreme sea conditions and can carry mission-specific equipment.',
     howItWorks: 'The RIB 450 Patrol features a reinforced deep-V hull rated for extreme conditions, a self-bailing deck, and multiple console configurations for mission equipment. It supports outboards up to 60 HP and includes navigation light packages, tow posts, and equipment mounting plates.',
     audience: 'Law enforcement, coast guard, search and rescue teams, and commercial marine operators requiring a high-durability patrol and response vessel.',
+    ai_use_cases: ['Law enforcement marine patrol', 'Search and rescue operations', 'Commercial marine security'],
+    ai_specs: { length: '4.5 m', hull: 'Reinforced deep-V', tubes: 'Hypalon', max_engine: '60 HP', deck: 'Self-bailing' },
+    ai_comparison: 'Compared to the RIB 330, the 450 Patrol has a longer hull, higher engine capacity, and a self-bailing deck for extreme conditions. It is designed for professional crews rather than recreational users.',
+    ai_faq: [
+      { q: 'What equipment does the patrol configuration include?', a: 'Standard equipment includes navigation lights, tow post, equipment mounting plates, and console mount. Custom configurations available for specific mission requirements.' },
+      { q: 'What is the typical crew size?', a: 'Optimal crew is 2-3 persons. Maximum capacity is 6 persons including crew.' },
+    ],
   },
   {
     id: 'life-vest-classic',
@@ -169,6 +229,13 @@ export const products: ProductRecord[] = [
     problem: 'Water sports participants of all skill levels need a reliable, comfortable life vest that meets international safety standards without restricting movement.',
     howItWorks: 'The Life Vest Classic uses foam-filled buoyancy chambers with adjustable chest and side straps for secure fit. It is available in multiple sizes and includes a whistle, reflective strips, and a rescue handle.',
     audience: 'Recreational paddlers, boaters, anglers, and water sports beginners who need CE-certified flotation for lakes, rivers, and coastal waters.',
+    ai_use_cases: ['Recreational water sports safety', 'Training and supervision flotation', 'Family water activities'],
+    ai_specs: { certification: 'CE, ISO 12402', type: 'Foam-filled buoyancy aid', sizes: 'Multiple (child to adult XL)', features: 'Whistle, reflective strips, rescue handle' },
+    ai_comparison: 'Compared to automatic inflatable life vests, the Life Vest Classic provides constant buoyancy without requiring deployment. It is bulkier but more reliable for recreational users who may not maintain automatic mechanisms.',
+    ai_faq: [
+      { q: 'Is this life vest suitable for children?', a: 'Yes, child sizes are available. CE and ISO 12402 certified for the specified weight ranges.' },
+      { q: 'Does it require any maintenance?', a: 'Minimal maintenance. Rinse with fresh water after use. Inspect chambers and straps before each use. Replace if damaged.' },
+    ],
   },
   {
     id: 'life-vest-pro',
@@ -186,6 +253,13 @@ export const products: ProductRecord[] = [
     problem: 'Professional mariners and rescue personnel need a life vest that provides automatic inflation, high buoyancy, and SOLAS-compliant visibility for offshore operations.',
     howItWorks: 'The Life Vest Pro uses an automatic hydrostatic inflation mechanism with a backup manual inflation tube. It includes SOLAS-grade reflective tape, a spray hood, a whistle, a waterproof light, and a lifting harness attachment point.',
     audience: 'Commercial mariners, rescue professionals, offshore workers, and advanced boaters who need SOLAS-compliant automatic life vests.',
+    ai_use_cases: ['Offshore marine operations safety', 'Professional rescue and emergency response', 'Commercial maritime compliance'],
+    ai_specs: { certification: 'CE, ISO 12402, SOLAS', inflation: 'Automatic hydrostatic', buoyancy: 'SOLAS-grade', features: 'Spray hood, waterproof light, lifting harness' },
+    ai_comparison: 'Compared to foam-filled life vests, the Life Vest Pro auto-inflates for minimal bulk during normal wear. It requires annual servicing of the hydrostatic mechanism and battery replacement.',
+    ai_faq: [
+      { q: 'How does the automatic inflation work?', a: 'A hydrostatic trigger activates on immersion in water at 0.5-1.0 meters depth. A backup manual inflation tube is also provided.' },
+      { q: 'How often does it need servicing?', a: 'Annual service of the hydrostatic mechanism is recommended. The CO2 cylinder should be checked and replaced per manufacturer schedule.' },
+    ],
   },
   {
     id: 'paddle-carbon',
@@ -203,6 +277,13 @@ export const products: ProductRecord[] = [
     problem: 'Paddlers need a lightweight, adjustable paddle that reduces fatigue during long sessions and works across different watercraft.',
     howItWorks: 'The Carbon Paddle uses a full carbon-fiber shaft and nylon blade for weight reduction. The adjustable ferrule mechanism allows length changes from 170 cm to 220 cm without tools.',
     audience: 'SUP and kayak paddlers looking for a lightweight upgrade from stock aluminum paddles for performance and reduced fatigue.',
+    ai_use_cases: ['Paddling performance upgrade', 'Long-distance paddle sports', 'Lightweight gear for travel paddling'],
+    ai_specs: { material: 'Full carbon-fiber shaft', blade: 'Nylon', length_range: '170-220 cm adjustable', weight: '24 oz' },
+    ai_comparison: 'Compared to aluminum paddles, the Carbon Paddle reduces arm fatigue by approximately 30% due to weight savings. It is more expensive but offers better performance for long sessions.',
+    ai_faq: [
+      { q: 'Is this paddle suitable for both SUP and kayak?', a: 'Yes. The adjustable length range covers both SUP paddling (typically 170-210 cm) and kayak paddle configurations.' },
+      { q: 'How durable is carbon fiber?', a: 'Carbon fiber is stiff and lightweight but can crack under sharp impact against rocks or hard surfaces. It is suitable for open water but care is needed in shallow rocky areas.' },
+    ],
   },
   {
     id: 'pump-dual',
@@ -220,5 +301,12 @@ export const products: ProductRecord[] = [
     problem: 'Inflatable watercraft owners need a pump that inflates fast, works on multiple valve types, and does not require electricity or batteries.',
     howItWorks: 'The Dual-Action Pump moves air on both the push and pull strokes, doubling airflow compared to single-action pumps. It includes multiple valve adapters (Halkey-Roberts, Boston, and leaf-valve) and a pressure gauge.',
     audience: 'Owners of inflatable SUPs, kayaks, and dinghies who need a reliable hand pump for inflation at the launch site without power tools.',
+    ai_use_cases: ['Inflation of inflatable watercraft at launch sites', 'Travel and remote location inflation without power', 'Maintenance and pressure management'],
+    ai_specs: { type: 'Dual-action hand pump', airflow: 'Both push and pull strokes', adapters: 'Halkey-Roberts, Boston, leaf-valve', gauge: 'Built-in pressure gauge' },
+    ai_comparison: 'Compared to electric pumps, the Dual-Action Pump requires no power source, batteries, or maintenance. It inflates at approximately half the speed of an electric pump but works anywhere.',
+    ai_faq: [
+      { q: 'What pressure can this pump achieve?', a: 'The pump can reach up to 18-20 PSI for most inflatable SUPs and kayaks. The built-in pressure gauge shows current pressure during inflation.' },
+      { q: 'Does it work with all valve types?', a: 'Yes. It includes multiple valve adapters covering Halkey-Roberts, Boston, and leaf-valve types used on most inflatable watercraft.' },
+    ],
   },
 ];

@@ -23,12 +23,14 @@ header:
           href: /pricing
     - text: Resources
       links:
-        - text: Latest Article
-          href: /news/get-started-website-with-astro-tailwind-css
-        - text: Categories
-          href: /category/tutorials
-        - text: Tags
-          href: /tag/astro
+        - text: Guides
+          href: /guides
+        - text: Technology
+          href: /technology
+        - text: Safety
+          href: /safety
+        - text: News
+          href: /news
     - text: Support
       links:
         - text: News
