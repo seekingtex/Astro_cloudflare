@@ -67,7 +67,7 @@ export default defineConfig({
   output: 'static',
 
   adapter: cloudflare({
-    runtime: process.env.CI ? 'local' : 'remote',
+    remoteBindings: process.env.CI ? false : undefined,
   }),
 
   integrations: [
