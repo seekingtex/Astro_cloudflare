@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
@@ -19,7 +20,7 @@ async function embedQuery(query: string, env: any): Promise<number[]> {
 }
 
 async function callLLM(prompt: string, env: any, mode: string): Promise<string> {
-  const workersModel = mode === 'quality' ? '@cf/meta/llama-3.3-70b-instruct-fp8-fast' : '@cf/meta/llama-3.1-8b-instruct';
+  const workersModel = mode === 'quality' ? '@cf/meta/llama-3.3-70b-instruct-fp8-fast' : '@cf/meta/llama-3.2-3b-instruct';
   const res = await env.AI.run(workersModel, {
     messages: [
       { role: 'system', content: 'You are a helpful website assistant. Answer based on the provided context.' },
@@ -31,11 +32,7 @@ async function callLLM(prompt: string, env: any, mode: string): Promise<string> 
   return res.response;
 }
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const env = (locals as any).runtime?.env;
-  if (!env) {
-    return new Response(JSON.stringify({ error: 'Runtime environment not available' }), { status: 500 });
-  }
+export const POST: APIRoute = async ({ request }) => {
 
   let body: ChatRequest;
   try {

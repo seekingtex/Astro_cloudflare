@@ -1,13 +1,10 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { VECTOR_DIM } from '../../lib/vector';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const env = (locals as any).runtime?.env;
-  if (!env) {
-    return new Response(JSON.stringify({ error: 'Runtime environment not available' }), { status: 500 });
-  }
+export const POST: APIRoute = async ({ request }) => {
 
   let body: { text?: string };
   try {

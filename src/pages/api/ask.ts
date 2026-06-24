@@ -1,15 +1,11 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { products } from '../../data/products';
 import { productGraph } from '../../lib/productGraph';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const env = (locals as any).runtime?.env;
-  if (!env) {
-    return new Response(JSON.stringify({ error: 'Runtime environment not available' }), { status: 500 });
-  }
-
+export const POST: APIRoute = async ({ request }) => {
   let body: { question?: string };
   try {
     body = await request.json();
@@ -68,7 +64,7 @@ Warning:
 
     const prompt = `PRODUCT CATALOG:\n${JSON.stringify(structuredContext.products, null, 2)}\n\nCATEGORY INTELLIGENCE:\n${JSON.stringify(structuredContext.productGraph, null, 2)}${ragContext}\n\nQuestion: ${question}`;
 
-    const workersModel = '@cf/meta/llama-3.1-8b-instruct';
+    const workersModel = '@cf/meta/llama-3.2-3b-instruct';
     const llmRes = await env.AI.run(workersModel, {
       messages: [
         { role: 'system', content: systemPrompt },

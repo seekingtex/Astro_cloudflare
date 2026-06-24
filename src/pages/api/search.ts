@@ -1,13 +1,9 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const env = (locals as any).runtime?.env;
-  if (!env) {
-    return new Response(JSON.stringify({ error: 'Runtime environment not available' }), { status: 500 });
-  }
-
+export const POST: APIRoute = async ({ request }) => {
   let body: { query?: string; topK?: number };
   try {
     body = await request.json();
