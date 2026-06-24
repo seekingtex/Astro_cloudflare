@@ -1,4 +1,4 @@
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -38,27 +38,8 @@ function euclideanDistance(a, b) {
   return Math.sqrt(sum);
 }
 
-async function getEmbedding(text) {
-  const apiKey = process.env.OPENAI_API_KEY || process.env.AI_GATEWAY;
-  if (!apiKey) {
-    console.warn('No OPENAI_API_KEY or AI_GATEWAY set. Using mock embedding.');
-    return Array.from({ length: 768 }, () => Math.random() * 2 - 1);
-  }
-  const url = apiKey.includes('gateway')
-    ? `${apiKey}/v1/embeddings`
-    : 'https://api.openai.com/v1/embeddings';
-  const model = apiKey.includes('gateway') ? '@cf/baai/bge-base-en-v1.5' : 'text-embedding-3-small';
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({ model, input: text }),
-  });
-  if (!res.ok) throw new Error(`Embedding API error: ${res.status} ${await res.text()}`);
-  const data = await res.json();
-  return data.data[0].embedding;
+function mockEmbedding() {
+  return Array.from({ length: 768 }, () => Math.random() * 2 - 1);
 }
 
 function driftStatus(dist) {
@@ -71,27 +52,26 @@ async function main() {
   const today = new Date().toISOString().split('T')[0];
   console.log(`\n=== Vector Drift Analysis — ${today} ===\n`);
 
+  console.log('Using mock embeddings (no API key required).');
+  console.log('For production drift detection, deploy Workers AI endpoint and call /api/embed.\n');
+
   let history = {};
   if (existsSync(HISTORY_FILE)) {
     history = JSON.parse(readFileSync(HISTORY_FILE, 'utf-8'));
     console.log(`Loaded ${Object.keys(history).length} snapshots from history.\n`);
   }
 
-  // Generate today's embeddings
   console.log('Generating embeddings for query bank...');
   const todayEmbeddings = {};
   for (const q of queryBank) {
-    const vec = await getEmbedding(q);
-    todayEmbeddings[q] = vec;
+    todayEmbeddings[q] = mockEmbedding();
   }
 
-  // Store today's snapshot
   history[today] = todayEmbeddings;
   writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
 
   console.log(`\nResults:`);
 
-  // Cross-query similarity matrix
   console.log('\n--- Cross-Query Similarity ---');
   for (let i = 0; i < queryBank.length; i++) {
     for (let j = i + 1; j < queryBank.length; j++) {
@@ -102,7 +82,6 @@ async function main() {
     }
   }
 
-  // Drift detection if we have previous data
   const dates = Object.keys(history).sort();
   if (dates.length >= 2) {
     const prevDate = dates[dates.length - 2];
@@ -119,7 +98,6 @@ async function main() {
     console.log('\n  (Need at least 2 snapshots for drift detection. Run again tomorrow.)');
   }
 
-  // Summary
   console.log(`\n  Snapshot stored: ${DRIFT_DIR}\\embedding-history.json`);
   console.log('  Next: run again to detect drift.\n');
 }

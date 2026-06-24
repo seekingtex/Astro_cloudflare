@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { VECTOR_DIM } from '../../lib/vector';
 
 export const prerender = false;
 
@@ -15,62 +14,12 @@ interface Source {
 }
 
 async function embedQuery(query: string, env: any): Promise<number[]> {
-  if (env.AI_GATEWAY) {
-    const res = await fetch(env.AI_GATEWAY, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mode: 'embed', prompt: query }),
-    });
-    if (!res.ok) throw new Error(`Gateway embed error (${res.status})`);
-    const data = await res.json() as { data?: Array<{ embedding: number[] }> };
-    return data.data?.[0]?.embedding || [];
-  }
-  if (env.OPENAI_API_KEY) {
-    const res = await fetch('https://api.openai.com/v1/embeddings', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'text-embedding-3-small', input: query, dimensions: VECTOR_DIM }),
-    });
-    if (!res.ok) throw new Error(`OpenAI embed error (${res.status})`);
-    const data = await res.json() as { data: Array<{ embedding: number[] }> };
-    return data.data[0].embedding;
-  }
   const res = await env.AI.run('@cf/baai/bge-base-en-v1.5', { text: [query] }) as { data: Array<number[]> };
   return res.data[0];
 }
 
 async function callLLM(prompt: string, env: any, mode: string): Promise<string> {
-  const model = mode === 'quality' ? 'gpt-4.1' : 'gpt-4o-mini';
   const workersModel = mode === 'quality' ? '@cf/meta/llama-3.3-70b-instruct-fp8-fast' : '@cf/meta/llama-3.1-8b-instruct';
-
-  if (env.AI_GATEWAY) {
-    const res = await fetch(env.AI_GATEWAY, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mode: 'chat', prompt, model }),
-    });
-    if (!res.ok) throw new Error(`Gateway chat error (${res.status})`);
-    const data = await res.json() as { response?: string; text?: string };
-    return data.response || data.text || '';
-  }
-  if (env.OPENAI_API_KEY) {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: 'system', content: 'You are a helpful website assistant. Answer based on the provided context. If the context does not contain enough information, say so.' },
-          { role: 'user', content: prompt },
-        ],
-        temperature: 0.3,
-        max_tokens: 1024,
-      }),
-    });
-    if (!res.ok) throw new Error(`OpenAI chat error (${res.status})`);
-    const data = await res.json() as { choices: Array<{ message: { content: string } }> };
-    return data.choices[0].message.content;
-  }
   const res = await env.AI.run(workersModel, {
     messages: [
       { role: 'system', content: 'You are a helpful website assistant. Answer based on the provided context.' },

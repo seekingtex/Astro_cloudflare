@@ -5,8 +5,6 @@ import { VECTOR_DIM, type FnVectorize } from './vector';
 export interface EnvBindings {
   VECTORIZE: FnVectorize;
   AI: Ai;
-  OPENAI_API_KEY?: string;
-  AI_GATEWAY?: string;
 }
 
 export interface Chunk {
@@ -70,36 +68,6 @@ export function assembleContext(results: SearchResult[], maxChars = 6000): strin
     .slice(0, maxChars);
 }
 
-async function answerViaGateway(prompt: string, gatewayUrl: string, mode = 'fast'): Promise<string> {
-  const res = await fetch(gatewayUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ mode: 'chat', prompt, model: mode === 'quality' ? 'gpt-4.1' : 'gpt-4o-mini' }),
-  });
-  if (!res.ok) throw new Error(`Gateway error (${res.status})`);
-  const data = await res.json() as { response?: string; text?: string };
-  return data.response || data.text || '';
-}
-
-async function answerOpenAI(prompt: string, apiKey: string): Promise<string> {
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: 'You are a helpful website assistant. Answer based on the provided context.' },
-        { role: 'user', content: prompt },
-      ],
-      temperature: 0.3,
-      max_tokens: 1024,
-    }),
-  });
-  if (!res.ok) throw new Error(`OpenAI error (${res.status})`);
-  const data = await res.json() as { choices: Array<{ message: { content: string } }> };
-  return data.choices[0].message.content;
-}
-
 async function answerWorkersAI(prompt: string, ai: Ai): Promise<string> {
   const res = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
     messages: [
@@ -114,8 +82,6 @@ async function answerWorkersAI(prompt: string, ai: Ai): Promise<string> {
 
 export async function generateAnswer(systemPrompt: string, userPrompt: string, env: EnvBindings): Promise<string> {
   const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-  if (env.AI_GATEWAY) return answerViaGateway(fullPrompt, env.AI_GATEWAY);
-  if (env.OPENAI_API_KEY) return answerOpenAI(fullPrompt, env.OPENAI_API_KEY);
   return answerWorkersAI(fullPrompt, env.AI);
 }
 

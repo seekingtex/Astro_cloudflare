@@ -121,35 +121,11 @@ jobs:
           name: deploy-log-${{ matrix.locale }}
           path: /tmp/deploy-${{ matrix.locale }}.log
 
-      - name: Set AI_GATEWAY secret (${{ matrix.locale }})
-        if: ${{ secrets.AI_GATEWAY != '' }}
-        run: |
-          cd dist/server && \
-          echo "${{ secrets.AI_GATEWAY }}" | \
-            yarn wrangler secret put AI_GATEWAY \
-              --config wrangler.ci.json \
-              --name wavefella-${{ matrix.locale }} 2>&1
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
       - name: Set SESSION_SECRET on Worker (${{ matrix.locale }})
         run: |
           cd dist/server && \
           echo "${{ secrets.SESSION_SECRET }}" | \
             yarn wrangler secret put SESSION_SECRET \
-              --config wrangler.ci.json \
-              --name wavefella-${{ matrix.locale }} 2>&1
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      - name: Set OPENAI_API_KEY secret (${{ matrix.locale }})
-        if: ${{ secrets.OPENAI_API_KEY != '' }}
-        run: |
-          cd dist/server && \
-          echo "${{ secrets.OPENAI_API_KEY }}" | \
-            yarn wrangler secret put OPENAI_API_KEY \
               --config wrangler.ci.json \
               --name wavefella-${{ matrix.locale }} 2>&1
         env:

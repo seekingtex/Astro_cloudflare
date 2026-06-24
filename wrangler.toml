@@ -7,20 +7,17 @@ main = "@astrojs/cloudflare/entrypoints/server"
 directory = "./dist/client"
 binding = "ASSETS"
 
-# ─── AI Infrastructure ──────────────────────────────────────────
-# Vectorize + AI bindings are injected by CI/CD during deployment
-# to avoid triggering @cloudflare/vite-plugin remote validation.
-# See .github/workflows/actions.yaml �?build-and-deploy step.
+# --- AI Infrastructure ---
+# Vectorize + AI bindings are injected by CI/CD during deployment.
+# See .github/workflows/actions.yaml -> build-and-deploy step.
 #
 # Vectorize index must exist with --dimensions=768 --metric=cosine:
 #   npx wrangler vectorize create ai-index --dimensions=768 --metric=cosine
 
-# ─── Environment Variables ──────────────────────────────────────
+# --- Environment Variables ---
 
 [vars]
 NODE_VERSION = "22"
 NODE_ENV = "development"
-# AI_GATEWAY  �?optional Cloudflare AI Gateway URL for proxied LLM calls
-# OPENAI_API_KEY �?optional, set via: wrangler secret put OPENAI_API_KEY
-# SESSION_SECRET �?required, set via: wrangler secret put SESSION_SECRET
-# KEYSTATIC_SECRET �?optional, set via: wrangler secret put KEYSTATIC_SECRET
+# SESSION_SECRET - required, set via: wrangler secret put SESSION_SECRET
+# KEYSTATIC_SECRET - optional, set via: wrangler secret put KEYSTATIC_SECRET

@@ -54,10 +54,8 @@ declare namespace App {
       env: {
         VECTORIZE: FnVectorize;
         AI: Ai;
-        OPENAI_API_KEY?: string;
         SESSION_SECRET?: string;
         KEYSTATIC_SECRET?: string;
-        AI_GATEWAY?: string;
         NODE_ENV?: string;
       };
     };
