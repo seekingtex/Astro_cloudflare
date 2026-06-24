@@ -66,7 +66,9 @@ const configFile = locale === 'en' ? './src/config.yaml' : `./src/config.${local
 export default defineConfig({
   output: 'static',
 
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    runtime: process.env.CI ? 'local' : 'remote',
+  }),
 
   integrations: [
     sitemap({

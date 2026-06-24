@@ -174,13 +174,25 @@ const scenarioProducts = [
   </section>
 
   <!-- Hero: Brand Identity + Product Association -->
-  <section class="relative min-h-[85vh] flex items-center justify-center text-center text-white overflow-hidden bg-gradient-to-br from-[#001830] via-[#002d4a] to-[#003355]">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06)_0%,transparent_60%)]"></div>
+  <section class="relative min-h-[85vh] flex items-center justify-center text-center text-white overflow-hidden bg-gray-950">
+    {heroImages.map((src, i) => (
+      <div data-carousel-slide class="absolute inset-0 transition-opacity duration-700 ease-in-out {i === 0 ? 'opacity-100' : 'opacity-0'}">
+        <img src={src} alt="" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-950/85 via-gray-950/70 to-gray-950/85"></div>
+      </div>
+    ))}
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      {heroImages.map((_, i) => (
+        <button data-carousel-dot={i}
+          class="w-2.5 h-2.5 rounded-full transition-all duration-300 border border-white/50 {i === 0 ? 'bg-white scale-125' : 'bg-transparent'}">
+        </button>
+      ))}
+    </div>
     <div class="relative z-10 max-w-5xl mx-auto px-6 py-24">
       <div class="reveal">
         <span class="text-xs font-medium tracking-[0.2em] uppercase text-white/60">Since 2012</span>
         <h1 class="mt-8 text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-balance drop-shadow-xl">
-          Watercraft for controlled<br class="hidden md:block" />water environments
+          Wavefella — Watercraft for controlled<br class="hidden md:block" />water environments
         </h1>
         <p class="mt-6 text-lg md:text-xl text-white/80 max-w-3xl mx-auto text-pretty drop-shadow-lg leading-relaxed">
           CE-certified inflatable SUP boards, kayaks, dinghies, RIBs, and safety equipment — purpose-built for training, recreation, and professional marine operations in lakes, sheltered bays, rivers, and coastal waters.
